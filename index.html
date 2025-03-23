@@ -913,8 +913,48 @@
             <button class="next-btn" aria-label="Next image">&#10095;</button>
         </div>
     </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal" role="dialog" aria-modal="true">
+        <span class="close-video" aria-label="Close video viewer">&times;</span>
+        <div class="video-content">
+            <video id="demoVideo" controls>
+                <source src="path/to/your/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
     
     <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the video modal
+            const videoModal = document.getElementById("videoModal");
+            const demoVideo = document.getElementById("demoVideo");
+            const closeVideoBtn = document.getElementsByClassName("close-video")[0];
+
+            // Function to play the video
+            function playVideo() {
+                videoModal.style.display = "block";
+                demoVideo.play();
+            }
+
+            // Event listener to close the video modal
+            closeVideoBtn.addEventListener("click", function() {
+                videoModal.style.display = "none";
+                demoVideo.pause();
+                demoVideo.currentTime = 0;
+            });
+
+            // Attach playVideo function to the global scope
+            window.playVideo = playVideo;
+        });
+
+
+
+
+
+        
         // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
             // Get the modals
