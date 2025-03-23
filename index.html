@@ -770,7 +770,7 @@
                 <!-- Project 2 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="./'Rubik's cube'/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
+                        <img src="./'Rubik&apos;s cube'/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
                     </div>
                     <div class="project-info">
                         <h3 id="rubiks-cube-project">GIANT MECHATRONIC RUBIK'S CUBE</h3>
@@ -947,16 +947,17 @@
                 currentSlide = slideNumber;
                 
                 if (currentProject === "rubiks") {
-                    // Properly escape the single quotes in the directory name
-                    slideImage.src = `./'Rubik's cube'/${slideNumber}.webp`;
-                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
+                // Properly escape the single quotes in the directory name
+                slideImage.src = `./&#39;Rubik&#39;s cube&#39;/${slideNumber}.webp`;
+                slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
 
-                    // Apply rotation for specific slides (1, 3, and 5)
-                    if (currentSlide === 1 || currentSlide === 3 || currentSlide === 5) {
-                        slideImage.style.transform = 'rotate(-90deg)';
-                    } else {
-                        slideImage.style.transform = 'none';
-                    }
+                // Apply rotation for specific slides (1, 3, and 5)
+                   if (currentSlide === 1 || currentSlide === 3 || currentSlide === 5) {
+                       slideImage.style.transform = 'rotate(-90deg)';
+                   } else {
+                       slideImage.style.transform = 'none';
+                   }
+                }
 
                 } else if (currentProject === "turtle") {
                     slideImage.src = `./turtle-cloud/${slideNumber}.webp`;
