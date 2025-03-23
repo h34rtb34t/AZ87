@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src 'self' blob:; object-src 'self' blob:;">
+    <title>Thank You - ABDELATI ZELBANE</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #121212;
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #4d9fff;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            color: #3a7fd6;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            padding: 40px 0;
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #333;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Thank you section */
+        .thank-you {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thank-you::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(77, 159, 255, 0.1) 0%, rgba(26, 26, 26, 0) 70%);
+            z-index: -1;
+        }
+
+        .thank-you-content {
+            max-width: 800px;
+            padding: 60px;
+            border-radius: 20px;
+            background-color: rgba(26, 26, 26, 0.7);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            font-weight: 800;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .thank-you h1::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #4d9fff, #7b63ff);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .thank-you p {
+            font-size: 1.25rem;
+            color: #bbb;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #4d9fff, #3a7fd6);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(77, 159, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3a7fd6, #4d9fff);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(77, 159, 255, 0.5);
+            text-decoration: none;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .animated-checkmark {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 0 auto 40px;
+        }
+
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 5;
+            stroke: #4d9fff;
+            stroke-miterlimit: 10;
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-linecap: round;
+            animation: stroke 1s cubic-bezier(0.65, 0, 0.45, 1) forwards, scale 0.3s ease-in-out 0.9s both;
+        }
+
+        .checkmark-circle {
+            stroke-dasharray: 320;
+            stroke-dashoffset: 320;
+            stroke-width: 4;
+            stroke: #4d9fff;
+            fill: none;
+            animation: stroke 1.5s cubic-bezier(0.65, 0, 0.45, 1) forwards, scale-circle 0.3s ease-in-out 0.9s both;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes scale-circle {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.05, 1.05, 1);
+            }
+        }
+
+        /* Float animation for decorative elements */
+        .decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            background: rgba(77, 159, 255, 0.1);
+            z-index: -1;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .decoration:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            width: 70px;
+            height: 70px;
+            animation-delay: 0s;
+            transform: rotate(45deg);
+        }
+
+        .decoration:nth-child(2) {
+            top: 50%;
+            right: 15%;
+            width: 120px;
+            height: 120px;
+            animation-delay: 1s;
+            transform: rotate(30deg);
+        }
+
+        .decoration:nth-child(3) {
+            bottom: 15%;
+            left: 25%;
+            width: 90px;
+            height: 90px;
+            animation-delay: 2s;
+            transform: rotate(60deg);
+        }
+
+        .decoration:nth-child(4) {
+            top: 15%;
+            right: 30%;
+            width: 50px;
+            height: 50px;
+            animation-delay: 3s;
+            transform: rotate(15deg);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(45deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(45deg);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .thank-you h1 {
+                font-size: 2.5rem;
+            }
+            
+            .thank-you p {
+                font-size: 1rem;
+            }
+            
+            .thank-you-content {
+                padding: 40px 30px;
+            }
+            
+            .animated-checkmark {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .checkmark, .checkmark-circle {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo" style="height: 50px; display: inline-block;">ABDELATI ZELBANE</a>
+        </div>
+    </header>
+
+    <!-- Thank You Section -->
+    <section class="thank-you">
+        <!-- Decorative Elements -->
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        
+        <div class="thank-you-content">
+            <div class="animated-checkmark">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="23" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            
+            <h1>Message Received!</h1>
+            <p>Thank you for reaching out. I appreciate your interest and will get back to you as soon as possible.</p>
+            <p>In the meantime, feel free to explore more of my work.</p>
+            <a href="index.html" class="btn">Back to Portfolio</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2025 AZ87. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Counter to redirect after a while (optional)
+        setTimeout(function() {
+            // Uncomment the line below if you want automatic redirect after 8 seconds
+            // window.location.href = "index.html";
+        }, 8000);
+    </script>
+</body>
+</html>
