@@ -999,7 +999,7 @@
                     pdfModal.style.display = "block";
                     
                     // Set the PDF source using a data URL approach to bypass Brave's blocking
-                    fetch("./Physiballs%20handover.pdf")
+                    fetch("./physiball/Physiballs%20handover.pdf")
                         .then(response => response.blob())
                         .then(blob => {
                             const pdfUrl = URL.createObjectURL(blob);
