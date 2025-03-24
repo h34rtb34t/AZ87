@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://h34rtb34t.github.io/abdelatizelbane/sitemap.xml
