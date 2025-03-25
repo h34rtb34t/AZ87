@@ -593,154 +593,154 @@
         }
 
         /* Hamburger menu */
-.hamburger-menu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-    z-index: 1001;
-}
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
 
-.hamburger-menu span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background-color: #fff;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
+        .hamburger-menu span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
 
-/* Mobile navigation */
-.nav-links.active {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    right: 0;
-    background-color: #1a1a1a;
-    padding: 20px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
-}
+        /* Mobile navigation */
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            padding: 20px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
 
-.nav-links.active a {
-    margin: 10px 0;
-    font-size: 18px;
-}
+        .nav-links.active a {
+            margin: 10px 0;
+            font-size: 18px;
+        }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-/* Hamburger menu animation */
-.hamburger-menu.active span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-}
+        /* Hamburger menu animation */
+        .hamburger-menu.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
 
-.hamburger-menu.active span:nth-child(2) {
-    opacity: 0;
-}
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
 
-.hamburger-menu.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-}
+        .hamburger-menu.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
 
-/* Update your responsive media query */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .hamburger-menu {
-        display: flex;
-    }
-    
-    /* Keep your other mobile styles */
-    .hero h1 {
-        font-size: 36px;
-    }
-    
-    .hero p {
-        font-size: 18px;
-    }
-    
-    .about-content {
-        flex-direction: column;
-    }
-    
-    .contact-container {
-        flex-direction: column;
-    }
-}
+        /* Update your responsive media query */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            /* Keep your other mobile styles */
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+        }
 
-/* Publications Modal Styles */
-.publications-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 1001;
-    overflow: auto;
-}
+        /* Publications Modal Styles */
+        .publications-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1001;
+            overflow: auto;
+        }
 
-.publications-content {
-    position: relative;
-    background-color: #1a1a1a;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #333;
-    width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
+        .publications-content {
+            position: relative;
+            background-color: #1a1a1a;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #333;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
 
-.publications-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
+        .publications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
 
-.publication-item {
-    padding: 15px;
-    background-color: #2a2a2a;
-    border-radius: 5px;
-    text-align: center;
-    transition: background-color 0.3s;
-}
+        .publication-item {
+            padding: 15px;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
 
-.publication-item:hover {
-    background-color: #3a3a3a;
-}
+        .publication-item:hover {
+            background-color: #3a3a3a;
+        }
 
-.publication-item a {
-    color: #4d9fff;
-    display: block;
-    padding: 10px;
-    border-radius: 4px;
-}
+        .publication-item a {
+            color: #4d9fff;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+        }
 
-.publication-item a:hover {
-    text-decoration: none;
-    color: #fff;
-}
+        .publication-item a:hover {
+            text-decoration: none;
+            color: #fff;
+        }
 
-.close-publications {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    color: #f1f1f1;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .close-publications {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #f1f1f1;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
         
     </style>
 </head>
@@ -817,12 +817,6 @@
                         </div>
                         <div class="project-links">
                             <a href="https://vimeo.com/1068594323">View Demo</a> 
-                            <!-- <a href="./wjet/Wjet_by_Ade.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> 
-                           <!-- <video controls width="100%">
-                              <source src="/wjet/Wjet_by_Ade.mp4" type="video/mp4">
-                              Your browser does not support the video tag.
-                            </video> -->
-
                             <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>
                     </div>
@@ -1156,6 +1150,12 @@
                     slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
                     slideImage.style.transform = 'none';
                 }
+                // New branch for WATER-JET RETREADING MACHINE "wjet"
+                else if (currentProject === "wjet") {
+                    slideImage.src = `./wjet/${currentSlide}.jpg`;
+                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
+                    slideImage.style.transform = 'none';
+                }
             }
             
             // Next slide function
@@ -1262,6 +1262,22 @@
                 });
             }
             
+            // Attach click event to the WATER-JET RETREADING MACHINE logo image so it opens the wjet slider
+            const wjetImage = document.getElementById("wjet-machine").parentElement.previousElementSibling.querySelector("img");
+            if (wjetImage) {
+                wjetImage.addEventListener("click", function() {
+                    imageModal.style.display = "block";
+                    currentProject = "wjet";
+                    currentSlide = 1;
+                    totalSlides = 37;
+                    showSlide(currentSlide);
+                    // Trap focus inside modal for accessibility
+                    setTimeout(() => {
+                        closeImageBtn.focus();
+                    }, 100);
+                });
+            }
+            
             // Event listeners for slideshow controls
             prevBtn.addEventListener("click", prevSlide);
             nextBtn.addEventListener("click", nextSlide);
@@ -1361,8 +1377,6 @@
             });
         });
 
-
-
         // Hamburger menu functionality
         const hamburgerMenu = document.querySelector('.hamburger-menu');
         const navLinks = document.querySelector('.nav-links');
@@ -1393,8 +1407,6 @@
             });
         }
     </script>
-
-</script>
 
 <!-- WhatsApp Chat Button -->
 <a href="https://wa.me/00393205569959" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
