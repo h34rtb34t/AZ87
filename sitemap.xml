@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <!-- Root homepage -->
   <url>
     <loc>https://h34rtb34t.github.io/abdelatizelbane/</loc>
@@ -8,74 +7,16 @@
     <priority>1.00</priority>
   </url>
 
-  <!-- About section -->
+  <!-- Additional clean pages -->
   <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#about</loc>
+    <loc>https://h34rtb34t.github.io/abdelatizelbane/index.html</loc>
     <lastmod>2025-03-24</lastmod>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- Projects section -->
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#projects</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- Individual project anchors (for deep linking) -->
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#wjet-machine</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
+    <priority>1.00</priority>
   </url>
 
   <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#dry-machine</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#crs-robot</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#violin-bot-player</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#helicopter-project</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#project-3</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#rubiks-cube-project</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#physiball-project</loc>
-    <lastmod>2025-03-24</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Contact section -->
-  <url>
-    <loc>https://h34rtb34t.github.io/abdelatizelbane/#contact</loc>
+    <loc>https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html</loc>
     <lastmod>2025-03-24</lastmod>
     <priority>0.80</priority>
   </url>
-
 </urlset>
