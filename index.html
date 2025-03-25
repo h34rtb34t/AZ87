@@ -1405,5 +1405,49 @@
     </div>
 </a>
 
+
+
+    
+<script>
+    // Select the publications link
+    const publicationsLink = document.getElementById('publications-link');
+    
+    // Create the publications modal dynamically
+    const publicationsModal = document.createElement('div');
+    publicationsModal.classList.add('publications-modal');
+    publicationsModal.innerHTML = `
+        <div class="publications-content">
+            <span class="close-publications">&times;</span>
+            <div class="publications-grid">
+                <div class="publication-item">
+                    <a href="PID.pdf" target="_blank">Download PID.pdf</a>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Append the modal to the body
+    document.body.appendChild(publicationsModal);
+
+    // Event listener for publications link
+    publicationsLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        publicationsModal.style.display = 'block';
+    });
+
+    // Close button functionality
+    const closePublications = publicationsModal.querySelector('.close-publications');
+    closePublications.addEventListener('click', function() {
+        publicationsModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside the content
+    publicationsModal.addEventListener('click', function(e) {
+        if (e.target === publicationsModal) {
+            publicationsModal.style.display = 'none';
+        }
+    });
+</script>
+
 </body>
 </html>
