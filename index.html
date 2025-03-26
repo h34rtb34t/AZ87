@@ -1,747 +1,605 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/jpeg" href="./about/CV_pic.jpg">
-    <link rel="apple-touch-icon" type="image/jpeg" href="./about/CV_pic.jpg">
-    <meta name="google-site-verification" content="szIijqrxQEsLWXIrwuJbHtxVO9S89fY_LqPvIVzHqd4" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src 'self' blob:; object-src 'self' blob:;">
+
+    <!-- Favicon (ensure path is correct relative to deployed root) -->
+    <link rel="icon" type="image/jpeg" href="/az87/about/CV_pic.jpg">
+    <link rel="apple-touch-icon" type="image/jpeg" href="/az87/about/CV_pic.jpg">
+
+    <!-- Meta Tags -->
+    <meta name="google-site-verification" content="szIijqrxQEsLWXIrwuJbHtxVO9S89fY_LqPvIVzHqd4" />
+    <meta name="description" content="Abdelati Zelbane's portfolio showcasing projects in Design Engineering and Mechatronics.">
     <title>ABDELATI ZELBANE - DESIGN ENGINEERING MECHATRONICS</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Embedded CSS -->
     <style>
-        /* Reset and base styles */
-        * {
+        /* --- CSS Variables --- */
+        :root {
+            --bg-dark: #0f0f0f; /* Slightly darker bg */
+            --bg-card: #1a1a1a;
+            --bg-card-lighter: #222;
+            --border-color: #333;
+            --border-color-light: #444;
+            --text-primary: #e5e7eb; /* Light gray */
+            --text-secondary: #a0a0a0; /* Medium gray */
+            --text-muted: #777;
+            --accent-primary: #007BFF; /* Vivid Blue */
+            --accent-primary-darker: #0056b3;
+            --accent-secondary: #34d399; /* Emerald Green */
+            --accent-glow: rgba(0, 123, 255, 0.5);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --shadow-color-light: rgba(0, 0, 0, 0.3);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-speed: 0.3s;
+            --transition-timing: ease-in-out;
+        }
+
+        /* --- Reset & Base --- */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body {
-            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #e0e0e0;
-            background-color: #121212;
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px; /* Base font size */
         }
-        
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7; /* Slightly more spacing */
+            color: var(--text-primary);
+            background-color: var(--bg-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
         a {
             text-decoration: none;
-            color: #4d9fff;
+            color: var(--accent-primary);
+            transition: color var(--transition-speed) var(--transition-timing);
         }
-        
         a:hover {
-            text-decoration: underline;
+            color: var(--accent-primary-darker);
+            text-decoration: none; /* Usually no underline on modern hover */
         }
-        
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: 100px 0;
+            overflow: hidden; /* Contain animations */
+        }
+
         .container {
-            max-width: 1100px;
+            max-width: 1150px; /* Slightly wider */
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 25px; /* More padding */
         }
-        
-        /* Header styles */
+
+        /* --- Animations & Utilities --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Staggered delay utility classes */
+        .delay-100 { transition-delay: 0.1s !important; }
+        .delay-200 { transition-delay: 0.2s !important; }
+        .delay-300 { transition-delay: 0.3s !important; }
+        /* Add more as needed */
+
+        /* --- Header --- */
         header {
-            padding: 40px 0;
-            background-color: #1a1a1a;
-            border-bottom: 1px solid #333;
+            padding: 15px 0;
+            background-color: rgba(15, 15, 15, 0.8); /* Darker semi-transparent */
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #fff;
+            font-size: 1.4rem; /* Use rem */
+            font-weight: 800; /* Bolder */
+            color: var(--text-primary);
+            transition: color var(--transition-speed) var(--transition-timing);
+            letter-spacing: -0.5px;
         }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        
+        .logo:hover { color: var(--accent-primary); }
+
+        .nav-links { display: flex; gap: 35px; } /* Desktop nav */
         .nav-links a {
-            color: #bbb;
+            color: var(--text-secondary);
             font-weight: 500;
+            position: relative;
+            padding-bottom: 4px;
         }
-        
-        .nav-links a:hover {
-            color: #fff;
+        .nav-links a::after { /* Underline effect */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-primary);
+            transition: width var(--transition-speed) var(--transition-timing);
         }
-        
-        /* Hero section */
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- Hamburger & Mobile Nav --- */
+        .hamburger-menu { display: none; /* JS will manage */ }
+        .mobile-nav-panel { display: none; /* JS will manage */ }
+        /* Styles from previous HTML are generally okay, adjusted in media query */
+        /* Add specific mobile styles later */
+
+        /* --- Hero Section --- */
         .hero {
-            padding: 100px 0;
+            padding: 120px 0;
             text-align: center;
-            background-color: #1a1a1a;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+            position: relative;
+             min-height: 70vh;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             flex-direction: column;
         }
-        
+         /* Optional: subtle background pattern */
+        /* .hero::before {
+             content: '';
+             position: absolute;
+             inset: 0;
+             background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+             background-size: 20px 20px;
+             opacity: 0.1;
+             mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+         } */
+
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: 800;
-            color: #fff;
+            font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size */
+            margin-bottom: 25px;
+            font-weight: 900; /* Extra bold */
+            color: var(--text-primary);
+            line-height: 1.2;
+            letter-spacing: -1px;
         }
-        
+        .hero h1 .highlight { color: var(--accent-primary); }
+
         .hero p {
-            font-size: 22px;
-            color: #bbb;
-            max-width: 700px;
-            margin: 0 auto;
-            margin-bottom: 40px;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: 0 auto 45px auto;
         }
-        
         .btn {
             display: inline-block;
-            padding: 12px 30px;
-            background-color: #4d9fff;
-            color: white;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background-color 0.3s;
+            padding: 14px 35px;
+            background: var(--accent-primary);
+            color: #fff;
+            border-radius: var(--radius-md);
+            font-weight: 600; /* Bolder */
+            font-size: 1rem;
+            transition: all var(--transition-speed) var(--transition-timing);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); /* Button glow */
         }
-        
         .btn:hover {
-            background-color: #3a7fd6;
-            text-decoration: none;
+            background: var(--accent-primary-darker);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
         }
-        
-        /* About section */
-        .about {
-            padding: 80px 0;
-            background-color: #121212;
+        .btn:active {
+            transform: translateY(-1px) scale(1);
+             box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         }
-        
+
+        /* --- Section Title --- */
         .section-title {
-            font-size: 32px;
-            margin-bottom: 40px;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: 60px; /* More space */
             text-align: center;
             position: relative;
-            color: #fff;
+            color: var(--text-primary);
+            font-weight: 800;
         }
-        
         .section-title::after {
             content: '';
             display: block;
-            width: 50px;
-            height: 3px;
-            background-color: #4d9fff;
-            margin: 20px auto 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); /* Gradient underline */
+            margin: 15px auto 0;
+            border-radius: 2px;
         }
-        
+
+        /* --- About Section --- */
+        .about { background-color: var(--bg-dark); }
         .about-content {
             display: flex;
-            gap: 50px;
+            flex-wrap: wrap;
+            gap: 60px;
             align-items: center;
         }
-        
         .about-image {
-            flex: 1;
+            flex: 1 1 350px;
+            max-width: 400px;
+            margin: 0 auto;
+            perspective: 1000px; /* For 3D effect */
         }
-        
         .about-image img {
             width: 100%;
-            border-radius: 10px;
+            border-radius: var(--radius-lg); /* More rounded */
+            box-shadow: 0 15px 30px var(--shadow-color);
+            transition: transform 0.5s ease-out;
+             /* transform: rotateY(-5deg) rotateX(3deg); Add subtle 3D tilt */
         }
-        
+        /* .about-image:hover img {
+             transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+         } */
+
         .about-text {
-            flex: 1;
+            flex: 2 1 450px;
+            color: var(--text-secondary);
         }
-        
         .about-text h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #fff;
+            font-size: 1.7rem;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+            font-weight: 700;
         }
-        
-        .about-text p {
-            margin-bottom: 15px;
-            color: #bbb;
-        }
-        
-        /* Projects section */
-        .projects {
-            padding: 80px 0;
-            background-color: #121212;
-        }
-        
+        .about-text p { margin-bottom: 18px; }
+
+        /* --- Projects Section --- */
+        .projects { background-color: var(--bg-dark); }
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); /* Slightly larger min */
+            gap: 40px; /* More gap */
         }
-        
         .project-card {
-            background-color: #1a1a1a;
-            border-radius: 8px;
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px var(--shadow-color-light);
+            transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color); /* Subtle border */
         }
-        
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px var(--shadow-color);
+            border-color: var(--border-color-light);
         }
-        
         .project-image {
-            height: 400px; /* Increased height */
-            width: 180%; /* Added width */
+            aspect-ratio: 16 / 10; /* Consistent aspect ratio */
             overflow: hidden;
+            cursor: pointer;
+            position: relative; /* For overlay */
         }
-        
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s;
+            transition: transform 0.5s var(--transition-timing), filter 0.5s var(--transition-timing);
         }
-        
         .project-card:hover .project-image img {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            filter: brightness(0.9); /* Slightly darken image on card hover */
         }
-        
+         /* Optional overlay on image hover */
+         /* .project-image::after {
+             content: 'View Details';
+             position: absolute;
+             inset: 0;
+             background-color: rgba(0, 123, 255, 0.7);
+             color: white;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-weight: 600;
+             opacity: 0;
+             transition: opacity var(--transition-speed) var(--transition-timing);
+             pointer-events: none;
+         }
+         .project-card:hover .project-image::after {
+             opacity: 1;
+         } */
+
         .project-info {
-            padding: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
-        
         .project-info h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #fff;
-            cursor: pointer;
-        }
-        
-        .project-info h3:hover {
-            color: #4d9fff;
-        }
-        
-        .project-info p {
-            color: #bbb;
+            font-size: 1.3rem;
             margin-bottom: 15px;
+            color: var(--text-primary);
+            font-weight: 700;
+            cursor: pointer;
+            transition: color var(--transition-speed) var(--transition-timing);
         }
-        
+        .project-info h3:hover { color: var(--accent-primary); }
+        .project-info .description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-grow: 1;
+            font-size: 0.95rem;
+        }
+         .project-info .description p { margin-bottom: 12px; }
+         .project-info .description p:last-child { margin-bottom: 0; }
+
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 15px; /* Space above tags */
         }
-        
         .tag {
-            background-color: #2a2a2a;
-            color: #4d9fff;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
+            background-color: var(--bg-card-lighter);
+            color: var(--accent-secondary); /* Use secondary accent */
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color-light);
+            text-transform: uppercase; /* Optional styling */
+            letter-spacing: 0.5px;
         }
-        
         .project-links {
             display: flex;
             gap: 15px;
+            margin-top: 20px;
         }
-        
-        /* Contact section */
-        .contact {
-            padding: 80px 0;
-            background-color: #121212;
+        .project-links a { /* Style as buttons */
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid var(--border-color-light);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            background-color: transparent;
+            transition: all var(--transition-speed) var(--transition-timing);
         }
-        
+         .project-links a:hover {
+            background-color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- Contact Section --- */
+        .contact { background-color: var(--bg-dark); }
         .contact-container {
             display: flex;
-            gap: 50px;
+            flex-wrap: wrap;
+            gap: 60px;
             align-items: flex-start;
         }
-        
-        .contact-info {
-            flex: 1;
-        }
-        
-        .contact-info p {
-            margin-bottom: 30px;
-            color: #bbb;
-        }
-        
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
+        .contact-info { flex: 1 1 400px; color: var(--text-secondary); }
+        .contact-info p { margin-bottom: 35px; }
+        .contact-links { display: flex; flex-direction: column; gap: 20px; }
+        .contact-link { display: flex; align-items: center; gap: 15px; }
+        .contact-link a { color: var(--text-secondary); font-weight: 500; }
+        .contact-link a:hover { color: var(--accent-primary); }
         .contact-link i {
-            width: 20px;
-            color: #4d9fff;
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+            width: 24px; text-align: center;
+            font-style: normal;
         }
-        
-        .contact-form {
-            flex: 1;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #ddd;
-        }
-        
+        .contact-link img { height: 55px; transition: transform var(--transition-speed) ease; }
+        .contact-link img:hover { transform: scale(1.08); }
+
+        .contact-form { flex: 1 1 450px; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-primary); }
         .form-control {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #444;
-            border-radius: 4px;
-            transition: border-color 0.3s;
-            background-color: #2a2a2a;
-            color: #ddd;
+            padding: 14px;
+            border: 1px solid var(--border-color-light);
+            border-radius: var(--radius-md);
+            background-color: var(--bg-card-lighter);
+            color: var(--text-primary);
+            font-size: 1rem;
+             transition: border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
         }
-        
         .form-control:focus {
             outline: none;
-            border-color: #4d9fff;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* Footer */
+        textarea.form-control { min-height: 160px; resize: vertical; }
+
+        /* --- Footer --- */
         footer {
-            background-color: #0a0a0a;
-            color: #fff;
-            padding: 40px 0;
+            background-color: #000; /* Black footer */
+            color: var(--text-muted);
+            padding: 50px 0;
             text-align: center;
+            border-top: 1px solid var(--border-color);
         }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; }
         .social-link {
-            color: #ddd;
-            font-size: 24px;
-            transition: color 0.3s;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color var(--transition-speed) var(--transition-timing), transform var(--transition-speed) var(--transition-timing);
         }
-        
-        .social-link:hover {
-            color: #4d9fff;
-        }
-        
-        .footer-text {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .contact-container {
-                flex-direction: column;
-            }
-        }
-        
-        /* PDF Modal */
-        .pdf-modal {
+        .social-link:hover { color: var(--accent-primary); transform: translateY(-3px); }
+        .footer-text { color: var(--text-muted); font-size: 0.875rem; }
+
+        /* --- Modals --- */
+        .modal { /* Universal modal styles */
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            position: fixed; inset: 0;
+            background-color: rgba(0, 0, 0, 0.85); /* Darker backdrop */
             z-index: 1000;
-            overflow: auto;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease-out;
         }
-        
-        .pdf-content {
-            width: 90%;
-            height: 90%;
-            margin: 2% auto;
-        }
-        
-        .pdf-content iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .close-pdf {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        /* Image Slideshow Modal */
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content {
+            position: relative;
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 30px var(--shadow-color);
             overflow: hidden;
-        }
-        
-        .image-content {
-            position: relative;
-            width: 80%;
-            height: 80%;
-            margin: 5% auto;
-        }
-        
-        .slide-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            user-select: none;
-            pointer-events: none;
-            -webkit-user-drag: none;
-        }
-        
-        .close-image {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1010;
-        }
-        
-        .slide-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
+            max-width: 95vw;
+            max-height: 95vh;
+            width: 1100px; /* Default max width */
+            height: 90vh; /* Default max height */
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            transform: scale(0.95); /* Initial state for animation */
+            transition: transform var(--transition-speed) ease-out;
         }
-        
+        .modal.show .modal-content { transform: scale(1); }
+
+        .pdf-content iframe { flex-grow: 1; border: none; }
+
+        .image-modal .modal-content { background-color: transparent; box-shadow: none; width: auto; height: auto; }
+        .image-content-wrapper { max-width: 90vw; max-height: 90vh; display: flex; align-items: center; justify-content: center; position: relative;}
+        .slide-image { display: block; max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; transition: transform 0.3s ease-in-out; border-radius: var(--radius-sm); /* Slight rounding */}
+        .slide-counter { position: absolute; top: 15px; left: 15px; color: white; background-color: rgba(0, 0, 0, 0.7); padding: 6px 12px; border-radius: var(--radius-sm); font-size: 0.875rem; z-index: 1; }
         .slide-btn {
-            background-color: #4d9fff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: white; background-color: rgba(0, 0, 0, 0.4); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1; transition: background-color var(--transition-speed);
         }
-        
-        .slide-btn:hover {
-            background-color: #3a7fd6;
-        }
-        
-        .slide-counter {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        
-        .prev-btn {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 30px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .next-btn {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 30px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .slide-btn:hover { background-color: rgba(0, 0, 0, 0.7); }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
 
-        /* Scroll to Top Button Style */
+        .publications-modal .modal-content { width: 90%; max-width: 700px; height: auto; max-height: 85vh; padding: 30px; }
+        .publications-modal h2 { font-size: 1.6rem; color: var(--text-primary); margin-bottom: 25px; text-align: center; font-weight: 700;}
+        .publications-grid { display: grid; gap: 18px; overflow-y: auto; max-height: 60vh; padding-right: 10px;} /* Add padding for scrollbar */
+        .publication-item { padding: 18px; background-color: var(--bg-card-lighter); border-radius: var(--radius-md); border: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
+        .publication-item:hover { background-color: #333; border-color: var(--border-color-light); }
+        .publication-item a { color: var(--accent-primary); display: block; font-weight: 600; font-size: 1rem; }
+        .publication-item a:hover { color: var(--accent-primary-darker); text-decoration: underline;}
+
+        .close-modal-btn {
+            position: absolute; top: 12px; right: 12px; color: var(--text-secondary); font-size: 1.8rem; font-weight: bold; cursor: pointer; z-index: 10; line-height: 1; padding: 5px; background: none; border: none; transition: color var(--transition-speed), transform var(--transition-speed);
+        }
+        .close-modal-btn:hover { color: var(--text-primary); transform: scale(1.1); }
+
+        /* --- Floating Buttons --- */
         .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #4d9fff;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
+            position: fixed; bottom: 30px; right: 30px; background-color: var(--accent-primary); color: white; width: 45px; height: 45px; border-radius: 50%; text-align: center; line-height: 45px; font-size: 1.3rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all var(--transition-speed) ease-in-out; z-index: 998; border: none; box-shadow: 0 4px 10px var(--shadow-color);
         }
+        .scroll-to-top:hover { background-color: var(--accent-primary-darker); transform: scale(1.1); }
+        .scroll-to-top.show { opacity: 1; visibility: visible; }
 
-        .scroll-to-top:hover {
-            background-color: #3a7fd6;
-        }
-
-        .scroll-to-top.show {
-            opacity: 1;
-        }
-
-        /* WhatsApp Chat Button Style */
         .whatsapp-chat {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #25D366; /* WhatsApp green */
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            z-index: 999;
-            transition: all 0.3s ease;
+            position: fixed; bottom: 30px; left: 30px; background-color: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px var(--shadow-color); cursor: pointer; z-index: 999; transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: none;
         }
-
-        .whatsapp-chat:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        .whatsapp-chat:hover { transform: scale(1.1); box-shadow: 0 6px 15px var(--shadow-color); }
+        .whatsapp-icon svg { width: 28px; height: 28px; }
+        .whatsapp-chat .tooltip {
+            position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); background-color: #333; color: white; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 0.875rem; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease; pointer-events: none; z-index: 1000;
         }
+        .whatsapp-chat:hover .tooltip { opacity: 1; visibility: visible; }
 
-        .whatsapp-icon {
-            font-size: 30px;
-        }
 
-        /* For tooltip effect */
-        .whatsapp-chat::after {
-            content: "Chat with me";
-            position: absolute;
-            left: 70px;
-            background-color: #333;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-
-        .whatsapp-chat:hover::after {
-            opacity: 1;
-        }
-
-        /* Hamburger menu */
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .hamburger-menu span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: #fff;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        /* Mobile navigation */
-        .nav-links.active {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 80px;
-            left: 0;
-            right: 0;
-            background-color: #1a1a1a;
-            padding: 20px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .nav-links.active a {
-            margin: 10px 0;
-            font-size: 18px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Hamburger menu animation */
-        .hamburger-menu.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-
-        .hamburger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger-menu.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-
-        /* Update your responsive media query */
+        /* --- Responsive --- */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
+            section { padding: 80px 0; }
+            .container { padding: 0 15px; }
+            .nav-links { display: none; }
             .hamburger-menu {
-                display: flex;
+                display: flex; /* Show hamburger */
+                z-index: 1001; /* Above panel */
+                position: relative;
             }
-            
-            /* Keep your other mobile styles */
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .about-content {
+            .mobile-nav-panel {
+                display: flex; /* Use flex, controlled by 'active' class */
+                position: fixed;
+                top: 0;
+                right: -100%; /* Start off-screen */
+                width: 280px;
+                height: 100vh; /* Full height */
+                background-color: var(--bg-card);
+                padding: 80px 30px 30px;
+                box-shadow: -5px 0 20px var(--shadow-color);
+                transition: right 0.4s ease-in-out; /* Smoother transition */
+                z-index: 1000;
                 flex-direction: column;
+                gap: 15px;
+                overflow-y: auto; /* Allow scroll if needed */
             }
-            
-            .contact-container {
-                flex-direction: column;
+            .mobile-nav-panel.active { right: 0; } /* Slide in */
+            .mobile-nav-panel a {
+                color: var(--text-secondary);
+                font-weight: 600;
+                font-size: 1.1rem;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--border-color);
             }
+             .mobile-nav-panel a:last-child { border-bottom: none; }
+             .mobile-nav-panel a:hover { color: var(--text-primary); }
+
+            .hero { padding: 100px 0; min-height: 60vh;}
+            .about-content { gap: 40px; }
+            .about-image { max-width: 80%; }
+            .contact-container { gap: 40px; }
+            .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; } /* Adjust grid for mobile */
+             .slide-btn { width: 40px; height: 40px; font-size: 1.5rem; }
+             .prev-btn { left: 10px; }
+             .next-btn { right: 10px; }
+             .modal-content { height: auto; max-height: 90vh; } /* Allow modal height to shrink */
+             .publications-modal .modal-content { padding: 20px; }
+             .publications-grid { padding-right: 5px; }
         }
 
-        /* Publications Modal Styles */
-        .publications-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1001;
-            overflow: auto;
+        @media (max-width: 480px) {
+             section { padding: 60px 0; }
+            .container { padding: 0 15px; }
+            .hero { padding: 80px 0; min-height: 50vh;}
+             .hero h1 { font-size: 2rem; }
+             .hero p { font-size: 1rem; }
+             .section-title { font-size: 1.8rem; margin-bottom: 40px; }
+             .about-text h3 { font-size: 1.4rem; }
+             .project-info h3 { font-size: 1.15rem; }
+             .btn { padding: 12px 25px; font-size: 0.9rem; }
+             .form-control { padding: 12px; font-size: 0.9rem; }
+             .scroll-to-top { width: 40px; height: 40px; line-height: 40px; font-size: 1.1rem; bottom: 15px; right: 15px;}
+             .whatsapp-chat { width: 50px; height: 50px; bottom: 15px; left: 15px;}
+             .whatsapp-icon svg { width: 24px; height: 24px; }
+             .whatsapp-chat .tooltip { display: none; } /* Hide tooltip on small screens */
         }
 
-        .publications-content {
-            position: relative;
-            background-color: #1a1a1a;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #333;
-            width: 80%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        .publications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .publication-item {
-            padding: 15px;
-            background-color: #2a2a2a;
-            border-radius: 5px;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-
-        .publication-item:hover {
-            background-color: #3a3a3a;
-        }
-
-        .publication-item a {
-            color: #4d9fff;
-            display: block;
-            padding: 10px;
-            border-radius: 4px;
-        }
-
-        .publication-item a:hover {
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .close-publications {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            color: #f1f1f1;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
     </style>
 </head>
 <body>
@@ -749,44 +607,47 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#about" class="logo" style="height: 50px; display: inline-block;">ABDELATI ZELBANE</a>
+                <a href="#about" class="logo">ABDELATI ZELBANE</a>
                 <div class="nav-links">
                     <a href="#about">About</a>
                     <a href="#projects">Projects</a>
                     <a href="#contact">Contact</a>
                     <a href="#" id="publications-link">Publications</a>
                 </div>
-                <!-- Add this div right after your nav-links div -->
-                <div class="hamburger-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <span></span><span></span><span></span>
                 </div>
             </nav>
+        </div>
+        <div class="mobile-nav-panel" id="mobile-nav-panel">
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+            <a href="#" id="publications-link-mobile" class="mobile-nav-link">Publications</a>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
+        <div class="container reveal">
             <h1>Hello, I'm <span class="highlight">ABDELATI ZELBANE</span></h1>
-            <p>I'M A DESIGN ENGINEER SPECIALIZING IN MECHATRONICS.</p>
-            <a href="#contact" class="btn">Get in Touch</a>
+            <p class="reveal delay-100">I'M A DESIGN ENGINEER SPECIALIZING IN MECHATRONICS.</p>
+            <a href="#contact" class="btn reveal delay-200">Get in Touch</a>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">Who I am</h2>
+        <div class="container reveal">
+            <h2 class="section-title">Who I Am</h2>
             <div class="about-content">
-                <div class="about-image">
-                    <img src=".\about\CV_pic.jpg" alt="Your Photo">
+                <div class="about-image reveal">
+                    <img src="/az87/about/CV_pic.jpg" alt="Abdelati Zelbane">
                 </div>
-                <div class="about-text">
+                <div class="about-text reveal delay-100">
                     <h3>MECHATRONICS ENTHUSIAST</h3>
                     <p>Hello! I have a deep passion for Technology and Science, with a strong enthusiasm for Physics and Mathematics.</p>
-                    <p>My journey in tech began with MDX UNIVERSITY, LONDON. Since then, I've worked on various projects ranging from ACADEMIC-RELATED PROJECTS  to INDUSTRIAL PROTOTYPES.</p>
+                    <p>My journey in tech began with MDX UNIVERSITY, LONDON. Since then, I've worked on various projects ranging from ACADEMIC-RELATED PROJECTS to INDUSTRIAL PROTOTYPES.</p>
                     <p>I draw inspiration from nature and the world around me, integrating these insights into my daily life.</p>
                     <p>I enjoy exploring the latest technological advancements, as well as designing, assembling, deconstructing and reassembling back again various systems to enhance my understanding &amp; feed my curiosity.</p>
                     <p>When I'm not coding, sketching around strange ideas &amp; concepts, soldering electronics, disassembling or interacting with some pieces of strange tech gadgets, you can find me Hiking, Cooking, Reading a random book or away Travelling the World</p>
@@ -797,255 +658,113 @@
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
-        <div class="container">
+        <div class="container reveal">
             <h2 class="section-title">My Projects</h2>
             <div class="projects-grid">
-                <!-- Project 8: WJet Tire Retreading Machine -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine">
-                    </div>
+                <!-- Project Cards - Added reveal class -->
+                <div class="project-card reveal">
+                    <div class="project-image" data-project-id="wjet"><img src="/az87/wjet/wjet.jpg" alt="WJet Tire Retreading Machine"></div>
                     <div class="project-info">
-                        <h3 id="wjet-machine">WATER-JET RETREADING MACHINE</h3>
-                        <p>Powered by Rover Research’s groundbreaking patented technology, this state-of-the-art machine is engineered for high-efficiency retreading of R22.5 tires while minimizing energy consumption. Operating on a closed-loop water cycle, it continuously recirculates H₂O into the high-pressure main water pump, ensuring sustainability and performance optimization.</p>
-                        <p>With a processing capacity exceeding 4 tires/ hour, it offers precise adjustability, allowing for customized devulcanization to meet specific performance and quality requirements. Furthermore, the WJet MAchine generates exceptionally fine devulcanized rubber powder at a micron scale, paving the way for innovative applications in sustainable material reuse and advanced manufacturing.</p>
-                        <div class="project-tags">
-                            <span class="tag">Automation</span>
-                            <span class="tag">Mechatronics</span>
-                            <span class="tag">Industrial</span>
-                            <span class="tag">Sustainability</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://vimeo.com/1068594323">View Demo</a> 
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3 data-project-id="wjet">WATER-JET RETREADING MACHINE</h3>
+                        <div class="description"><p>Powered by Rover Research’s groundbreaking patented technology...</p><p>With a processing capacity exceeding 4 tires/ hour...</p></div>
+                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span><span class="tag">Sustainability</span></div>
+                        <div class="project-links"><a href="https://vimeo.com/1068594323" target="_blank" rel="noopener noreferrer">View Demo</a><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-
-                 <!-- Project 7: DryMachine -->
-                 <div class="project-card">
-                    <div class="project-image">
-                        <img src=".\dry\DryMachine.jpeg" alt="DryMachine">
-                    </div>
+                <div class="project-card reveal delay-100">
+                    <div class="project-image"><img src="/az87/dry/DryMachine.jpeg" alt="DryMachine"></div>
                     <div class="project-info">
-                        <h3 id="dry-machine">DRY MACHINE</h3>
-                        <p>The Dry Machine operates in perfect synchronization with the WJet Tire Retreading Machine and is specifically engineered to efficiently dry the tire at the end of the WJet Tire Retreading Machine treatment.</p>
-                        <p>Designed for maximum efficiency, it minimizes the overall cycle time, ensuring the tire is fully prepared for the next stage—the application of new rubber coating.</p>
-                        <p>The system consists of a rotating spindle and a series of specialized drying lamps strategically placed inside the cabin, optimized  to function with a minimum of 4 and a maximum of 9 lamps.With a cycle time of 12 to 15 minutes, it guarantees the complete elimination of H₂O, ensuring the tire is perfectly conditioned for subsequent processing.</p>
-                        <div class="project-tags">
-                            <span class="tag">Automation</span>
-                            <span class="tag">Mechatronics</span>
-                            <span class="tag">Industrial</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3>DRY MACHINE</h3>
+                        <div class="description"><p>The Dry Machine operates in perfect synchronization...</p><p>Designed for maximum efficiency...</p><p>The system consists of a rotating spindle...</p></div>
+                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-
-                <!-- Project 6: CRS Industrial Robot -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot">
-                    </div>
+                <div class="project-card reveal delay-200">
+                    <div class="project-image" data-project-id="crs"><img src="/az87/csr robot/CRS-Robot.png" alt="CRS Industrial Robot"></div>
                     <div class="project-info">
-                        <h3 id="crs-robot">CRS INDUSTRIAL ROBOT</h3>
-                        <p>This project tackles the challenge of high-precision pick-and-place operations in a dynamic simulated industrial environment. The CRS robot is designed to identify, handle, and accurately position diverse objects, adapting seamlessly to variations in shape, material, and fragility. It represents a fusion of advanced hardware and intelligent software, pushing the boundaries of industrial automation to ensure consistent and reliable performance.</p>
-                        <div class="project-tags">
-                            <span class="tag">Robotics</span>
-                            <span class="tag">Automation</span>
-                            <span class="tag">Computer Vision</span>
-                            <span class="tag">Mechatronics</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3 data-project-id="crs">CRS INDUSTRIAL ROBOT</h3>
+                        <div class="description"><p>This project tackles the challenge of high-precision pick-and-place...</p></div>
+                        <div class="project-tags"><span class="tag">Robotics</span><span class="tag">Automation</span><span class="tag">Computer Vision</span><span class="tag">Mechatronics</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-                
-                <!-- Project 5: Violin-Bot_Player -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER">
-                    </div>
+                <div class="project-card reveal">
+                    <div class="project-image" data-project-id="violin"><img src="/az87/violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER"></div>
                     <div class="project-info">
-                        <h3 id="violin-bot-player">VIOLIN-BOT-PLAYER</h3>
-                        <p>Violin-Bot_Player is an innovative and programmable machine that masterfully plays the violin. Its design focuses on optimizing both the bowing and fingering systems. Various approaches were evaluated to achieve a smooth and harmonious bowing technique, culminating in a design that produces a rich, expressive sound. Similarly, the fingering system employs an array of push-type solenoids that mimic the delicate touch of a skilled violinist. With fixed distances maintained between solenoids to ensure accuracy, the entire configuration can shift seamlessly along the fingerboard to articulate intermediary notes, effectively covering at least the first full octave on each string.</p>
-                        <div class="project-tags">
-                            <span class="tag">Automation</span>
-                            <span class="tag">Mechatronics</span>
-                            <span class="tag">Music Technology</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3 data-project-id="violin">VIOLIN-BOT-PLAYER</h3>
+                        <div class="description"><p>Violin-Bot_Player is an innovative and programmable machine...</p></div>
+                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Music Technology</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-                
-                <!-- Project 4 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER">
-                    </div>
+                <div class="project-card reveal delay-100">
+                     <div class="project-image" data-project-id="helicopter"><img src="/az87/1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER"></div>
                     <div class="project-info">
-                        <h3 id="helicopter-project">PID 1DOF HELICOPTER</h3>
-                        <p>Me and my colleague Abend Eduardo have been asked to design, prototype and build a one degree of freedom helicopter in order to study and analyze the PID control theory. This is the brief of the project given to us from Dr Payam Rahmdel: One degree of freedom helicopter control system design.</p>
-                        <p>After 4 months of hard work, we successfully created a fully functional 1DOF helicopter platform that demonstrates precise control through PID implementation. The system features real-time feedback mechanisms, custom-built mechanical components, and sophisticated control algorithms that allow for stable hovering and position control despite external disturbances.</p>
-                        <div class="project-tags">
-                            <span class="tag">PID Control</span>
-                            <span class="tag">Mechatronics</span>
-                            <span class="tag">Control Systems</span>
-                            <span class="tag">Prototyping</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3 data-project-id="helicopter">PID 1DOF HELICOPTER</h3>
+                        <div class="description"><p>Me and my colleague Abend Eduardo have been asked...</p><p>After 4 months of hard work...</p></div>
+                        <div class="project-tags"><span class="tag">PID Control</span><span class="tag">Mechatronics</span><span class="tag">Control Systems</span><span class="tag">Prototyping</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-                
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="./turtle-cloud/1.webp" alt="TURTLE-CLOUD Logo">
-                    </div>
+                 <div class="project-card reveal delay-200">
+                     <div class="project-image" data-project-id="turtle"><img src="/az87/turtle-cloud/1.webp" alt="TURTLE-CLOUD Logo"></div>
                     <div class="project-info">
-                        <h3 id="project-3">TURTLE-CLOUD</h3>
-                        <p>A dynamic collaboration between MDX Mechatronics Engineering and Fine Art students, this innovative project seamlessly blends technology with creative expression. Centered around the immersive use of sound and light, the installation features synchronized robotic motion powered by the Robot Operating System (ROS). Engineering precision meets artistic imagination as custom-designed mechatronic systems respond in real time to sensory input, producing choreographed movements enhanced by atmospheric lighting and ambient audio. The result is a living, reactive sculpture that explores the intersection of engineering, art, and human perception — a testament to the power of interdisciplinary innovation.</p>
-                        <div class="project-tags">
-                            <span class="tag">SolidWorks</span>
-                            <span class="tag">ROS Robotics</span>
-                            <span class="tag">Arduino</span>
-                            <span class="tag">Electronics</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3 data-project-id="turtle">TURTLE-CLOUD</h3>
+                        <div class="description"><p>A dynamic collaboration between MDX Mechatronics Engineering...</p></div>
+                        <div class="project-tags"><span class="tag">SolidWorks</span><span class="tag">ROS Robotics</span><span class="tag">Arduino</span><span class="tag">Electronics</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-                
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
-                    </div>
+                 <div class="project-card reveal">
+                    <div class="project-image" data-project-id="rubiks"><img src="/az87/Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube"></div>
                     <div class="project-info">
-                        <h3 id="rubiks-cube-project">GIANT MECHATRONIC RUBIK'S CUBE</h3>
-                        <p>An end-of-year University individual project that combines mechanical engineering with software control. I designed and built an autonomous, oversized Rubik's cube controlled through LabVIEW and Arduino.</p>
-                        <p>The challenge was understanding and reproducing the complex mechanism that allows rotation on three different axes. I designed a larger core component based on the intersection of three axes, each allowing freedom of rotation at both ends. This project required extensive mathematical calculations and precise mechanical design to ensure smooth operation.</p>
-                        <div class="project-tags">
-                            <span class="tag">LabVIEW</span>
-                            <span class="tag">Arduino</span>
-                            <span class="tag">Mechanical Design</span>
-                            <span class="tag">3D Modeling</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3 data-project-id="rubiks">GIANT MECHATRONIC RUBIK'S CUBE</h3>
+                        <div class="description"><p>An end-of-year University individual project...</p><p>The challenge was understanding...</p></div>
+                        <div class="project-tags"><span class="tag">LabVIEW</span><span class="tag">Arduino</span><span class="tag">Mechanical Design</span><span class="tag">3D Modeling</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-                
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
-                    </div>
+                <div class="project-card reveal delay-100">
+                    <div class="project-image"><img src="/az87/physiball/Prjct1.png" alt="PHYSIBALL Project"></div>
                     <div class="project-info">
-                        <h3 id="physiball-project">PHYSIBALL</h3>
-                        <p>The PHYSIBALL is a fully functional, wireless tennis-ball-size that transmits and visualizes data in real-time. Battery-powered for mobility or USB-connected for analysis, it can also function as an active sensor in other equipment. The system outputs raw data, calibrated measurements, or yaw/pitch/roll values with customizable visualization graphs (size, quantity, colors).</p>
-                        <p>Using Jeenode modules instead of Bluetooth eliminates pairing requirements, enhancing communication reliability. Testing revealed signal integrity up to 30 meters indoors, even through walls and amid electronic interference.</p>
-                        <div class="project-tags">
-                            <span class="tag">Wireless</span>
-                            <span class="tag">Sensors</span>
-                            <span class="tag">Data Visualization</span>
-                            <span class="tag">JeeNode</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+                        <h3 data-project-id="physiball">PHYSIBALL</h3>
+                        <div class="description"><p>The PHYSIBALL is a fully functional, wireless...</p><p>Using Jeenode modules instead of Bluetooth...</p></div>
+                        <div class="project-tags"><span class="tag">Wireless</span><span class="tag">Sensors</span><span class="tag">Data Visualization</span><span class="tag">JeeNode</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- End projects-grid -->
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
-        <div class="container">
+        <div class="container reveal">
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-container">
-                <div class="contact-info">
-                    <p>If you have an idea you want to discuss and bring to life, feel free to reach out to me for collaboration opportunities, job inquiries,  or simply just to say hello!</p>
+                <div class="contact-info reveal">
+                    <p>Have an idea brewing or a challenging project in mind? Let's connect! I'm open to collaborations, interesting opportunities, or just a friendly tech chat.</p>
                     <div class="contact-links">
-                        <div class="contact-link">
-                            <i>📧</i>
-                            <a href="mailto:azelbane@hotmail.com">azelbane@hotmail.com</a>
-                        </div>
-                        <div class="contact-link">
-                            <i>🔗</i>
-                            <a href="https://www.linkedin.com/in/ade-zelbane" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
-                        </div>
-                        <div class="contact-link">
-                            <i>🐙</i>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub Profile</a>
-                        </div>
-                        <div class="contact-link">
-                            <i>📍</i>
-                            <a href="https://en.wikipedia.org/wiki/Italy" target="_blank" rel="noopener noreferrer" title="Italy">🌍</a>
-                        </div>
-                        <div class="contact-link">
-                          <a href="https://www.buymeacoffee.com/az87" target="_blank">
-                            <img src="./caffe.png" alt="Buy Me A Coffee" style="height: 60px; width: auto;">
-                          </a>
-                        </div>
+                        <div class="contact-link reveal delay-100"><i>📧</i><a href="mailto:azelbane@hotmail.com">azelbane@hotmail.com</a></div>
+                        <div class="contact-link reveal delay-200"><i>🔗</i><a href="https://www.linkedin.com/in/ade-zelbane" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div>
+                        <div class="contact-link reveal delay-300"><i>🐙</i><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub Profile</a></div>
+                        <div class="contact-link reveal delay-100"><i>🌍</i><a href="https://en.wikipedia.org/wiki/Italy" target="_blank" rel="noopener noreferrer" title="Italy">Location: Italy</a></div>
+                        <div class="contact-link reveal delay-200"><a href="https://www.buymeacoffee.com/az87" target="_blank"><img src="/az87/caffe.png" alt="Buy Me A Coffee"></a></div>
                     </div>
                 </div>
-                <div class="contact-form">
+                <div class="contact-form reveal delay-100">
                     <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST">
-                        <!-- Honeypot field for spam protection (invisible to humans) -->
                         <input type="text" name="_honey" style="display:none">
-    
-                        <!-- Disable captcha -->
                         <input type="hidden" name="_captcha" value="false">
-
-                        <!-- Add domain verification here -->
-                        <input type="hidden" name="_domain" value="h34rtb34t.github.io">
-    
-                        <!-- Specify thank you page (optional) -->
-                        <!--<input type="hidden" name="_next" value="https://yourdomain.com/thanks.html"> -->
-                        <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html">
-    
-                        <!-- Specify subject -->
-                        <input type="hidden" name="_subject" value="New submission from your portfolio!">
-    
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control" required>
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" class="form-control" required></textarea>
-                        </div>
-    
+                        <input type="hidden" name="_next" value="https://h34rtb34t.github.io/az87/thanks-page.html">
+                        <input type="hidden" name="_subject" value="New submission from portfolio!">
+                        <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" class="form-control" required></div>
+                        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" required></div>
+                        <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" class="form-control" required></div>
+                        <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" class="form-control" required></textarea></div>
                         <button type="submit" class="btn">Send Message</button>
-                    </form>                              
+                    </form>
                 </div>
             </div>
         </div>
@@ -1055,418 +774,282 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://github.com/" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://github.com/h34rtb34t" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://www.linkedin.com/in/ade-zelbane" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="#" class="social-link">Twitter</a>
             </div>
-            <p class="footer-text">© 2025 AZ87. All rights reserved.</p>
+            <p class="footer-text">© <span id="current-year">2025</span> ABDELATI ZELBANE. Crafted with Code & Curiosity.</p>
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <a href="#" class="scroll-to-top">▲</a>
-    
-    <!-- PDF Modal -->
-    <div id="pdfModal" class="pdf-modal" role="dialog" aria-modal="true">
-        <span class="close-pdf" aria-label="Close PDF viewer">&times;</span>
-        <div class="pdf-content">
-            <iframe id="pdfViewer" src="" frameborder="0" title="PDF Document Viewer" allow="fullscreen"></iframe>
+    <!-- Scroll to Top & WhatsApp Buttons -->
+    <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Scroll to top">▲</button>
+    <a href="https://wa.me/00393205569959" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <div class="whatsapp-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></div>
+        <span class="tooltip">Chat with me</span>
+    </a>
+
+    <!-- Modals -->
+    <div id="pdfModal" class="modal pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
+        <div class="modal-content pdf-content">
+            <button class="close-modal-btn" aria-label="Close PDF viewer" data-close-modal>&times;</button>
+            <h2 id="pdfModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">PDF Document Viewer</h2>
+            <iframe id="pdfViewer" src="" frameborder="0" title="PDF Document Viewer"></iframe>
         </div>
     </div>
-    
-    <!-- Image Slideshow Modal -->
-    <div id="imageModal" class="image-modal" role="dialog" aria-modal="true">
-        <span class="close-image" aria-label="Close image viewer">&times;</span>
-        <div class="slide-counter">1 / 16</div>
-        <div class="image-content">
-            <img id="slideImage" class="slide-image" src="" alt="Project Image" oncontextmenu="return false;">
-            <button class="prev-btn" aria-label="Previous image">&#10094;</button>
-            <button class="next-btn" aria-label="Next image">&#10095;</button>
+    <div id="imageModal" class="modal image-modal" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+         <button class="close-modal-btn" aria-label="Close image viewer" data-close-modal>&times;</button>
+         <h2 id="imageModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">Project Image Slideshow</h2>
+         <div class="image-content-wrapper">
+             <div class="image-content">
+                 <div class="slide-counter" id="slideCounter">1 / 1</div>
+                 <img id="slideImage" class="slide-image" src="" alt="Project Image" oncontextmenu="return false;">
+                 <button class="slide-btn prev-btn" id="prevBtn" aria-label="Previous image">&#10094;</button>
+                 <button class="slide-btn next-btn" id="nextBtn" aria-label="Next image">&#10095;</button>
+             </div>
         </div>
     </div>
-    
+    <div id="publicationsModal" class="modal publications-modal" role="dialog" aria-modal="true" aria-labelledby="publicationsModalTitle">
+        <div class="modal-content publications-content">
+             <button class="close-modal-btn" aria-label="Close publications viewer" data-close-modal>&times;</button>
+             <h2 id="publicationsModalTitle">Publications</h2>
+             <div class="publications-grid" id="publicationsGrid"><p>Loading publications...</p></div>
+        </div>
+    </div>
+
+    <!-- Embedded JavaScript -->
     <script>
-        // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the modals
+            // --- Elements ---
             const pdfModal = document.getElementById("pdfModal");
             const pdfViewer = document.getElementById("pdfViewer");
-            const closePdfBtn = document.getElementsByClassName("close-pdf")[0];
-            
             const imageModal = document.getElementById("imageModal");
             const slideImage = document.getElementById("slideImage");
-            const closeImageBtn = document.getElementsByClassName("close-image")[0];
-            const prevBtn = document.getElementsByClassName("prev-btn")[0];
-            const nextBtn = document.getElementsByClassName("next-btn")[0];
-            const slideCounter = document.getElementsByClassName("slide-counter")[0];
-            
-            // Get the project titles
-            const physiBallTitle = document.getElementById("physiball-project");
-            const rubiksCubeTitle = document.getElementById("rubiks-cube-project");
-            const project3Title = document.getElementById("project-3");
-            const helicopterTitle = document.getElementById("helicopter-project");
-            const violinBotTitle = document.getElementById("violin-bot-player");
-            
-            // Variables for slideshow
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+            const slideCounter = document.getElementById("slideCounter");
+            const publicationsModal = document.getElementById("publicationsModal");
+            const publicationsGrid = document.getElementById("publicationsGrid");
+            const publicationsLink = document.getElementById("publications-link");
+            const publicationsLinkMobile = document.getElementById("publications-link-mobile");
+            const hamburgerMenu = document.getElementById("hamburger-menu");
+            const mobileNavPanel = document.getElementById("mobile-nav-panel");
+            const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const closeModalBtns = document.querySelectorAll('[data-close-modal]');
+            const revealElements = document.querySelectorAll('.reveal');
+
+            // --- Slideshow Data ---
+            const slideshowData = {
+                rubiks: { totalSlides: 16, prefix: '/az87/Rubiks_cube/', extension: 'webp', rotations: { 1: -90, 3: -90, 5: -90 } },
+                turtle: { totalSlides: 27, prefix: '/az87/turtle-cloud/', extension: 'webp' },
+                helicopter: { totalSlides: 32, prefix: '/az87/1dof helicopter/', extension: 'webp', rotations: { 29: -90 } },
+                violin: { totalSlides: 10, prefix: '/az87/violin-bot-player/', extension: 'jpg' },
+                crs: { totalSlides: 1, prefix: '/az87/csr robot/', extension: 'png' }, // Assumed 1, update if more
+                wjet: { totalSlides: 37, prefix: '/az87/wjet/', extension: 'png' }
+            };
             let currentSlide = 1;
-            let totalSlides = 16;
-            let currentProject = "";
-            const imagePath = "./"; // Changed to relative path
-            
-            // Function to update slide
+            let currentProjectData = null;
+            let currentPdfBlobUrl = null;
+
+             // --- Publications Data ---
+             const publicationsData = [
+                { title: "1DoF PID Control Helicopter", filePath: "/az87/PID.pdf" },
+                { title: "MDXaz87Thesis", filePath: "/az87/MDXaz87Thesis.pdf" },
+                { title: "Physiball Handover", filePath: "/az87/physiball/Physiball handover.pdf" },
+             ];
+
+            // --- Utility ---
+            const isElementInViewport = (el) => {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+                    rect.bottom >= 0 &&
+                    rect.right >= 0
+                );
+            };
+
+            // --- Intersection Observer for Scroll Animations ---
+            const handleIntersection = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: unobserve after animation to save resources
+                        // observer.unobserve(entry.target);
+                    }
+                     // Optional: Remove 'visible' when scrolling up if desired
+                     // else { entry.target.classList.remove('visible'); }
+                });
+            };
+
+            const observerOptions = {
+                root: null, // relative to document viewport
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+                // Add initial check in case elements are already in view on load
+                // if (isElementInViewport(el)) {
+                //     el.classList.add('visible');
+                // }
+            });
+
+
+            // --- Modal Functions ---
+            function openModal(modalElement) {
+                if (!modalElement) return;
+                modalElement.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                // Focus first focusable element (basic accessibility)
+                const focusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                if (focusable) setTimeout(() => focusable.focus(), 50); // Delay helps ensure element is ready
+            }
+
+            function closeModal(modalElement) {
+                if (!modalElement || !modalElement.classList.contains('show')) return;
+                // Animate out
+                 modalElement.style.opacity = '0'; // Start fade out
+                 const content = modalElement.querySelector('.modal-content');
+                 if (content) content.style.transform = 'scale(0.95)';
+
+                 setTimeout(() => { // Wait for animation
+                    modalElement.classList.remove('show');
+                    document.body.style.overflow = '';
+                    modalElement.style.opacity = ''; // Reset opacity
+                    if (content) content.style.transform = ''; // Reset transform
+
+                    if (modalElement === pdfModal) {
+                        pdfViewer.src = 'about:blank'; // Clear src safely
+                        if (currentPdfBlobUrl) {
+                            URL.revokeObjectURL(currentPdfBlobUrl);
+                            currentPdfBlobUrl = null;
+                        }
+                    }
+                    if (modalElement === imageModal) {
+                        currentProjectData = null;
+                        slideImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Transparent pixel
+                    }
+                 }, 300); // Match CSS transition duration
+            }
+
+            // --- Slideshow Functions ---
             function showSlide(slideNumber) {
-                currentSlide = slideNumber;
-                
-                if (currentProject === "rubiks") {
-                    slideImage.src = `./Rubiks_cube/${slideNumber}.webp`;
-                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
+                 if (!currentProjectData) return;
+                 currentSlide = ((slideNumber - 1 + currentProjectData.totalSlides) % currentProjectData.totalSlides) + 1;
+                 const imageUrl = `${currentProjectData.prefix}${currentSlide}.${currentProjectData.extension}`;
+                 // Preload image slightly? Might be overkill
+                 slideImage.src = imageUrl;
+                 slideCounter.textContent = `${currentSlide} / ${currentProjectData.totalSlides}`;
+                 const rotation = currentProjectData.rotations?.[currentSlide] ?? 0;
+                 slideImage.style.transform = `rotate(${rotation}deg)`;
+            }
+            function nextSlide() { showSlide(currentSlide + 1); }
+            function prevSlide() { showSlide(currentSlide - 1); }
 
-                    // Apply rotation for specific slides (1, 3, and 5)
-                    if (currentSlide === 1 || currentSlide === 3 || currentSlide === 5) {
-                        slideImage.style.transform = 'rotate(-90deg)';
-                    } else {
-                        slideImage.style.transform = 'none';
-                    }
-                } else if (currentProject === "turtle") {
-                    slideImage.src = `./turtle-cloud/${slideNumber}.webp`;
-                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
-                    slideImage.style.transform = 'none';
-                } else if (currentProject === "helicopter") {
-                    slideImage.src = `./1dof helicopter/${slideNumber}.webp`;
-                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
-                    
-                    // Apply rotation for specific slide (29)
-                    if (currentSlide === 29) {
-                        slideImage.style.transform = 'rotate(-90deg)';
-                    } else {
-                        slideImage.style.transform = 'none';
-                    }
-                } else if (currentProject === "violin-bot-player") {
-                    slideImage.src = `./violin-bot-player/${slideNumber}.jpg`;
-                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
-                    slideImage.style.transform = 'none';
-                } else if (currentProject === "crs") {
-                    slideImage.src = `./csr robot/${slideNumber}.png`;
-                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
-                    slideImage.style.transform = 'none';
-                }
-                // New branch for WATER-JET RETREADING MACHINE "wjet"
-                else if (currentProject === "wjet") {
-                    slideImage.src = `./wjet/${currentSlide}.png`;
-                    slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
-                    slideImage.style.transform = 'none';
-                }
-            }
-            
-            // Next slide function
-            function nextSlide() {
-                currentSlide = currentSlide >= totalSlides ? 1 : currentSlide + 1;
-                showSlide(currentSlide);
-            }
-            
-            // Previous slide function
-            function prevSlide() {
-                currentSlide = currentSlide <= 1 ? totalSlides : currentSlide - 1;
-                showSlide(currentSlide);
-            }
-            
-            // When the user clicks on the PHYSIBALL title, open the PDF modal and load the PDF from the specified file path (non-downloadable)
-            if (physiBallTitle) {
-                physiBallTitle.addEventListener("click", function() {
-                    pdfModal.style.display = "block";
-                    
-                    // Set the PDF source using a data URL approach to bypass Brave's blocking
-                    fetch("./physiball/Physiballs%20handover.pdf")
-                        .then(response => response.blob())
-                        .then(blob => {
-                            const pdfUrl = URL.createObjectURL(blob);
-                            pdfViewer.src = pdfUrl + "#toolbar=0";
-                        })
-                        .catch(error => {
-                            console.error("Error loading PDF:", error);
-                            // Fallback to direct loading if fetch fails
-                            pdfViewer.src = "./physiball/Physiballs%20handover.pdf";
-                        });
-                    
-                    // Additional security: disable right-click on the PDF viewer
-                    pdfViewer.oncontextmenu = function() { return false; };
-                    
-                    // Trap focus inside modal for accessibility
-                    setTimeout(() => {
-                        closePdfBtn.focus();
-                    }, 100);
-                });
-            }
-            
-            // When the user clicks on the Rubik's Cube title, open the image modal
-            if (rubiksCubeTitle) {
-                rubiksCubeTitle.addEventListener("click", function() {
-                    imageModal.style.display = "block";
-                    currentProject = "rubiks";
-                    currentSlide = 1;
-                    totalSlides = 16;
-                    showSlide(currentSlide);
-                    
-                    // Trap focus inside modal for accessibility
-                    setTimeout(() => {
-                        closeImageBtn.focus();
-                    }, 100);
-                });
-            }
-            
-            // When the user clicks on the Project 3 title, open the image modal with turtle-cloud images
-            if (project3Title) {
-                project3Title.addEventListener("click", function() {
-                    imageModal.style.display = "block";
-                    currentProject = "turtle";
-                    currentSlide = 1;
-                    totalSlides = 27;
-                    showSlide(currentSlide);
-                    
-                    // Trap focus inside modal for accessibility
-                    setTimeout(() => {
-                        closeImageBtn.focus();
-                    }, 100);
-                });
-            }
-            
-            // When the user clicks on the Helicopter title, open the image modal with helicopter images
-            if (helicopterTitle) {
-                helicopterTitle.addEventListener("click", function() {
-                    imageModal.style.display = "block";
-                    currentProject = "helicopter";
-                    currentSlide = 1;
-                    totalSlides = 32;
-                    showSlide(currentSlide);
-                    
-                    // Trap focus inside modal for accessibility
-                    setTimeout(() => {
-                        closeImageBtn.focus();
-                    }, 100);
-                });
-            }
-            
-            // When the user clicks on the violin-bot-player title, open the image modal with violin-bot-player images
-            if (violinBotTitle) {
-                violinBotTitle.addEventListener("click", function() {
-                    imageModal.style.display = "block";
-                    currentProject = "violin-bot-player";
-                    currentSlide = 1;
-                    totalSlides = 10;
-                    showSlide(currentSlide);
-                    
-                    // Trap focus inside modal for accessibility
-                    setTimeout(() => {
-                        closeImageBtn.focus();
-                    }, 100);
-                });
-            }
-            
-            // Attach click event to the WATER-JET RETREADING MACHINE logo image so it opens the wjet slider
-            const wjetImage = document.getElementById("wjet-machine").parentElement.previousElementSibling.querySelector("img");
-            if (wjetImage) {
-                wjetImage.addEventListener("click", function() {
-                    imageModal.style.display = "block";
-                    currentProject = "wjet";
-                    currentSlide = 1;
-                    totalSlides = 37;
-                    showSlide(currentSlide);
-                    // Trap focus inside modal for accessibility
-                    setTimeout(() => {
-                        closeImageBtn.focus();
-                    }, 100);
-                });
-            }
-            
-            // Event listeners for slideshow controls
-            prevBtn.addEventListener("click", prevSlide);
-            nextBtn.addEventListener("click", nextSlide);
-            
-            // When the user clicks on the close button, close the image modal
-            closeImageBtn.onclick = function() {
-                imageModal.style.display = "none";
-            }
-            
-            // When the user clicks on the close button, close the PDF modal
-            closePdfBtn.onclick = function() {
-                // Release object URL if it was created
-                if (pdfViewer.src.startsWith('blob:')) {
-                    URL.revokeObjectURL(pdfViewer.src);
-                }
-                pdfModal.style.display = "none";
-                pdfViewer.src = "";
-            }
-            
-            // When the user clicks anywhere outside of the modal content, close it
-            window.onclick = function(event) {
-                if (event.target == pdfModal) {
-                    // Release object URL if it was created
-                    if (pdfViewer.src.startsWith('blob:')) {
-                        URL.revokeObjectURL(pdfViewer.src);
-                    }
-                    pdfModal.style.display = "none";
-                    pdfViewer.src = "";
-                }
-                if (event.target == imageModal) {
-                    imageModal.style.display = "none";
-                }
-            }
-            
-            // Prevent right-click on images
-            document.addEventListener('contextmenu', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
+            // --- Event Listeners ---
+            closeModalBtns.forEach(btn => btn.addEventListener('click', () => closeModal(btn.closest('.modal'))));
+            [pdfModal, imageModal, publicationsModal].forEach(modal => {
+                if(modal) modal.addEventListener('click', e => (e.target === modal) && closeModal(modal));
             });
-            
-            // Prevent drag on images
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
+
+            document.querySelectorAll('[data-project-id]').forEach(element => {
+                element.addEventListener('click', function() {
+                    const projectId = this.getAttribute('data-project-id');
+                    if (projectId === 'physiball') {
+                        const pdfPath = '/az87/physiball/Physiball handover.pdf';
+                        pdfViewer.src = 'about:blank';
+                        if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl);
+                        fetch(pdfPath) // Fetch as blob to try and control viewer
+                            .then(r => r.ok ? r.blob() : Promise.reject(`Fetch Error: ${r.statusText}`))
+                            .then(blob => {
+                                currentPdfBlobUrl = URL.createObjectURL(blob);
+                                pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0"; // Try hiding UI
+                                openModal(pdfModal);
+                            }).catch(err => {
+                                console.error("PDF Blob Error:", err);
+                                pdfViewer.src = pdfPath; // Fallback to direct path
+                                openModal(pdfModal);
+                            });
+                    } else if (slideshowData[projectId]) {
+                        currentProjectData = slideshowData[projectId];
+                        showSlide(1);
+                        openModal(imageModal);
+                    }
+                });
             });
-            
-            // Keyboard navigation for slideshow
+
+            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
             document.addEventListener('keydown', function(e) {
-                if (imageModal.style.display === "block") {
-                    if (e.key === "ArrowLeft") {
-                        prevSlide();
-                    } else if (e.key === "ArrowRight") {
-                        nextSlide();
-                    } else if (e.key === "Escape") {
-                        imageModal.style.display = "none";
-                    }
-                }
-                
-                // Also handle escape key for PDF modal
-                if (pdfModal.style.display === "block" && e.key === "Escape") {
-                    pdfModal.style.display = "none";
-                    pdfViewer.src = "";
-                }
+                 if (e.key === "Escape") [pdfModal, imageModal, publicationsModal].forEach(closeModal);
+                 if (imageModal.classList.contains('show')) {
+                     if (e.key === "ArrowLeft") prevSlide();
+                     else if (e.key === "ArrowRight") nextSlide();
+                 }
             });
-            
-            // Handle contact form submission
-            const contactForm = document.getElementById("contactForm");
-            if (contactForm) {
-                contactForm.addEventListener("submit", function(e) {
-                    e.preventDefault();
-                    alert("Thank you for your message! I'll get back to you soon.");
-                    contactForm.reset();
+
+            // Hamburger Menu
+            if (hamburgerMenu && mobileNavPanel) {
+                hamburgerMenu.addEventListener('click', () => {
+                    const isActive = hamburgerMenu.classList.toggle('active');
+                    mobileNavPanel.classList.toggle('active');
+                    document.body.style.overflow = isActive ? 'hidden' : '';
                 });
             }
-            
-            // Scroll to Top Button Functionality
-            const scrollToTopBtn = document.querySelector('.scroll-to-top');
-
-            // Show/hide the button based on scroll position
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) { // Show button after scrolling down 300px
-                    scrollToTopBtn.classList.add('show');
-                } else {
-                    scrollToTopBtn.classList.remove('show');
-                }
-            });
-
-            // Scroll to top when button is clicked
-            scrollToTopBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth' // For smooth scrolling
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    hamburgerMenu.classList.remove('active');
+                    mobileNavPanel.classList.remove('active');
+                    document.body.style.overflow = '';
+                    if (link.id === 'publications-link-mobile') {
+                         e.preventDefault(); // Prevent '#' navigation
+                         openPublicationsModal();
+                    }
+                     // Smooth scroll for internal links (already handled by CSS `scroll-behavior`)
                 });
             });
-        });
 
-        // Hamburger menu functionality
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-        const navLinks = document.querySelector('.nav-links');
+            // Publications Modal
+            function populatePublications() {
+                 if (!publicationsGrid) return;
+                 publicationsGrid.innerHTML = '';
+                 if (publicationsData.length === 0) {
+                     publicationsGrid.innerHTML = '<p>No publications available yet.</p>'; return;
+                 }
+                 publicationsData.forEach(pub => {
+                     const item = document.createElement('div'); item.classList.add('publication-item');
+                     const link = document.createElement('a'); link.href = pub.filePath; link.textContent = pub.title; link.target = '_blank'; link.rel = 'noopener noreferrer';
+                     item.appendChild(link);
+                     publicationsGrid.appendChild(item);
+                 });
+            }
+            function openPublicationsModal() { populatePublications(); openModal(publicationsModal); }
+            if (publicationsLink) publicationsLink.addEventListener('click', (e) => { e.preventDefault(); openPublicationsModal(); });
 
-        if (hamburgerMenu) {
-             hamburgerMenu.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                hamburgerMenu.classList.toggle('active');
-            });
-    
-            // Close menu when clicking a link
-            const links = document.querySelectorAll('.nav-links a');
-            links.forEach(link => {
-                link.addEventListener('click', function() {
-                    navLinks.classList.remove('active');
-                    hamburgerMenu.classList.remove('active');
-                });
-            });
-    
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!event.target.closest('.nav-links') && 
-                    !event.target.closest('.hamburger-menu') && 
-                    navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    hamburgerMenu.classList.remove('active');
-                }
-            });
-        }
+
+            // Scroll to Top Button
+            if (scrollToTopBtn) {
+                window.addEventListener('scroll', () => {
+                    scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400); // Show after more scroll
+                }, { passive: true }); // Improve scroll performance
+                scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            // Footer Year
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+            // Image Protection
+            document.addEventListener('contextmenu', e => (e.target.tagName === 'IMG') && e.preventDefault());
+            document.addEventListener('dragstart', e => (e.target.tagName === 'IMG') && e.preventDefault());
+
+        }); // End DOMContentLoaded
     </script>
-
-<!-- WhatsApp Chat Button -->
-<a href="https://wa.me/00393205569959" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-    <div class="whatsapp-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" width="1em" height="1em">
-            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
-        </svg>
-    </div>
-</a>
-
-
-
-    
-<script>
-    // Select the publications link
-    const publicationsLink = document.getElementById('publications-link');
-    
-    // Create the publications modal dynamically
-    const publicationsModal = document.createElement('div');
-    publicationsModal.classList.add('publications-modal');
-    publicationsModal.innerHTML = `
-        <div class="publications-content">
-            <span class="close-publications">&times;</span>
-            <div class="publications-grid">
-                <div class="publication-item">
-                    <a href="PID.pdf" target="_blank">1DoF PID Control Helicopter</a>
-                </div>
-                <div class="publication-item">
-                    <a href="MDXaz87Thesis.pdf" target="_blank">MDXaz87Thesis</a>
-                </div>
-                <div class="publication-item">
-                    <a href="Physiball handover.pdf" target="_blank">Physiball handover.pdf</a>
-                </div>
-                <!-- Add more publication items as needed -->
-            </div>
-        </div>
-    `;
-    
-    // Append the modal to the body
-    document.body.appendChild(publicationsModal);
-
-    // Event listener for publications link
-    publicationsLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        publicationsModal.style.display = 'block';
-    });
-
-    // Close button functionality
-    const closePublications = publicationsModal.querySelector('.close-publications');
-    closePublications.addEventListener('click', function() {
-        publicationsModal.style.display = 'none';
-    });
-
-    // Close modal when clicking outside the content
-    publicationsModal.addEventListener('click', function(e) {
-        if (e.target === publicationsModal) {
-            publicationsModal.style.display = 'none';
-        }
-    });
-</script>
 
 </body>
 </html>
