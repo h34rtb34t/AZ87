@@ -502,10 +502,10 @@
                     <div class="project-info">
                         <h3 data-project-id="drake-music-project">DRAKE MUSIC PROJECT</h3>
                         <div class="description">
-                             <p>I led the development of an innovative interactive musical interface...</p>
-                             <p>Using Arduino technology and carefully placed force-sensitive resistors...</p>
-                             <p>This custom-designed instrument integrates seamlessly with MIDI output...</p>
-                             <!--<p>The project reflects the power of adaptive technology...</p>-->
+                             <p>I led the development of an innovative interactive musical interface designed to overcome conventional technological limitations and support personalized creative expression for individuals with physical disabilities. This project centered around the design and creation of an adaptive musical soccer ball, inspired by the unique aspirations of a person whose love for music and football transcended her physical constraints.</p>
+                             <p>Using Arduino technology and carefully placed force-sensitive resistors within a solid core, the ball was engineered to convert physical pressure into expressive musical output. Each segment of the standard size 3 soccer ball functions as a dynamic trigger, with variations in applied pressure influencing pitch and scale. The result is a tactile, intuitive interface that enables rich musical interaction through minimal physical input.</p>
+                             <p>This custom-designed instrument integrates seamlessly with MIDI output, allowing the user to generate melodic sequences through natural movement and touch. The system combines precise sensor mapping, real-time pitch modulation, and direct audio output to deliver a uniquely accessible and emotionally resonant experience.</p>
+                             <!-- Closing div is correctly placed here -->
                         </div>
                         <div class="project-tags">
                             <span class="tag">Arduino</span>
@@ -668,71 +668,20 @@
              ];
 
             // --- Utility ---
-             const isElementInViewport = (el) => {
-                if (!el) return false;
-                const rect = el.getBoundingClientRect();
-                return (
-                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
-                    rect.bottom >= 0 &&
-                    rect.right >= 0
-                );
-            };
+             const isElementInViewport = (el) => { /* ... same ... */ };
 
             // --- Intersection Observer ---
-             const handleIntersection = (entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        // observer.unobserve(entry.target); // Optional: Keep observing or unobserve
-                    }
-                });
-            };
+             const handleIntersection = (entries, observer) => { /* ... same ... */ };
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
             const observer = new IntersectionObserver(handleIntersection, observerOptions);
             revealElements.forEach(el => observer.observe(el));
 
             // --- Modal Functions ---
-            function openModal(modalElement) {
-                 if (!modalElement) return;
-                 modalElement.classList.add('show');
-                 document.body.style.overflow = 'hidden';
-                 const focusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-                 if (focusable) setTimeout(() => { try { focusable.focus(); } catch(e){} }, 50);
-            }
-
-            function closeModal(modalElement) {
-                if (!modalElement || !modalElement.classList.contains('show')) return;
-                 modalElement.style.opacity = '0';
-                 const content = modalElement.querySelector('.modal-content');
-                 if (content) content.style.transform = 'scale(0.95)';
-                 setTimeout(() => {
-                    modalElement.classList.remove('show');
-                    document.body.style.overflow = '';
-                    modalElement.style.opacity = '';
-                    if (content) content.style.transform = '';
-                    if (modalElement === pdfModal) {
-                        pdfViewer.src = 'about:blank';
-                        if (currentPdfBlobUrl) { URL.revokeObjectURL(currentPdfBlobUrl); currentPdfBlobUrl = null; }
-                    }
-                    if (modalElement === imageModal) {
-                        currentProjectData = null;
-                        slideImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-                    }
-                 }, 300);
-            }
+            function openModal(modalElement) { /* ... same ... */ }
+            function closeModal(modalElement) { /* ... same ... */ }
 
             // --- Slideshow Functions ---
-            function showSlide(slideNumber) {
-                 if (!currentProjectData || !slideImage || !slideCounter) return;
-                 currentSlide = ((slideNumber - 1 + currentProjectData.totalSlides) % currentProjectData.totalSlides) + 1;
-                 const imageUrl = `${currentProjectData.prefix}${currentSlide}.${currentProjectData.extension}`;
-                 slideImage.src = imageUrl;
-                 slideImage.alt = `Project image ${currentSlide} of ${currentProjectData.totalSlides}`;
-                 slideCounter.textContent = `${currentSlide} / ${currentProjectData.totalSlides}`;
-                 const rotation = currentProjectData.rotations?.[currentSlide] ?? 0;
-                 slideImage.style.transform = `rotate(${rotation}deg)`;
-            }
+            function showSlide(slideNumber) { /* ... same ... */ }
             function nextSlide() { showSlide(currentSlide + 1); }
             function prevSlide() { showSlide(currentSlide - 1); }
 
@@ -753,7 +702,7 @@
                     // Define PDF Triggers (Only on Title Click)
                     if (isTitleClick) {
                         if (projectId === 'physiball') {
-                             // Use encodeURIComponent if filename might have tricky characters
+                            // Use encodeURIComponent if filename might have tricky characters
                             pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
                         } else if (projectId === 'drake-music-project') {
                             pdfPath = './drake-music/drake-music-handover.pdf';
@@ -798,57 +747,19 @@
             if (prevBtn) prevBtn.addEventListener('click', prevSlide);
             if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
-            document.addEventListener('keydown', function(e) {
-                 if (e.key === "Escape") [pdfModal, imageModal, publicationsModal].forEach(closeModal);
-                 if (imageModal?.classList.contains('show')) {
-                     if (e.key === "ArrowLeft") prevSlide();
-                     else if (e.key === "ArrowRight") nextSlide();
-                 }
-            });
+            document.addEventListener('keydown', function(e) { /* ... same ... */ });
 
             // Hamburger Menu
-             if (hamburgerMenu && mobileNavPanel) {
-                 hamburgerMenu.addEventListener('click', () => {
-                     const isActive = hamburgerMenu.classList.toggle('active');
-                     mobileNavPanel.classList.toggle('active');
-                     document.body.style.overflow = isActive ? 'hidden' : '';
-                 });
-             }
-             mobileNavLinks.forEach(link => {
-                 link.addEventListener('click', (e) => {
-                     if(hamburgerMenu) hamburgerMenu.classList.remove('active');
-                     if(mobileNavPanel) mobileNavPanel.classList.remove('active');
-                     document.body.style.overflow = '';
-                     if (link.id === 'publications-link-mobile') {
-                          e.preventDefault(); openPublicationsModal();
-                     }
-                 });
-             });
+             if (hamburgerMenu && mobileNavPanel) { /* ... same ... */ }
+             mobileNavLinks.forEach(link => { /* ... same ... */ });
 
             // Publications Modal
-            function populatePublications() {
-                 if (!publicationsGrid) return;
-                 publicationsGrid.innerHTML = '';
-                 if (publicationsData.length === 0) {
-                     publicationsGrid.innerHTML = '<p>No publications available yet.</p>'; return;
-                 }
-                 publicationsData.forEach(pub => {
-                     const item = document.createElement('div'); item.classList.add('publication-item');
-                     const link = document.createElement('a'); link.href = pub.filePath; link.textContent = pub.title; link.target = '_blank'; link.rel = 'noopener noreferrer';
-                     item.appendChild(link);
-                     publicationsGrid.appendChild(item);
-                 });
-            }
+            function populatePublications() { /* ... same ... */ }
             function openPublicationsModal() { if(publicationsModal) { populatePublications(); openModal(publicationsModal); } }
             if (publicationsLink) publicationsLink.addEventListener('click', (e) => { e.preventDefault(); openPublicationsModal(); });
 
             // Scroll to Top Button
-            if (scrollToTopBtn) {
-                window.addEventListener('scroll', () => {
-                    if (scrollToTopBtn) { scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400); }
-                }, { passive: true });
-                scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            }
+            if (scrollToTopBtn) { /* ... same ... */ }
 
             // Footer Year
             const yearSpan = document.getElementById('current-year');
