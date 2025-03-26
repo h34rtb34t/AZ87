@@ -523,6 +523,39 @@
                 </div>
                 <!-- === END DRAKE MUSIC === -->
 
+                                <!-- === MECHANICAL CLOCK PROJECT === -->
+                <div class="project-card reveal delay-200"> <!-- Added delay-200 -->
+                    <div class="project-image" data-project-id="clock">
+                        <img src="./clock/logo.png" alt="Mechanical Geared Wooden Clock">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="clock-project" data-project-id="clock">MECHANICAL GEARED WOODEN CLOCK</h3>
+                        <div class="description">
+                            <p>A fascinating project exploring traditional clockmaking techniques combined with modern precision.</p>
+                            <p>Designed and built using intricate wooden gears and mechanisms, showcasing the beauty of mechanical movement.</p>
+                        </div>
+                        <div class="project-tags">
+                             <span class="tag">Mechanical Design</span>
+                             <span class="tag">Woodworking</span>
+                             <span class="tag">Clockmaking</span>
+                             <span class="tag">Kinetics</span>
+                        </div>
+                        <div class="project-links">
+                             <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- === END MECHANICAL CLOCK === -->
+
+                <!-- Existing PHYSIBALL Project Card (Keep its delay as delay-200 or adjust if needed visually) -->
+                <div class="project-card reveal delay-200">
+                    <div class="project-image"> <!-- No trigger for PDF on image -->
+                        <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="physiball-project" data-project-id="physiball">PHYSIBALL</h3>
+                        <!-- ... rest of Physiball card ... -->
+
                 <div class="project-card reveal delay-200"> <!-- Adjusted delay -->
                     <div class="project-image"> <!-- No trigger for PDF on image -->
                         <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
@@ -651,6 +684,23 @@
 
             // --- Slideshow Data (Using ORIGINAL Relative Paths) ---
             const slideshowData = {
+                            // --- Slideshow Data (Using ORIGINAL Relative Paths) ---
+            const slideshowData = {
+                // ADDED Drake Music Project
+                'drake-music-project': { totalSlides: 15, prefix: './drake-music/', extension: 'png' },
+                // *** ADD THIS LINE ***
+                'clock':               { totalSlides: 1,  prefix: './clock/',        extension: 'png' },
+                // Existing Projects
+                rubiks:     { totalSlides: 16, prefix: './Rubiks_cube/',         extension: 'webp', rotations: { 1: -90, 3: -90, 5: -90 } },
+                turtle:     { totalSlides: 27, prefix: './turtle-cloud/',        extension: 'webp' },
+                helicopter: { totalSlides: 32, prefix: './1dof helicopter/',     extension: 'webp', rotations: { 29: -90 } },
+                violin:     { totalSlides: 10, prefix: './violin-bot-player/',   extension: 'jpg' },
+                crs:        { totalSlides: 1,  prefix: './csr robot/',           extension: 'png' }, // Make sure totalSlides is correct
+                wjet:       { totalSlides: 37, prefix: './wjet/',                extension: 'png' }
+            };
+                
+
+                
                 // ADDED Drake Music Project
                 'drake-music-project': { totalSlides: 15, prefix: './drake-music/', extension: 'png' },
                 // Existing Projects
@@ -747,33 +797,42 @@
                 if(modal) modal.addEventListener('click', e => (e.target === modal) && closeModal(modal));
             });
 
-            // *** Project Click Handler (Handles PDF vs Slideshow) ***
+                        // *** Project Click Handler (Handles PDF vs Slideshow vs Single Image) ***
             document.querySelectorAll('[data-project-id]').forEach(element => {
                 element.addEventListener('click', function(event) {
                     const projectId = this.getAttribute('data-project-id');
                     const isTitleClick = this.tagName === 'H3';
                     const isImageClick = this.classList.contains('project-image');
 
+                    // 1. Handle Clock Project Click (Image or Title) - Open Single Image Modal
+                    if (projectId === 'clock' && (isTitleClick || isImageClick)) {
+                         event.preventDefault(); // Prevent default link behavior if any
+                         if (slideshowData[projectId] && imageModal) { // Check if data and modal exist
+                             currentProjectData = slideshowData[projectId];
+                             showSlide(1); // Show the first (and only) slide
+                             openModal(imageModal);
+                         }
+                         return; // Stop further processing for the clock project
+                    }
+
+                    // 2. Handle Specific PDF Triggers (Only on Title Click for other projects)
                     let pdfPath = null;
-                    // Define PDF Triggers (Only on Title Click)
                     if (isTitleClick) {
                         if (projectId === 'physiball') {
-                            // Use encodeURIComponent for safety with filenames containing spaces
                             pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
                         } else if (projectId === 'drake-music-project') {
                             pdfPath = './drake-music/drake-music-handover.pdf';
                         }
                     }
 
-                    // Action Logic
-                    if (pdfPath) { // If a PDF path was set (meaning a relevant title was clicked)
+                    // 3. Open PDF Modal if pdfPath is set
+                    if (pdfPath) {
                         event.preventDefault();
                         if (!pdfModal || !pdfViewer) return;
 
                         pdfViewer.src = 'about:blank';
                         if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl);
 
-                        // Use the pdfPath directly for fetch
                         fetch(pdfPath)
                             .then(response => {
                                 if (!response.ok) throw new Error(`Fetch Error: ${response.status} for ${pdfPath}`);
@@ -788,8 +847,12 @@
                                 pdfViewer.src = pdfPath; // Fallback to direct path
                                 openModal(pdfModal);
                             });
-                    } else if (slideshowData[projectId] && isImageClick) {
-                        // Trigger slideshow ONLY if the IMAGE container was clicked
+                        return; // Stop further processing after handling PDF
+                    }
+
+                    // 4. Handle Slideshow for other projects (Only on Image Click)
+                    //    (This block is reached only if it's not the clock project and not a PDF trigger)
+                    if (slideshowData[projectId] && isImageClick) {
                         event.preventDefault();
                          if (!imageModal) return;
                          currentProjectData = slideshowData[projectId];
