@@ -20,21 +20,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Embedded MODERNIZED CSS -->
+    <!-- Embedded MODERNIZED CSS (Copied from the working version) -->
     <style>
         /* --- CSS Variables --- */
         :root {
-            --bg-dark: #0f0f0f; /* Slightly darker bg */
+            --bg-dark: #0f0f0f;
             --bg-card: #1a1a1a;
             --bg-card-lighter: #222;
             --border-color: #333;
             --border-color-light: #444;
-            --text-primary: #e5e7eb; /* Light gray */
-            --text-secondary: #a0a0a0; /* Medium gray */
+            --text-primary: #e5e7eb;
+            --text-secondary: #a0a0a0;
             --text-muted: #777;
-            --accent-primary: #007BFF; /* Vivid Blue */
+            --accent-primary: #007BFF;
             --accent-primary-darker: #0056b3;
-            --accent-secondary: #34d399; /* Emerald Green */
+            --accent-secondary: #34d399;
             --accent-glow: rgba(0, 123, 255, 0.5);
             --shadow-color: rgba(0, 0, 0, 0.5);
             --shadow-color-light: rgba(0, 0, 0, 0.3);
@@ -46,202 +46,107 @@
         }
 
         /* --- Reset & Base --- */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px; /* Base font size */
-        }
-
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7; /* Slightly more spacing */
-            color: var(--text-primary);
-            background-color: var(--bg-dark);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.7; color: var(--text-primary); background-color: var(--bg-dark);
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
-
-        a {
-            text-decoration: none;
-            color: var(--accent-primary);
-            transition: color var(--transition-speed) var(--transition-timing);
-        }
-        a:hover {
-            color: var(--accent-primary-darker);
-            text-decoration: none; /* Usually no underline on modern hover */
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        section {
-            padding: 100px 0;
-            overflow: hidden; /* Contain animations */
-        }
-
-        .container {
-            max-width: 1150px; /* Slightly wider */
-            margin: 0 auto;
-            padding: 0 25px; /* More padding */
-        }
+        a { text-decoration: none; color: var(--accent-primary); transition: color var(--transition-speed) var(--transition-timing); }
+        a:hover { color: var(--accent-primary-darker); text-decoration: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        section { padding: 100px 0; overflow: hidden; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 25px; }
 
         /* --- Animations & Utilities --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Staggered delay utility classes */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
         .delay-100 { transition-delay: 0.1s !important; }
         .delay-200 { transition-delay: 0.2s !important; }
         .delay-300 { transition-delay: 0.3s !important; }
-        /* Add more as needed */
 
         /* --- Header --- */
         header {
-            padding: 15px 0;
-            background-color: rgba(15, 15, 15, 0.8); /* Darker semi-transparent */
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+            padding: 15px 0; background-color: rgba(15, 15, 15, 0.8);
+            border-bottom: 1px solid var(--border-color); position: sticky;
+            top: 0; z-index: 100; backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
         .logo {
-            font-size: 1.4rem; /* Use rem */
-            font-weight: 800; /* Bolder */
-            color: var(--text-primary);
-            transition: color var(--transition-speed) var(--transition-timing);
-            letter-spacing: -0.5px;
+            font-size: 1.4rem; font-weight: 800; color: var(--text-primary);
+            transition: color var(--transition-speed) var(--transition-timing); letter-spacing: -0.5px;
         }
-        .logo:hover { color: var(--accent-primary); text-decoration: none; } /* Ensure no underline on logo hover */
-
-        .nav-links { display: flex; gap: 35px; } /* Desktop nav */
-        .nav-links a {
-            color: var(--text-secondary);
-            font-weight: 500;
-            position: relative;
-            padding-bottom: 4px;
-        }
-        .nav-links a::after { /* Underline effect */
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-primary);
-            transition: width var(--transition-speed) var(--transition-timing);
+        .logo:hover { color: var(--accent-primary); text-decoration: none; }
+        .nav-links { display: flex; gap: 35px; }
+        .nav-links a { color: var(--text-secondary); font-weight: 500; position: relative; padding-bottom: 4px; }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+            background-color: var(--accent-primary); transition: width var(--transition-speed) var(--transition-timing);
         }
         .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
         .nav-links a:hover::after { width: 100%; }
 
         /* --- Hamburger & Mobile Nav --- */
         .hamburger-menu {
-            display: none; /* Controlled by media query */
-            flex-direction: column;
-            justify-content: space-around;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 1001;
-            position: relative;
+            display: none; flex-direction: column; justify-content: space-around;
+            width: 30px; height: 21px; cursor: pointer; z-index: 1001; position: relative;
         }
         .hamburger-menu span {
-            display: block; height: 3px; width: 100%;
-            background-color: #fff; border-radius: 3px;
-            transition: all 0.3s ease-in-out;
+            display: block; height: 3px; width: 100%; background-color: #fff;
+            border-radius: 3px; transition: all 0.3s ease-in-out;
         }
         .hamburger-menu.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
         .hamburger-menu.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
         .hamburger-menu.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
         .mobile-nav-panel {
-            display: none; /* JS will control via 'active' class */
-            position: fixed; top: 0; right: -100%;
-            width: 280px; height: 100vh;
-            background-color: var(--bg-card);
-            padding: 80px 30px 30px;
-            box-shadow: -5px 0 20px var(--shadow-color);
-            transition: right 0.4s ease-in-out;
-            z-index: 1000;
-            flex-direction: column; gap: 15px;
-            overflow-y: auto;
+            display: none; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+            background-color: var(--bg-card); padding: 80px 30px 30px;
+            box-shadow: -5px 0 20px var(--shadow-color); transition: right 0.4s ease-in-out;
+            z-index: 1000; flex-direction: column; gap: 15px; overflow-y: auto;
         }
-        .mobile-nav-panel.active { right: 0; }
+        .mobile-nav-panel.active { display: flex; right: 0; }
         .mobile-nav-panel a {
-            color: var(--text-secondary); font-weight: 600;
-            font-size: 1.1rem; padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary); font-weight: 600; font-size: 1.1rem;
+            padding: 12px 0; border-bottom: 1px solid var(--border-color);
         }
         .mobile-nav-panel a:last-child { border-bottom: none; }
         .mobile-nav-panel a:hover { color: var(--text-primary); text-decoration: none; }
 
         /* --- Hero Section --- */
         .hero {
-            padding: 120px 0;
-            text-align: center;
+            padding: 120px 0; text-align: center;
             background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
-            position: relative;
-             min-height: 70vh;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             flex-direction: column;
+            position: relative; min-height: 70vh; display: flex; align-items: center;
+            justify-content: center; flex-direction: column;
         }
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 25px; font-weight: 900;
-            color: var(--text-primary); line-height: 1.2;
-            letter-spacing: -1px;
+            font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 25px; font-weight: 900;
+            color: var(--text-primary); line-height: 1.2; letter-spacing: -1px;
         }
         .hero h1 .highlight { color: var(--accent-primary); }
         .hero p {
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
-            color: var(--text-secondary);
+            font-size: clamp(1.1rem, 3vw, 1.3rem); color: var(--text-secondary);
             max-width: 750px; margin: 0 auto 45px auto;
         }
         .btn {
-            display: inline-block; padding: 14px 35px;
-            background: var(--accent-primary); color: #fff;
-            border-radius: var(--radius-md); font-weight: 600;
-            font-size: 1rem; transition: all var(--transition-speed) var(--transition-timing);
-            border: none; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            display: inline-block; padding: 14px 35px; background: var(--accent-primary);
+            color: #fff; border-radius: var(--radius-md); font-weight: 600; font-size: 1rem;
+            transition: all var(--transition-speed) var(--transition-timing); border: none;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         }
         .btn:hover {
-            background: var(--accent-primary-darker);
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
-            text-decoration: none;
+            background: var(--accent-primary-darker); transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4); text-decoration: none;
         }
         .btn:active { transform: translateY(-1px) scale(1); box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); }
 
         /* --- Section Title --- */
         .section-title {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            margin-bottom: 60px; text-align: center;
-            position: relative; color: var(--text-primary);
-            font-weight: 800;
+            font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 60px; text-align: center;
+            position: relative; color: var(--text-primary); font-weight: 800;
         }
         .section-title::after {
             content: ''; display: block; width: 60px; height: 4px;
@@ -252,86 +157,49 @@
         /* --- About Section --- */
         .about { background-color: var(--bg-dark); }
         .about-content { display: flex; flex-wrap: wrap; gap: 60px; align-items: center; }
-        .about-image {
-            flex: 1 1 350px; max-width: 400px; margin: 0 auto;
-            perspective: 1000px;
-        }
-        .about-image img {
-            width: 100%; border-radius: var(--radius-lg);
-            box-shadow: 0 15px 30px var(--shadow-color);
-            transition: transform 0.5s ease-out;
-        }
+        .about-image { flex: 1 1 350px; max-width: 400px; margin: 0 auto; perspective: 1000px; }
+        .about-image img { width: 100%; border-radius: var(--radius-lg); box-shadow: 0 15px 30px var(--shadow-color); transition: transform 0.5s ease-out; }
         .about-text { flex: 2 1 450px; color: var(--text-secondary); }
-        .about-text h3 {
-            font-size: 1.7rem; margin-bottom: 25px;
-            color: var(--text-primary); font-weight: 700;
-        }
+        .about-text h3 { font-size: 1.7rem; margin-bottom: 25px; color: var(--text-primary); font-weight: 700; }
         .about-text p { margin-bottom: 18px; }
 
         /* --- Projects Section --- */
         .projects { background-color: var(--bg-dark); }
         .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 40px; margin-top: 40px; /* Keep margin-top from original */
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px; margin-top: 40px;
         }
         .project-card {
-            background-color: var(--bg-card); border-radius: var(--radius-lg);
-            overflow: hidden; box-shadow: 0 5px 15px var(--shadow-color-light);
+            background-color: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color-light);
             transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
-            display: flex; flex-direction: column;
-            border: 1px solid var(--border-color);
+            display: flex; flex-direction: column; border: 1px solid var(--border-color);
         }
-        .project-card:hover {
-            transform: translateY(-8px); box-shadow: 0 12px 25px var(--shadow-color);
-            border-color: var(--border-color-light);
-        }
-        .project-image {
-             /* height: 220px; Use aspect-ratio instead */
-             aspect-ratio: 16 / 10; /* Consistent aspect ratio */
-             /* width: 100%; Remove fixed width */
-             overflow: hidden; cursor: pointer; position: relative;
-        }
-        .project-image img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.5s var(--transition-timing), filter 0.5s var(--transition-timing);
-        }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px var(--shadow-color); border-color: var(--border-color-light); }
+        .project-image { aspect-ratio: 16 / 10; overflow: hidden; cursor: pointer; position: relative; }
+        .project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--transition-timing), filter 0.5s var(--transition-timing); }
         .project-card:hover .project-image img { transform: scale(1.08); filter: brightness(0.9); }
         .project-info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
-        .project-info h3 {
-            font-size: 1.3rem; margin-bottom: 15px; color: var(--text-primary);
-            font-weight: 700; cursor: pointer;
-            transition: color var(--transition-speed) var(--transition-timing);
-        }
+        .project-info h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--text-primary); font-weight: 700; cursor: pointer; transition: color var(--transition-speed) var(--transition-timing); }
         .project-info h3:hover { color: var(--accent-primary); }
-        .project-info .description { /* Keep original selector if JS relies on it, otherwise just use p */
-            color: var(--text-secondary); margin-bottom: 20px;
-            flex-grow: 1; font-size: 0.95rem;
-        }
-         /* Target direct p children for margin */
-         .project-info > p { color: var(--text-secondary); margin-bottom: 15px; }
-         .project-info .description p { margin-bottom: 12px; }
-         .project-info .description p:last-child { margin-bottom: 0; }
-
+        .project-info .description { color: var(--text-secondary); margin-bottom: 20px; flex-grow: 1; font-size: 0.95rem; }
+        .project-info > p { color: var(--text-secondary); margin-bottom: 15px; } /* Support direct P */
+        .project-info .description p { margin-bottom: 12px; }
+        .project-info .description p:last-child { margin-bottom: 0; }
         .project-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 15px; margin-bottom: 15px; }
         .tag {
             background-color: var(--bg-card-lighter); color: var(--accent-secondary);
-            padding: 5px 12px; border-radius: var(--radius-sm);
-            font-size: 0.75rem; font-weight: 600;
-            border: 1px solid var(--border-color-light);
-            text-transform: uppercase; letter-spacing: 0.5px;
+            padding: 5px 12px; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600;
+            border: 1px solid var(--border-color-light); text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .project-links { display: flex; gap: 15px; margin-top: 15px; } /* Adjusted margin-top */
+        .project-links { display: flex; gap: 15px; margin-top: 15px; }
         .project-links a {
             font-size: 0.875rem; font-weight: 600; padding: 8px 16px;
             border: 1px solid var(--border-color-light); border-radius: var(--radius-md);
             color: var(--text-secondary); background-color: transparent;
             transition: all var(--transition-speed) var(--transition-timing);
         }
-         .project-links a:hover {
-            background-color: var(--accent-primary); border-color: var(--accent-primary);
-            color: white; transform: translateY(-2px); text-decoration: none;
-        }
+         .project-links a:hover { background-color: var(--accent-primary); border-color: var(--accent-primary); color: white; transform: translateY(-2px); text-decoration: none; }
 
         /* --- Contact Section --- */
         .contact { background-color: var(--bg-dark); }
@@ -342,13 +210,9 @@
         .contact-link { display: flex; align-items: center; gap: 15px; }
         .contact-link a { color: var(--text-secondary); font-weight: 500; }
         .contact-link a:hover { color: var(--accent-primary); text-decoration: none;}
-        .contact-link i {
-            color: var(--accent-primary); font-size: 1.2rem;
-            width: 24px; text-align: center; font-style: normal;
-        }
-        .contact-link img { height: 55px; transition: transform var(--transition-speed) ease; width: auto; } /* Added width auto */
+        .contact-link i { color: var(--accent-primary); font-size: 1.2rem; width: 24px; text-align: center; font-style: normal; }
+        .contact-link img { height: 55px; transition: transform var(--transition-speed) ease; width: auto; }
         .contact-link img:hover { transform: scale(1.08); }
-
         .contact-form { flex: 1 1 450px; }
         .form-group { margin-bottom: 25px; }
         .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-primary); }
@@ -358,142 +222,78 @@
             color: var(--text-primary); font-size: 1rem;
             transition: border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
         }
-        .form-control:focus {
-            outline: none; border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
+        .form-control:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--accent-glow); }
         textarea.form-control { min-height: 160px; resize: vertical; }
 
         /* --- Footer --- */
-        footer {
-            background-color: #000; color: var(--text-muted);
-            padding: 50px 0; text-align: center;
-            border-top: 1px solid var(--border-color);
-        }
+        footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text-align: center; border-top: 1px solid var(--border-color); }
         .social-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; }
-        .social-link {
-            color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;
-            transition: color var(--transition-speed) var(--transition-timing), transform var(--transition-speed) var(--transition-timing);
-        }
+        .social-link { color: var(--text-secondary); font-size: 1.1rem; font-weight: 500; transition: color var(--transition-speed) var(--transition-timing), transform var(--transition-speed) var(--transition-timing); }
         .social-link:hover { color: var(--accent-primary); transform: translateY(-3px); text-decoration: none;}
         .footer-text { color: var(--text-muted); font-size: 0.875rem; }
 
         /* --- Modals --- */
-        .modal { /* Renamed from original specific classes */
-            display: none; position: fixed; inset: 0;
-            background-color: rgba(0, 0, 0, 0.85); z-index: 1000;
-            align-items: center; justify-content: center;
-            padding: 20px; opacity: 0;
-            transition: opacity var(--transition-speed) ease-out;
+        .modal {
+            display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.85);
+            z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+            opacity: 0; transition: opacity var(--transition-speed) ease-out;
         }
         .modal.show { display: flex; opacity: 1; }
-        .modal-content { /* Universal content wrapper */
-            position: relative; background-color: var(--bg-card);
-            border-radius: var(--radius-lg); box-shadow: 0 10px 30px var(--shadow-color);
-            overflow: hidden; max-width: 95vw; max-height: 95vh;
-            width: 1100px; height: 90vh; /* Defaults */
-            display: flex; flex-direction: column;
-            transform: scale(0.95);
-            transition: transform var(--transition-speed) ease-out;
+        .modal-content {
+            position: relative; background-color: var(--bg-card); border-radius: var(--radius-lg);
+            box-shadow: 0 10px 30px var(--shadow-color); overflow: hidden; max-width: 95vw;
+            max-height: 95vh; width: 1100px; height: 90vh; display: flex; flex-direction: column;
+            transform: scale(0.95); transition: transform var(--transition-speed) ease-out;
         }
         .modal.show .modal-content { transform: scale(1); }
-
-        /* PDF Specific adjustments if needed */
-        .pdf-modal .modal-content { /* Keep original sizes if needed */
-            width: 90%; height: 90%; margin: 0; /* Reset margin if using flex center */
-        }
-         .pdf-modal iframe { flex-grow: 1; border: none; width: 100%; height: 100%;}
-
-        /* Image Slideshow Specific adjustments */
-        .image-modal .modal-content { background-color: transparent; box-shadow: none; width: auto; height: auto; overflow: visible;} /* Allow buttons outside */
-        .image-content-wrapper { /* New wrapper for centering image content */
-             max-width: 90vw; max-height: 90vh; display: flex;
-             align-items: center; justify-content: center; position: relative;
-        }
-        .image-content { /* Inner div for image and controls */
-             position: relative; /* For positioning controls */
-             display: flex; align-items: center; justify-content: center;
-             /* Let wrapper handle max size */
-             max-width: 100%; max-height: 100%;
-        }
-        .slide-image {
-             display: block; max-width: 100%; max-height: 100%;
-             object-fit: contain; user-select: none;
-             transition: transform 0.3s ease-in-out; border-radius: var(--radius-sm);
-             -webkit-user-drag: none; /* Prevent drag ghost */
-        }
-        .slide-counter {
-             position: absolute; top: 15px; left: 15px; color: white;
-             background-color: rgba(0, 0, 0, 0.7); padding: 6px 12px;
-             border-radius: var(--radius-sm); font-size: 0.875rem; z-index: 1;
-        }
+        /* PDF Modal */
+        .pdf-modal .modal-content { width: 90%; height: 90%; margin: 0; }
+        .pdf-modal iframe { flex-grow: 1; border: none; width: 100%; height: 100%;}
+        /* Image Slideshow */
+        .image-modal .modal-content { background-color: transparent; box-shadow: none; width: auto; height: auto; overflow: visible;}
+        .image-content-wrapper { max-width: 90vw; max-height: 90vh; display: flex; align-items: center; justify-content: center; position: relative;}
+        .image-content { position: relative; display: flex; align-items: center; justify-content: center; max-width: 100%; max-height: 100%;}
+        .slide-image { display: block; max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; transition: transform 0.3s ease-in-out; border-radius: var(--radius-sm); -webkit-user-drag: none; }
+        .slide-counter { position: absolute; top: 15px; left: 15px; color: white; background-color: rgba(0, 0, 0, 0.7); padding: 6px 12px; border-radius: var(--radius-sm); font-size: 0.875rem; z-index: 1; }
         .slide-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            font-size: 2rem; color: white; background-color: rgba(0, 0, 0, 0.4);
-            border: none; border-radius: 50%; width: 50px; height: 50px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            z-index: 1; transition: background-color var(--transition-speed);
+            position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: white;
+            background-color: rgba(0, 0, 0, 0.4); border: none; border-radius: 50%; width: 50px; height: 50px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1;
+            transition: background-color var(--transition-speed);
         }
         .slide-btn:hover { background-color: rgba(0, 0, 0, 0.7); }
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
-
-        /* Publications Specific adjustments */
-        .publications-modal .modal-content {
-             width: 90%; max-width: 700px; height: auto; max-height: 85vh;
-             padding: 30px;
-        }
-        .publications-modal h2 {
-             font-size: 1.6rem; color: var(--text-primary);
-             margin-bottom: 25px; text-align: center; font-weight: 700;
-        }
-        .publications-grid {
-             display: grid; gap: 18px; overflow-y: auto;
-             max-height: calc(85vh - 120px); /* Adjust based on padding/title */
-             padding-right: 10px;
-        }
-        .publication-item {
-             padding: 18px; background-color: var(--bg-card-lighter);
-             border-radius: var(--radius-md); border: 1px solid var(--border-color);
-             transition: background-color var(--transition-speed), border-color var(--transition-speed);
-        }
+        .prev-btn { left: 20px; } .next-btn { right: 20px; }
+        /* Publications */
+        .publications-modal .modal-content { width: 90%; max-width: 700px; height: auto; max-height: 85vh; padding: 30px; }
+        .publications-modal h2 { font-size: 1.6rem; color: var(--text-primary); margin-bottom: 25px; text-align: center; font-weight: 700;}
+        .publications-grid { display: grid; gap: 18px; overflow-y: auto; max-height: calc(85vh - 120px); padding-right: 10px;}
+        .publication-item { padding: 18px; background-color: var(--bg-card-lighter); border-radius: var(--radius-md); border: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
         .publication-item:hover { background-color: #333; border-color: var(--border-color-light); }
-        .publication-item a {
-             color: var(--accent-primary); display: block;
-             font-weight: 600; font-size: 1rem;
-        }
+        .publication-item a { color: var(--accent-primary); display: block; font-weight: 600; font-size: 1rem; }
         .publication-item a:hover { color: var(--accent-primary-darker); text-decoration: underline;}
-
-        /* Universal Modal Close Button */
-        .close-modal-btn { /* Renamed from specific closes */
-            position: absolute; top: 12px; right: 12px; color: var(--text-secondary);
-            font-size: 1.8rem; font-weight: bold; cursor: pointer; z-index: 10;
-            line-height: 1; padding: 5px; background: none; border: none;
-            transition: color var(--transition-speed), transform var(--transition-speed);
+        /* Modal Close */
+        .close-modal-btn {
+            position: absolute; top: 12px; right: 12px; color: var(--text-secondary); font-size: 1.8rem;
+            font-weight: bold; cursor: pointer; z-index: 10; line-height: 1; padding: 5px;
+            background: none; border: none; transition: color var(--transition-speed), transform var(--transition-speed);
         }
         .close-modal-btn:hover { color: var(--text-primary); transform: scale(1.1); }
 
         /* --- Floating Buttons --- */
         .scroll-to-top {
-            position: fixed; bottom: 30px; right: 30px;
-            background-color: var(--accent-primary); color: white;
-            width: 45px; height: 45px; border-radius: 50%;
-            text-align: center; line-height: 45px; font-size: 1.3rem;
-            cursor: pointer; opacity: 0; visibility: hidden;
-            transition: all var(--transition-speed) ease-in-out;
-            z-index: 998; border: none; box-shadow: 0 4px 10px var(--shadow-color);
+            position: fixed; bottom: 30px; right: 30px; background-color: var(--accent-primary); color: white;
+            width: 45px; height: 45px; border-radius: 50%; text-align: center; line-height: 45px;
+            font-size: 1.3rem; cursor: pointer; opacity: 0; visibility: hidden;
+            transition: all var(--transition-speed) ease-in-out; z-index: 998; border: none;
+            box-shadow: 0 4px 10px var(--shadow-color);
         }
         .scroll-to-top:hover { background-color: var(--accent-primary-darker); transform: scale(1.1); }
         .scroll-to-top.show { opacity: 1; visibility: visible; }
-
         .whatsapp-chat {
-            position: fixed; bottom: 30px; left: 30px;
-            background-color: #25D366; color: white;
-            width: 55px; height: 55px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 4px 10px var(--shadow-color); cursor: pointer;
-            z-index: 999; transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-            border: none;
+            position: fixed; bottom: 30px; left: 30px; background-color: #25D366; color: white;
+            width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px var(--shadow-color); cursor: pointer; z-index: 999;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: none;
         }
         .whatsapp-chat:hover { transform: scale(1.1); box-shadow: 0 6px 15px var(--shadow-color); }
         .whatsapp-icon svg { width: 28px; height: 28px; }
@@ -508,36 +308,24 @@
 
         /* --- Responsive --- */
         @media (max-width: 768px) {
-            section { padding: 80px 0; }
-            .container { padding: 0 15px; }
-            .nav-links { display: none; }
-            .hamburger-menu { display: flex; } /* Show hamburger */
-            .hero h1 { font-size: 2.2rem; }
-            .hero p { font-size: 1.1rem; }
-            .about-content { gap: 40px; flex-direction: column; } /* Stack about */
-            .about-image { max-width: 80%; }
-            .contact-container { gap: 40px; flex-direction: column; } /* Stack contact */
+            section { padding: 80px 0; } .container { padding: 0 15px; } .nav-links { display: none; }
+            .hamburger-menu { display: flex; } .hero h1 { font-size: 2.2rem; } .hero p { font-size: 1.1rem; }
+            .about-content { gap: 40px; flex-direction: column; } .about-image { max-width: 80%; }
+            .contact-container { gap: 40px; flex-direction: column; }
             .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
             .slide-btn { width: 40px; height: 40px; font-size: 1.5rem; }
             .prev-btn { left: 10px; } .next-btn { right: 10px; }
             .modal-content { height: auto; max-height: 90vh; width: 95vw; }
-            .publications-modal .modal-content { padding: 20px; }
-            .publications-grid { padding-right: 5px; }
+            .publications-modal .modal-content { padding: 20px; } .publications-grid { padding-right: 5px; }
         }
         @media (max-width: 480px) {
-             section { padding: 60px 0; }
-             .hero { padding: 80px 0; min-height: 50vh;}
-             .hero h1 { font-size: 2rem; }
-             .hero p { font-size: 1rem; }
-             .section-title { font-size: 1.8rem; margin-bottom: 40px; }
-             .about-text h3 { font-size: 1.4rem; }
-             .project-info h3 { font-size: 1.15rem; }
-             .btn { padding: 12px 25px; font-size: 0.9rem; }
-             .form-control { padding: 12px; font-size: 0.9rem; }
+             section { padding: 60px 0; } .hero { padding: 80px 0; min-height: 50vh;}
+             .hero h1 { font-size: 2rem; } .hero p { font-size: 1rem; } .section-title { font-size: 1.8rem; margin-bottom: 40px; }
+             .about-text h3 { font-size: 1.4rem; } .project-info h3 { font-size: 1.15rem; }
+             .btn { padding: 12px 25px; font-size: 0.9rem; } .form-control { padding: 12px; font-size: 0.9rem; }
              .scroll-to-top { width: 40px; height: 40px; line-height: 40px; font-size: 1.1rem; bottom: 15px; right: 15px;}
              .whatsapp-chat { width: 50px; height: 50px; bottom: 15px; left: 15px;}
-             .whatsapp-icon svg { width: 24px; height: 24px; }
-             .whatsapp-chat .tooltip { display: none; }
+             .whatsapp-icon svg { width: 24px; height: 24px; } .whatsapp-chat .tooltip { display: none; }
         }
 
     </style>
@@ -547,7 +335,6 @@
     <header>
         <div class="container">
             <nav>
-                 <!-- Removed inline style -->
                 <a href="#about" class="logo">ABDELATI ZELBANE</a>
                 <div class="nav-links">
                     <a href="#about">About</a>
@@ -583,7 +370,6 @@
             <h2 class="section-title">Who I Am</h2>
             <div class="about-content">
                 <div class="about-image reveal">
-                     <!-- ORIGINAL Relative Path -->
                     <img src="./about/CV_pic.jpg" alt="Abdelati Zelbane">
                 </div>
                 <div class="about-text reveal delay-100">
@@ -591,8 +377,8 @@
                     <p>Hello! I have a deep passion for Technology and Science, with a strong enthusiasm for Physics and Mathematics.</p>
                     <p>My journey in tech began with MDX UNIVERSITY, LONDON. Since then, I've worked on various projects ranging from ACADEMIC-RELATED PROJECTS to INDUSTRIAL PROTOTYPES.</p>
                     <p>I draw inspiration from nature and the world around me, integrating these insights into my daily life.</p>
-                    <p>I enjoy exploring the latest technological advancements, as well as designing, assembling, deconstructing and reassembling back again various systems to enhance my understanding &amp; feed my curiosity.</p>
-                    <p>When I'm not coding, sketching around strange ideas &amp; concepts, soldering electronics, disassembling or interacting with some pieces of strange tech gadgets, you can find me Hiking, Cooking, Reading a random book or away Travelling the World</p>
+                    <p>I enjoy exploring the latest technological advancements, as well as designing, assembling, deconstructing and reassembling back again various systems to enhance my understanding & feed my curiosity.</p>
+                    <p>When I'm not coding, sketching around strange ideas & concepts, soldering electronics, disassembling or interacting with some pieces of strange tech gadgets, you can find me Hiking, Cooking, Reading a random book or away Travelling the World</p>
                 </div>
             </div>
         </div>
@@ -603,18 +389,15 @@
         <div class="container reveal">
             <h2 class="section-title">My Projects</h2>
             <div class="projects-grid">
-                 <!-- Added reveal classes with delays -->
-                <!-- Kept ORIGINAL relative paths and IDs -->
-                <!-- Added data-project-id for JS triggers -->
+
+                <!-- Project Order: Wjet, Dry, CRS, Violin, Helicopter, Turtle, Rubiks, Drake, Physiball -->
 
                 <div class="project-card reveal">
                     <div class="project-image" data-project-id="wjet">
-                         <!-- ORIGINAL Path -->
                         <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine">
                     </div>
                     <div class="project-info">
                         <h3 id="wjet-machine" data-project-id="wjet">WATER-JET RETREADING MACHINE</h3>
-                        <!-- Use div for description paragraphs -->
                         <div class="description">
                             <p>Powered by Rover Research’s groundbreaking patented technology, this state-of-the-art machine is engineered for high-efficiency retreading of R22.5 tires while minimizing energy consumption. Operating on a closed-loop water cycle, it continuously recirculates H₂O into the high-pressure main water pump, ensuring sustainability and performance optimization.</p>
                             <p>With a processing capacity exceeding 4 tires/ hour, it offers precise adjustability, allowing for customized devulcanization to meet specific performance and quality requirements. Furthermore, the WJet MAchine generates exceptionally fine devulcanized rubber powder at a micron scale, paving the way for innovative applications in sustainable material reuse and advanced manufacturing.</p>
@@ -626,7 +409,6 @@
 
                 <div class="project-card reveal delay-100">
                     <div class="project-image">
-                         <!-- ORIGINAL Path -->
                         <img src="./dry/DryMachine.jpeg" alt="DryMachine">
                     </div>
                     <div class="project-info">
@@ -643,7 +425,6 @@
 
                 <div class="project-card reveal delay-200">
                     <div class="project-image" data-project-id="crs">
-                         <!-- ORIGINAL Path -->
                         <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot">
                     </div>
                     <div class="project-info">
@@ -658,7 +439,6 @@
 
                 <div class="project-card reveal">
                     <div class="project-image" data-project-id="violin">
-                         <!-- ORIGINAL Path -->
                         <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER">
                     </div>
                     <div class="project-info">
@@ -673,7 +453,6 @@
 
                 <div class="project-card reveal delay-100">
                     <div class="project-image" data-project-id="helicopter">
-                         <!-- ORIGINAL Path -->
                         <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER">
                     </div>
                     <div class="project-info">
@@ -689,7 +468,6 @@
 
                 <div class="project-card reveal delay-200">
                     <div class="project-image" data-project-id="turtle">
-                         <!-- ORIGINAL Path -->
                         <img src="./turtle-cloud/1.webp" alt="TURTLE-CLOUD Logo">
                     </div>
                     <div class="project-info">
@@ -704,7 +482,6 @@
 
                 <div class="project-card reveal">
                     <div class="project-image" data-project-id="rubiks">
-                         <!-- ORIGINAL Path -->
                         <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
                     </div>
                     <div class="project-info">
@@ -718,16 +495,43 @@
                     </div>
                 </div>
 
-                <div class="project-card reveal delay-100">
-                    <div class="project-image">
-                         <!-- ORIGINAL Path -->
+                <!-- === DRAKE MUSIC PROJECT (Moved here) === -->
+                 <div class="project-card reveal delay-100"> <!-- Adjusted delay -->
+                    <div class="project-image" data-project-id="drake-music-project">
+                        <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors">
+                    </div>
+                    <div class="project-info">
+                        <h3 data-project-id="drake-music-project">DRAKE MUSIC PROJECT</h3>
+                        <div class="description">
+                             <p>I led the development of an innovative interactive musical interface designed to overcome conventional technological limitations and support personalized creative expression for individuals with physical disabilities. This project centered around the design and creation of an adaptive musical soccer ball, inspired by the unique aspirations of a person whose love for music and football transcended her physical constraints.</p>
+                             <p>Using Arduino technology and carefully placed force-sensitive resistors within a solid core, the ball was engineered to convert physical pressure into expressive musical output. Each segment of the standard size 3 soccer ball functions as a dynamic trigger, with variations in applied pressure influencing pitch and scale. The result is a tactile, intuitive interface that enables rich musical interaction through minimal physical input.</p>
+                             <p>This custom-designed instrument integrates seamlessly with MIDI output, allowing the user to generate melodic sequences through natural movement and touch. The system combines precise sensor mapping, real-time pitch modulation, and direct audio output to deliver a uniquely accessible and emotionally resonant experience.</p>
+                             <!-- Removed the specific paragraph as requested -->
+                             <!-- <p>The project reflects the power of adaptive technology...</p> -->
+                        </div> <!-- Closing div verified to be correct -->
+                        <div class="project-tags">
+                            <span class="tag">Arduino</span>
+                            <span class="tag">FastPrototyping</span>
+                            <span class="tag">Music</span>
+                            <span class="tag">Force Resistors</span>
+                            <span class="tag">Disability</span>
+                        </div>
+                        <div class="project-links">
+                             <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- === END DRAKE MUSIC === -->
+
+                <div class="project-card reveal delay-200"> <!-- Adjusted delay -->
+                    <div class="project-image"> <!-- No trigger for PDF on image -->
                         <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
                     </div>
                     <div class="project-info">
                         <h3 id="physiball-project" data-project-id="physiball">PHYSIBALL</h3>
                          <div class="description">
-                             <p>The PHYSIBALL is a fully functional, wireless tennis-ball-size that transmits and visualizes data in real-time. Battery-powered for mobility or USB-connected for analysis, it can also function as an active sensor in other equipment. The system outputs raw data, calibrated measurements, or yaw/pitch/roll values with customizable visualization graphs (size, quantity, colors).</p>
-                             <p>Using Jeenode modules instead of Bluetooth eliminates pairing requirements, enhancing communication reliability. Testing revealed signal integrity up to 30 meters indoors, even through walls and amid electronic interference.</p>
+                             <p>The PHYSIBALL is a fully functional, wireless...</p>
+                             <p>Using Jeenode modules instead of Bluetooth...</p>
                          </div>
                         <div class="project-tags"><span class="tag">Wireless</span><span class="tag">Sensors</span><span class="tag">Data Visualization</span><span class="tag">JeeNode</span></div>
                         <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
@@ -744,31 +548,21 @@
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-container">
                 <div class="contact-info reveal">
-                    <!-- Updated Text -->
                     <p>Have an idea brewing or a challenging project in mind? Let's connect! I'm open to collaborations, interesting opportunities, or just a friendly tech chat.</p>
                     <div class="contact-links">
-                         <!-- Added reveal classes -->
                         <div class="contact-link reveal delay-100"><i>📧</i><a href="mailto:azelbane@hotmail.com">azelbane@hotmail.com</a></div>
                         <div class="contact-link reveal delay-200"><i>🔗</i><a href="https://www.linkedin.com/in/ade-zelbane" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div>
                         <div class="contact-link reveal delay-300"><i>🐙</i><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub Profile</a></div>
                         <div class="contact-link reveal delay-100"><i>🌍</i><a href="https://en.wikipedia.org/wiki/Italy" target="_blank" rel="noopener noreferrer" title="Italy">Location: Italy</a></div>
-                        <div class="contact-link reveal delay-200">
-                            <a href="https://www.buymeacoffee.com/az87" target="_blank">
-                                 <!-- ORIGINAL Path, removed inline style -->
-                                <img src="./caffe.png" alt="Buy Me A Coffee">
-                            </a>
-                        </div>
+                        <div class="contact-link reveal delay-200"><a href="https://www.buymeacoffee.com/az87" target="_blank"><img src="./caffe.png" alt="Buy Me A Coffee"></a></div>
                     </div>
                 </div>
                 <div class="contact-form reveal delay-100">
-                     <!-- Form kept mostly the same, uses formsubmit.co -->
                     <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST">
                         <input type="text" name="_honey" style="display:none">
                         <input type="hidden" name="_captcha" value="false">
-                         <!-- Keep original domain verification -->
                         <input type="hidden" name="_domain" value="h34rtb34t.github.io">
-                        <!-- Keep original thank you page -->
-                        <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html">
+                        <input type="hidden" name="_next" value="https://h34rtb34t.github.io/az87/thanks-page.html">
                         <input type="hidden" name="_subject" value="New submission from portfolio!">
                         <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" class="form-control" required></div>
                         <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" required></div>
@@ -785,12 +579,9 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <!-- Kept original Github link format, but target specific profile -->
                 <a href="https://github.com/h34rtb34t" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://www.linkedin.com/in/ade-zelbane" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <!-- <a href="#" class="social-link">Twitter</a> --> <!-- Removed twitter -->
             </div>
-             <!-- Updated Footer Text -->
             <p class="footer-text">© <span id="current-year">2025</span> AZ87. Crafted with Passion & Curiosity.</p>
         </div>
     </footer>
@@ -802,45 +593,38 @@
         <span class="tooltip">Chat with me</span>
     </a>
 
-    <!-- Modals (using universal .modal class) -->
+    <!-- Modals -->
     <div id="pdfModal" class="modal pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
-        <!-- Using .modal-content wrapper -->
         <div class="modal-content pdf-content">
-            <!-- Universal close button -->
-            <button class="close-modal-btn" aria-label="Close PDF viewer" data-close-modal>&times;</button>
+            <button class="close-modal-btn" aria-label="Close PDF viewer" data-close-modal>×</button>
             <h2 id="pdfModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">PDF Document Viewer</h2>
             <iframe id="pdfViewer" src="" frameborder="0" title="PDF Document Viewer"></iframe>
         </div>
     </div>
-
     <div id="imageModal" class="modal image-modal" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
-        <!-- Universal close button -->
-         <button class="close-modal-btn" aria-label="Close image viewer" data-close-modal>&times;</button>
+         <button class="close-modal-btn" aria-label="Close image viewer" data-close-modal>×</button>
          <h2 id="imageModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">Project Image Slideshow</h2>
-          <!-- Using .modal-content wrapper structure -->
          <div class="modal-content">
              <div class="image-content-wrapper">
                  <div class="image-content">
                      <div class="slide-counter" id="slideCounter">1 / 1</div>
                      <img id="slideImage" class="slide-image" src="" alt="Project Image" oncontextmenu="return false;">
-                     <button class="slide-btn prev-btn" id="prevBtn" aria-label="Previous image">&#10094;</button>
-                     <button class="slide-btn next-btn" id="nextBtn" aria-label="Next image">&#10095;</button>
+                     <button class="slide-btn prev-btn" id="prevBtn" aria-label="Previous image">❮</button>
+                     <button class="slide-btn next-btn" id="nextBtn" aria-label="Next image">❯</button>
                  </div>
             </div>
          </div>
     </div>
-
     <div id="publicationsModal" class="modal publications-modal" role="dialog" aria-modal="true" aria-labelledby="publicationsModalTitle">
-         <!-- Using .modal-content wrapper -->
         <div class="modal-content publications-content">
-             <button class="close-modal-btn" aria-label="Close publications viewer" data-close-modal>&times;</button>
+             <button class="close-modal-btn" aria-label="Close publications viewer" data-close-modal>×</button>
              <h2 id="publicationsModalTitle">Publications</h2>
              <div class="publications-grid" id="publicationsGrid"><p>Loading publications...</p></div>
         </div>
     </div>
 
 
-    <!-- Embedded MODERNIZED JavaScript (with RELATIVE paths) -->
+    <!-- Embedded MODERNIZED JavaScript (with RELATIVE paths & updated logic) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // --- Elements ---
@@ -864,11 +648,14 @@
 
             // --- Slideshow Data (Using ORIGINAL Relative Paths) ---
             const slideshowData = {
+                // ADDED Drake Music Project
+                'drake-music-project': { totalSlides: 15, prefix: './drake-music/', extension: 'png' },
+                // Existing Projects
                 rubiks:     { totalSlides: 16, prefix: './Rubiks_cube/',         extension: 'webp', rotations: { 1: -90, 3: -90, 5: -90 } },
                 turtle:     { totalSlides: 27, prefix: './turtle-cloud/',        extension: 'webp' },
                 helicopter: { totalSlides: 32, prefix: './1dof helicopter/',     extension: 'webp', rotations: { 29: -90 } },
                 violin:     { totalSlides: 10, prefix: './violin-bot-player/',   extension: 'jpg' },
-                crs:        { totalSlides: 1,  prefix: './csr robot/',           extension: 'png' }, // Assumed 1, update if more
+                crs:        { totalSlides: 1,  prefix: './csr robot/',           extension: 'png' }, // Make sure totalSlides is correct
                 wjet:       { totalSlides: 37, prefix: './wjet/',                extension: 'png' }
             };
             let currentSlide = 1;
@@ -879,11 +666,11 @@
              const publicationsData = [
                 { title: "1DoF PID Control Helicopter", filePath: "./PID.pdf" },
                 { title: "MDXaz87Thesis",             filePath: "./MDXaz87Thesis.pdf" },
-                { title: "Physiball Handover",        filePath: "./physiball/Physiballs handover.pdf" }, // Ensure correct filename if space exists
+                // Physiball & Drake PDFs handled by project title click
              ];
 
             // --- Utility ---
-            const isElementInViewport = (el) => {
+             const isElementInViewport = (el) => {
                 if (!el) return false;
                 const rect = el.getBoundingClientRect();
                 return (
@@ -894,14 +681,12 @@
                 );
             };
 
-            // --- Intersection Observer for Scroll Animations ---
-            const handleIntersection = (entries, observer) => {
+            // --- Intersection Observer ---
+             const handleIntersection = (entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // observer.unobserve(entry.target); // Optional: unobserve after first time
                     }
-                    // else { entry.target.classList.remove('visible'); } // Optional: remove on scroll up
                 });
             };
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
@@ -911,44 +696,40 @@
             // --- Modal Functions ---
             function openModal(modalElement) {
                  if (!modalElement) return;
-                 modalElement.classList.add('show'); // This triggers the CSS transition
+                 modalElement.classList.add('show');
                  document.body.style.overflow = 'hidden';
                  const focusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-                 if (focusable) setTimeout(() => focusable.focus(), 50);
+                 if (focusable) setTimeout(() => { try { focusable.focus(); } catch(e){} }, 50);
             }
 
             function closeModal(modalElement) {
                 if (!modalElement || !modalElement.classList.contains('show')) return;
-                 // Animate out
                  modalElement.style.opacity = '0';
                  const content = modalElement.querySelector('.modal-content');
                  if (content) content.style.transform = 'scale(0.95)';
-
-                 setTimeout(() => { // Wait for CSS animation
+                 setTimeout(() => {
                     modalElement.classList.remove('show');
                     document.body.style.overflow = '';
-                    modalElement.style.opacity = ''; // Reset for next time
+                    modalElement.style.opacity = '';
                     if (content) content.style.transform = '';
-
-                    // Cleanup specific modals
                     if (modalElement === pdfModal) {
                         pdfViewer.src = 'about:blank';
                         if (currentPdfBlobUrl) { URL.revokeObjectURL(currentPdfBlobUrl); currentPdfBlobUrl = null; }
                     }
                     if (modalElement === imageModal) {
                         currentProjectData = null;
-                        slideImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Clear image
+                        slideImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
                     }
-                 }, 300); // Match CSS --transition-speed (0.3s)
+                 }, 300);
             }
 
             // --- Slideshow Functions ---
             function showSlide(slideNumber) {
-                 if (!currentProjectData) return;
+                 if (!currentProjectData || !slideImage || !slideCounter) return;
                  currentSlide = ((slideNumber - 1 + currentProjectData.totalSlides) % currentProjectData.totalSlides) + 1;
                  const imageUrl = `${currentProjectData.prefix}${currentSlide}.${currentProjectData.extension}`;
                  slideImage.src = imageUrl;
-                 slideImage.alt = `Project image ${currentSlide} of ${currentProjectData.totalSlides}`; // Better alt text
+                 slideImage.alt = `Project image ${currentSlide} of ${currentProjectData.totalSlides}`;
                  slideCounter.textContent = `${currentSlide} / ${currentProjectData.totalSlides}`;
                  const rotation = currentProjectData.rotations?.[currentSlide] ?? 0;
                  slideImage.style.transform = `rotate(${rotation}deg)`;
@@ -962,64 +743,89 @@
                 if(modal) modal.addEventListener('click', e => (e.target === modal) && closeModal(modal));
             });
 
-            // Project Interactions (Title and Image Clicks using data-project-id)
+            // *** Project Click Handler (Handles PDF vs Slideshow) ***
             document.querySelectorAll('[data-project-id]').forEach(element => {
-                element.addEventListener('click', function() {
+                element.addEventListener('click', function(event) {
                     const projectId = this.getAttribute('data-project-id');
-                    if (projectId === 'physiball') {
-                        // ORIGINAL Relative Path for fetch
-                        const pdfPath = './physiball/Physiballs handover.pdf'; // Watch out for spaces in names! Encode?
+                    const isTitleClick = this.tagName === 'H3';
+                    const isImageClick = this.classList.contains('project-image');
+
+                    let pdfPath = null;
+                    // Define PDF Triggers (Only on Title Click)
+                    if (isTitleClick) {
+                        if (projectId === 'physiball') {
+                            // Use encodeURIComponent for safety with filenames containing spaces
+                            pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
+                        } else if (projectId === 'drake-music-project') {
+                            pdfPath = './drake-music/drake-music-handover.pdf';
+                        }
+                    }
+
+                    // Action Logic
+                    if (pdfPath) { // If a PDF path was set (meaning a relevant title was clicked)
+                        event.preventDefault();
+                        if (!pdfModal || !pdfViewer) return;
+
                         pdfViewer.src = 'about:blank';
                         if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl);
+
+                        // Use the pdfPath directly for fetch
                         fetch(pdfPath)
-                            .then(r => r.ok ? r.blob() : Promise.reject(`Fetch Error: ${r.statusText}`))
+                            .then(response => {
+                                if (!response.ok) throw new Error(`Fetch Error: ${response.status} for ${pdfPath}`);
+                                return response.blob();
+                            })
                             .then(blob => {
                                 currentPdfBlobUrl = URL.createObjectURL(blob);
                                 pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0";
                                 openModal(pdfModal);
                             }).catch(err => {
                                 console.error("PDF Blob Error:", err);
-                                pdfViewer.src = pdfPath; // Fallback
+                                pdfViewer.src = pdfPath; // Fallback to direct path
                                 openModal(pdfModal);
                             });
-                    } else if (slideshowData[projectId]) {
-                        currentProjectData = slideshowData[projectId];
-                        showSlide(1);
-                        openModal(imageModal);
+                    } else if (slideshowData[projectId] && isImageClick) {
+                        // Trigger slideshow ONLY if the IMAGE container was clicked
+                        event.preventDefault();
+                         if (!imageModal) return;
+                         currentProjectData = slideshowData[projectId];
+                         showSlide(1);
+                         openModal(imageModal);
                     }
                 });
             });
+            // *** END Project Click Handler ***
+
 
             if (prevBtn) prevBtn.addEventListener('click', prevSlide);
             if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
             document.addEventListener('keydown', function(e) {
                  if (e.key === "Escape") [pdfModal, imageModal, publicationsModal].forEach(closeModal);
-                 if (imageModal?.classList.contains('show')) { // Check if modal exists and is shown
+                 if (imageModal?.classList.contains('show')) {
                      if (e.key === "ArrowLeft") prevSlide();
                      else if (e.key === "ArrowRight") nextSlide();
                  }
             });
 
             // Hamburger Menu
-            if (hamburgerMenu && mobileNavPanel) {
-                hamburgerMenu.addEventListener('click', () => {
-                    const isActive = hamburgerMenu.classList.toggle('active');
-                    mobileNavPanel.classList.toggle('active');
-                    document.body.style.overflow = isActive ? 'hidden' : '';
-                });
-            }
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    hamburgerMenu.classList.remove('active');
-                    mobileNavPanel.classList.remove('active');
-                    document.body.style.overflow = '';
-                    if (link.id === 'publications-link-mobile') {
-                         e.preventDefault(); openPublicationsModal();
-                    }
-                    // Smooth scroll for internal links is handled by CSS
-                });
-            });
+             if (hamburgerMenu && mobileNavPanel) {
+                 hamburgerMenu.addEventListener('click', () => {
+                     const isActive = hamburgerMenu.classList.toggle('active');
+                     mobileNavPanel.classList.toggle('active');
+                     document.body.style.overflow = isActive ? 'hidden' : '';
+                 });
+             }
+             mobileNavLinks.forEach(link => {
+                 link.addEventListener('click', (e) => {
+                     if(hamburgerMenu) hamburgerMenu.classList.remove('active');
+                     if(mobileNavPanel) mobileNavPanel.classList.remove('active');
+                     document.body.style.overflow = '';
+                     if (link.id === 'publications-link-mobile') {
+                          e.preventDefault(); openPublicationsModal();
+                     }
+                 });
+             });
 
             // Publications Modal
             function populatePublications() {
@@ -1035,14 +841,13 @@
                      publicationsGrid.appendChild(item);
                  });
             }
-            function openPublicationsModal() { populatePublications(); openModal(publicationsModal); }
+            function openPublicationsModal() { if(publicationsModal) { populatePublications(); openModal(publicationsModal); } }
             if (publicationsLink) publicationsLink.addEventListener('click', (e) => { e.preventDefault(); openPublicationsModal(); });
-
 
             // Scroll to Top Button
             if (scrollToTopBtn) {
                 window.addEventListener('scroll', () => {
-                    scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400);
+                    if (scrollToTopBtn) { scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400); }
                 }, { passive: true });
                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             }
