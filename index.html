@@ -10,7 +10,7 @@
 
     <!-- Meta Tags -->
     <meta name="google-site-verification" content="szIijqrxQEsLWXIrwuJbHtxVO9S89fY_LqPvIVzHqd4" />
-    <!-- Adjusted CSP - Ensure fonts/styles from Google are allowed -->
+    <!-- Adjusted CSP slightly to allow external resources if needed, but prioritize self -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; frame-src 'self' blob: https://vimeo.com; object-src 'self' blob:;">
     <meta name="description" content="Abdelati Zelbane's portfolio showcasing projects in Design Engineering and Mechatronics.">
     <title>ABDELATI ZELBANE - DESIGN ENGINEERING MECHATRONICS</title>
@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Embedded MODERNIZED CSS -->
+    <!-- Embedded MODERNIZED CSS (Copied from the working version) -->
     <style>
         /* --- CSS Variables --- */
         :root {
@@ -107,7 +107,7 @@
             box-shadow: -5px 0 20px var(--shadow-color); transition: right 0.4s ease-in-out;
             z-index: 1000; flex-direction: column; gap: 15px; overflow-y: auto;
         }
-        .mobile-nav-panel.active { display: flex; right: 0; } /* Corrected to use display: flex */
+        .mobile-nav-panel.active { display: flex; right: 0; } /* Use flex to show */
         .mobile-nav-panel a {
             color: var(--text-secondary); font-weight: 600; font-size: 1.1rem;
             padding: 12px 0; border-bottom: 1px solid var(--border-color);
@@ -183,7 +183,7 @@
         .project-info h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--text-primary); font-weight: 700; cursor: pointer; transition: color var(--transition-speed) var(--transition-timing); }
         .project-info h3:hover { color: var(--accent-primary); }
         .project-info .description { color: var(--text-secondary); margin-bottom: 20px; flex-grow: 1; font-size: 0.95rem; }
-        .project-info > p { color: var(--text-secondary); margin-bottom: 15px; } /* Support original direct P */
+        .project-info > p { color: var(--text-secondary); margin-bottom: 15px; } /* Support direct P */
         .project-info .description p { margin-bottom: 12px; }
         .project-info .description p:last-child { margin-bottom: 0; }
         .project-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 15px; margin-bottom: 15px; }
@@ -199,7 +199,7 @@
             color: var(--text-secondary); background-color: transparent;
             transition: all var(--transition-speed) var(--transition-timing);
         }
-        .project-links a:hover { background-color: var(--accent-primary); border-color: var(--accent-primary); color: white; transform: translateY(-2px); text-decoration: none; }
+         .project-links a:hover { background-color: var(--accent-primary); border-color: var(--accent-primary); color: white; transform: translateY(-2px); text-decoration: none; }
 
         /* --- Contact Section --- */
         .contact { background-color: var(--bg-dark); }
@@ -247,7 +247,7 @@
         }
         .modal.show .modal-content { transform: scale(1); }
         /* PDF Modal */
-        .pdf-modal .modal-content { width: 90%; height: 90%; margin: 0; } /* Maintain specific PDF modal size */
+        .pdf-modal .modal-content { width: 90%; height: 90%; margin: 0; }
         .pdf-modal iframe { flex-grow: 1; border: none; width: 100%; height: 100%;}
         /* Image Slideshow */
         .image-modal .modal-content { background-color: transparent; box-shadow: none; width: auto; height: auto; overflow: visible;}
@@ -327,6 +327,7 @@
              .whatsapp-chat { width: 50px; height: 50px; bottom: 15px; left: 15px;}
              .whatsapp-icon svg { width: 24px; height: 24px; } .whatsapp-chat .tooltip { display: none; }
         }
+
     </style>
 </head>
 <body>
@@ -389,8 +390,111 @@
             <h2 class="section-title">My Projects</h2>
             <div class="projects-grid">
 
-                <!-- === NEW PROJECT: DRAKE MUSIC === -->
                 <div class="project-card reveal">
+                    <div class="project-image" data-project-id="wjet">
+                        <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="wjet-machine" data-project-id="wjet">WATER-JET RETREADING MACHINE</h3>
+                        <div class="description">
+                            <p>Powered by Rover Research’s groundbreaking patented technology, this state-of-the-art machine is engineered for high-efficiency retreading of R22.5 tires while minimizing energy consumption. Operating on a closed-loop water cycle, it continuously recirculates H₂O into the high-pressure main water pump, ensuring sustainability and performance optimization.</p>
+                            <p>With a processing capacity exceeding 4 tires/ hour, it offers precise adjustability, allowing for customized devulcanization to meet specific performance and quality requirements. Furthermore, the WJet MAchine generates exceptionally fine devulcanized rubber powder at a micron scale, paving the way for innovative applications in sustainable material reuse and advanced manufacturing.</p>
+                        </div>
+                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span><span class="tag">Sustainability</span></div>
+                        <div class="project-links"><a href="https://vimeo.com/1068594323" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal delay-100">
+                    <div class="project-image">
+                        <img src="./dry/DryMachine.jpeg" alt="DryMachine">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="dry-machine">DRY MACHINE</h3>
+                        <div class="description">
+                            <p>The Dry Machine operates in perfect synchronization with the WJet Tire Retreading Machine and is specifically engineered to efficiently dry the tire at the end of the WJet Tire Retreading Machine treatment.</p>
+                            <p>Designed for maximum efficiency, it minimizes the overall cycle time, ensuring the tire is fully prepared for the next stage—the application of new rubber coating.</p>
+                            <p>The system consists of a rotating spindle and a series of specialized drying lamps strategically placed inside the cabin, optimized to function with a minimum of 4 and a maximum of 9 lamps.With a cycle time of 12 to 15 minutes, it guarantees the complete elimination of H₂O, ensuring the tire is perfectly conditioned for subsequent processing.</p>
+                        </div>
+                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal delay-200">
+                    <div class="project-image" data-project-id="crs">
+                        <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="crs-robot" data-project-id="crs">CRS INDUSTRIAL ROBOT</h3>
+                         <div class="description">
+                            <p>This project tackles the challenge of high-precision pick-and-place operations in a dynamic simulated industrial environment. The CRS robot is designed to identify, handle, and accurately position diverse objects, adapting seamlessly to variations in shape, material, and fragility. It represents a fusion of advanced hardware and intelligent software, pushing the boundaries of industrial automation to ensure consistent and reliable performance.</p>
+                         </div>
+                        <div class="project-tags"><span class="tag">Robotics</span><span class="tag">Automation</span><span class="tag">Computer Vision</span><span class="tag">Mechatronics</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-image" data-project-id="violin">
+                        <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="violin-bot-player" data-project-id="violin">VIOLIN-BOT-PLAYER</h3>
+                         <div class="description">
+                            <p>Violin-Bot_Player is an innovative and programmable machine that masterfully plays the violin. Its design focuses on optimizing both the bowing and fingering systems. Various approaches were evaluated to achieve a smooth and harmonious bowing technique, culminating in a design that produces a rich, expressive sound. Similarly, the fingering system employs an array of push-type solenoids that mimic the delicate touch of a skilled violinist. With fixed distances maintained between solenoids to ensure accuracy, the entire configuration can shift seamlessly along the fingerboard to articulate intermediary notes, effectively covering at least the first full octave on each string.</p>
+                        </div>
+                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Music Technology</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal delay-100">
+                    <div class="project-image" data-project-id="helicopter">
+                        <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="helicopter-project" data-project-id="helicopter">PID 1DOF HELICOPTER</h3>
+                         <div class="description">
+                             <p>Me and my colleague Abend Eduardo have been asked to design, prototype and build a one degree of freedom helicopter in order to study and analyze the PID control theory. This is the brief of the project given to us from Dr Payam Rahmdel: One degree of freedom helicopter control system design.</p>
+                             <p>After 4 months of hard work, we successfully created a fully functional 1DOF helicopter platform that demonstrates precise control through PID implementation. The system features real-time feedback mechanisms, custom-built mechanical components, and sophisticated control algorithms that allow for stable hovering and position control despite external disturbances.</p>
+                         </div>
+                        <div class="project-tags"><span class="tag">PID Control</span><span class="tag">Mechatronics</span><span class="tag">Control Systems</span><span class="tag">Prototyping</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal delay-200">
+                    <div class="project-image" data-project-id="turtle">
+                        <img src="./turtle-cloud/1.webp" alt="TURTLE-CLOUD Logo">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="project-3" data-project-id="turtle">TURTLE-CLOUD</h3>
+                         <div class="description">
+                             <p>A dynamic collaboration between MDX Mechatronics Engineering and Fine Art students, this innovative project seamlessly blends technology with creative expression. Centered around the immersive use of sound and light, the installation features synchronized robotic motion powered by the Robot Operating System (ROS). Engineering precision meets artistic imagination as custom-designed mechatronic systems respond in real time to sensory input, producing choreographed movements enhanced by atmospheric lighting and ambient audio. The result is a living, reactive sculpture that explores the intersection of engineering, art, and human perception — a testament to the power of interdisciplinary innovation.</p>
+                         </div>
+                        <div class="project-tags"><span class="tag">SolidWorks</span><span class="tag">ROS Robotics</span><span class="tag">Arduino</span><span class="tag">Electronics</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-image" data-project-id="rubiks">
+                        <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
+                    </div>
+                    <div class="project-info">
+                        <h3 id="rubiks-cube-project" data-project-id="rubiks">GIANT MECHATRONIC RUBIK'S CUBE</h3>
+                         <div class="description">
+                            <p>An end-of-year University individual project that combines mechanical engineering with software control. I designed and built an autonomous, oversized Rubik's cube controlled through LabVIEW and Arduino.</p>
+                            <p>The challenge was understanding and reproducing the complex mechanism that allows rotation on three different axes. I designed a larger core component based on the intersection of three axes, each allowing freedom of rotation at both ends. This project required extensive mathematical calculations and precise mechanical design to ensure smooth operation.</p>
+                        </div>
+                        <div class="project-tags"><span class="tag">LabVIEW</span><span class="tag">Arduino</span><span class="tag">Mechanical Design</span><span class="tag">3D Modeling</span></div>
+                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+                    </div>
+                </div>
+
+                 <!-- === NEW PROJECT: DRAKE MUSIC (Inserted before Physiball) === -->
+                 <div class="project-card reveal delay-100">
                     <div class="project-image" data-project-id="drake-music-project">
                         <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors">
                     </div>
@@ -416,118 +520,15 @@
                 </div>
                 <!-- === END NEW PROJECT === -->
 
-                <div class="project-card reveal delay-100">
-                    <div class="project-image" data-project-id="wjet">
-                        <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="wjet-machine" data-project-id="wjet">WATER-JET RETREADING MACHINE</h3>
-                        <div class="description">
-                            <p>Powered by Rover Research’s groundbreaking patented technology...</p>
-                            <p>With a processing capacity exceeding 4 tires/ hour...</p>
-                        </div>
-                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span><span class="tag">Sustainability</span></div>
-                        <div class="project-links"><a href="https://vimeo.com/1068594323" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-                    </div>
-                </div>
-
                 <div class="project-card reveal delay-200">
-                    <div class="project-image">
-                        <img src="./dry/DryMachine.jpeg" alt="DryMachine">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="dry-machine">DRY MACHINE</h3>
-                        <div class="description">
-                            <p>The Dry Machine operates in perfect synchronization...</p>
-                            <p>Designed for maximum efficiency...</p>
-                            <p>The system consists of a rotating spindle...</p>
-                        </div>
-                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span></div>
-                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal">
-                    <div class="project-image" data-project-id="crs">
-                        <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="crs-robot" data-project-id="crs">CRS INDUSTRIAL ROBOT</h3>
-                         <div class="description">
-                            <p>This project tackles the challenge of high-precision pick-and-place...</p>
-                         </div>
-                        <div class="project-tags"><span class="tag">Robotics</span><span class="tag">Automation</span><span class="tag">Computer Vision</span><span class="tag">Mechatronics</span></div>
-                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal delay-100">
-                    <div class="project-image" data-project-id="violin">
-                        <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="violin-bot-player" data-project-id="violin">VIOLIN-BOT-PLAYER</h3>
-                         <div class="description">
-                            <p>Violin-Bot_Player is an innovative and programmable machine...</p>
-                        </div>
-                        <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Music Technology</span></div>
-                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal delay-200">
-                    <div class="project-image" data-project-id="helicopter">
-                        <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="helicopter-project" data-project-id="helicopter">PID 1DOF HELICOPTER</h3>
-                         <div class="description">
-                             <p>Me and my colleague Abend Eduardo have been asked...</p>
-                             <p>After 4 months of hard work...</p>
-                         </div>
-                        <div class="project-tags"><span class="tag">PID Control</span><span class="tag">Mechatronics</span><span class="tag">Control Systems</span><span class="tag">Prototyping</span></div>
-                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal">
-                    <div class="project-image" data-project-id="turtle">
-                        <img src="./turtle-cloud/1.webp" alt="TURTLE-CLOUD Logo">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="project-3" data-project-id="turtle">TURTLE-CLOUD</h3>
-                         <div class="description">
-                             <p>A dynamic collaboration between MDX Mechatronics Engineering...</p>
-                         </div>
-                        <div class="project-tags"><span class="tag">SolidWorks</span><span class="tag">ROS Robotics</span><span class="tag">Arduino</span><span class="tag">Electronics</span></div>
-                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal delay-100">
-                    <div class="project-image" data-project-id="rubiks">
-                        <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="rubiks-cube-project" data-project-id="rubiks">GIANT MECHATRONIC RUBIK'S CUBE</h3>
-                         <div class="description">
-                            <p>An end-of-year University individual project...</p>
-                            <p>The challenge was understanding...</p>
-                        </div>
-                        <div class="project-tags"><span class="tag">LabVIEW</span><span class="tag">Arduino</span><span class="tag">Mechanical Design</span><span class="tag">3D Modeling</span></div>
-                        <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal delay-200">
-                    <div class="project-image"> <!-- No trigger for PDF on image -->
+                    <div class="project-image"> <!-- No data-project-id for PDF trigger -->
                         <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
                     </div>
                     <div class="project-info">
                         <h3 id="physiball-project" data-project-id="physiball">PHYSIBALL</h3>
                          <div class="description">
-                             <p>The PHYSIBALL is a fully functional, wireless...</p>
-                             <p>Using Jeenode modules instead of Bluetooth...</p>
+                             <p>The PHYSIBALL is a fully functional, wireless tennis-ball-size that transmits and visualizes data in real-time. Battery-powered for mobility or USB-connected for analysis, it can also function as an active sensor in other equipment. The system outputs raw data, calibrated measurements, or yaw/pitch/roll values with customizable visualization graphs (size, quantity, colors).</p>
+                             <p>Using Jeenode modules instead of Bluetooth eliminates pairing requirements, enhancing communication reliability. Testing revealed signal integrity up to 30 meters indoors, even through walls and amid electronic interference.</p>
                          </div>
                         <div class="project-tags"><span class="tag">Wireless</span><span class="tag">Sensors</span><span class="tag">Data Visualization</span><span class="tag">JeeNode</span></div>
                         <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
@@ -578,7 +579,8 @@
                 <a href="https://github.com/h34rtb34t" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://www.linkedin.com/in/ade-zelbane" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
-            <p class="footer-text">© <span id="current-year">2025</span> ABDELATI ZELBANE. Crafted with Code & Curiosity.</p>
+             <!-- Corrected typo -->
+            <p class="footer-text">© <span id="current-year">2025</span> AZ87. Crafted with Passion & Curiosity.</p>
         </div>
     </footer>
 
@@ -644,7 +646,7 @@
             // --- Slideshow Data (Using ORIGINAL Relative Paths) ---
             const slideshowData = {
                 // ADDED Drake Music Project
-                'drake-music-project': { totalSlides: 15, prefix: './drake-music/', extension: 'png' }, // Added new project slideshow data
+                'drake-music-project': { totalSlides: 15, prefix: './drake-music/', extension: 'png' },
                 // Existing Projects
                 rubiks:     { totalSlides: 16, prefix: './Rubiks_cube/',         extension: 'webp', rotations: { 1: -90, 3: -90, 5: -90 } },
                 turtle:     { totalSlides: 27, prefix: './turtle-cloud/',        extension: 'webp' },
@@ -662,6 +664,7 @@
                 { title: "1DoF PID Control Helicopter", filePath: "./PID.pdf" },
                 { title: "MDXaz87Thesis",             filePath: "./MDXaz87Thesis.pdf" },
                 // Physiball handover is now triggered by its own project title click
+                // Removed this to avoid duplication:
                 // { title: "Physiball Handover",        filePath: "./physiball/Physiballs handover.pdf" },
                 // Drake Music PDF is triggered by its own project title click
              ];
@@ -685,13 +688,11 @@
                         entry.target.classList.add('visible');
                         // observer.unobserve(entry.target); // Optional: Keep observing or unobserve
                     }
-                    // else { entry.target.classList.remove('visible'); } // Optional: remove on scroll up
                 });
             };
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
             const observer = new IntersectionObserver(handleIntersection, observerOptions);
             revealElements.forEach(el => observer.observe(el));
-
 
             // --- Modal Functions ---
             function openModal(modalElement) {
@@ -699,7 +700,7 @@
                  modalElement.classList.add('show');
                  document.body.style.overflow = 'hidden';
                  const focusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-                 if (focusable) setTimeout(() => { try { focusable.focus(); } catch(e){} }, 50); // Add try-catch for robustness
+                 if (focusable) setTimeout(() => { try { focusable.focus(); } catch(e){} }, 50);
             }
 
             function closeModal(modalElement) {
@@ -707,13 +708,11 @@
                  modalElement.style.opacity = '0';
                  const content = modalElement.querySelector('.modal-content');
                  if (content) content.style.transform = 'scale(0.95)';
-
                  setTimeout(() => {
                     modalElement.classList.remove('show');
                     document.body.style.overflow = '';
                     modalElement.style.opacity = '';
                     if (content) content.style.transform = '';
-
                     if (modalElement === pdfModal) {
                         pdfViewer.src = 'about:blank';
                         if (currentPdfBlobUrl) { URL.revokeObjectURL(currentPdfBlobUrl); currentPdfBlobUrl = null; }
@@ -727,7 +726,7 @@
 
             // --- Slideshow Functions ---
             function showSlide(slideNumber) {
-                 if (!currentProjectData || !slideImage || !slideCounter) return; // Added checks
+                 if (!currentProjectData || !slideImage || !slideCounter) return;
                  currentSlide = ((slideNumber - 1 + currentProjectData.totalSlides) % currentProjectData.totalSlides) + 1;
                  const imageUrl = `${currentProjectData.prefix}${currentSlide}.${currentProjectData.extension}`;
                  slideImage.src = imageUrl;
@@ -745,57 +744,56 @@
                 if(modal) modal.addEventListener('click', e => (e.target === modal) && closeModal(modal));
             });
 
-            // *** UPDATED Project Click Handler ***
+            // *** Project Click Handler (Handles PDF vs Slideshow) ***
             document.querySelectorAll('[data-project-id]').forEach(element => {
-                element.addEventListener('click', function(event) { // Pass event
+                element.addEventListener('click', function(event) {
                     const projectId = this.getAttribute('data-project-id');
                     const isTitleClick = this.tagName === 'H3';
                     const isImageClick = this.classList.contains('project-image');
 
-                    // --- PDF Modal Trigger ---
-                    if (isTitleClick && (projectId === 'physiball' || projectId === 'drake-music-project')) {
-                        event.preventDefault(); // Prevent potential link navigation if H3 is inside an A tag (it isn't here, but good practice)
-                        const pdfPath = (projectId === 'physiball')
-                            ? './physiball/Physiballs handover.pdf' // Note space in filename
-                            : './drake-music/drake-music-handover.pdf';
+                    let pdfPath = null;
+                    // --- Define PDF Triggers (Only on Title Click) ---
+                    if (isTitleClick) {
+                        if (projectId === 'physiball') {
+                            pdfPath = './physiball/Physiballs handover.pdf'; // Check space in filename
+                        } else if (projectId === 'drake-music-project') {
+                            pdfPath = './drake-music/drake-music-handover.pdf';
+                        }
+                    }
 
-                        if (!pdfModal || !pdfViewer) return; // Check if elements exist
+                    // --- Action Logic ---
+                    if (pdfPath) { // If a PDF path was set (meaning a relevant title was clicked)
+                        event.preventDefault();
+                        if (!pdfModal || !pdfViewer) return;
 
-                        pdfViewer.src = 'about:blank'; // Clear previous src
-                        if (currentPdfBlobUrl) { URL.revokeObjectURL(currentPdfBlobUrl); currentPdfBlobUrl = null; }
+                        pdfViewer.src = 'about:blank';
+                        if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl);
 
                         fetch(pdfPath)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error(`Network response was not ok for ${pdfPath}. Status: ${response.status}`);
-                                }
-                                return response.blob();
-                            })
+                            .then(r => r.ok ? r.blob() : Promise.reject(`Fetch Error: ${r.status} for ${pdfPath}`))
                             .then(blob => {
                                 currentPdfBlobUrl = URL.createObjectURL(blob);
                                 pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0";
                                 openModal(pdfModal);
                             }).catch(err => {
-                                console.error("PDF Blob Error:", err, "Attempting fallback for path:", pdfPath);
-                                // Fallback: Try direct path, but might be blocked by browser security
-                                pdfViewer.src = pdfPath;
+                                console.error("PDF Blob Error:", err);
+                                pdfViewer.src = pdfPath; // Fallback
                                 openModal(pdfModal);
                             });
-                    }
-                    // --- Slideshow Modal Trigger ---
-                    // Trigger if IMAGE is clicked OR if TITLE is clicked for a project that HAS slideshow data
-                    // and is NOT one of the PDF trigger projects.
-                    else if (slideshowData[projectId] && (isImageClick || (isTitleClick && projectId !== 'physiball' && projectId !== 'drake-music-project'))) {
-                         event.preventDefault(); // Prevent potential link navigation
-                         if (!imageModal) return; // Check if modal exists
+                    } else if (slideshowData[projectId] && isImageClick) {
+                        // Trigger slideshow ONLY if the IMAGE container was clicked for a project with slideshow data
+                        event.preventDefault();
+                         if (!imageModal) return;
                          currentProjectData = slideshowData[projectId];
                          showSlide(1);
                          openModal(imageModal);
                     }
-                    // If it's just a title click without a special action, let default browser behavior (if any) happen
+                    // If only title was clicked for a slideshow project (and not a PDF project), do nothing extra
+                    // If an element without a special trigger was clicked, do nothing extra
                 });
             });
-            // *** END UPDATED Handler ***
+            // *** END Project Click Handler ***
+
 
             if (prevBtn) prevBtn.addEventListener('click', prevSlide);
             if (nextBtn) nextBtn.addEventListener('click', nextSlide);
@@ -809,7 +807,7 @@
             });
 
             // Hamburger Menu
-            if (hamburgerMenu && mobileNavPanel) {
+             if (hamburgerMenu && mobileNavPanel) {
                  hamburgerMenu.addEventListener('click', () => {
                      const isActive = hamburgerMenu.classList.toggle('active');
                      mobileNavPanel.classList.toggle('active');
@@ -818,27 +816,11 @@
              }
              mobileNavLinks.forEach(link => {
                  link.addEventListener('click', (e) => {
-                     // Close menu first
                      if(hamburgerMenu) hamburgerMenu.classList.remove('active');
                      if(mobileNavPanel) mobileNavPanel.classList.remove('active');
                      document.body.style.overflow = '';
-
-                     // Handle specific links
                      if (link.id === 'publications-link-mobile') {
-                          e.preventDefault(); // Prevent '#' navigation
-                          openPublicationsModal();
-                     } else {
-                         // For internal # links, ensure smooth scroll works after closing menu
-                         const targetId = link.getAttribute('href');
-                         if (targetId && targetId.startsWith('#')) {
-                             const targetElement = document.querySelector(targetId);
-                             if (targetElement) {
-                                 // Optional: slightly delay scroll to ensure menu is hidden visually first
-                                 // setTimeout(() => {
-                                 //    targetElement.scrollIntoView({ behavior: 'smooth' });
-                                 // }, 50);
-                             }
-                         }
+                          e.preventDefault(); openPublicationsModal();
                      }
                  });
              });
@@ -863,9 +845,7 @@
             // Scroll to Top Button
             if (scrollToTopBtn) {
                 window.addEventListener('scroll', () => {
-                    if (scrollToTopBtn) { // Extra check inside listener
-                       scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400);
-                    }
+                    if (scrollToTopBtn) { scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400); }
                 }, { passive: true });
                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             }
