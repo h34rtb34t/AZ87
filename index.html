@@ -390,7 +390,7 @@
             <h2 class="section-title">My Projects</h2>
             <div class="projects-grid">
 
-                <!-- Project Order: Wjet, Dry, CRS, Violin, Helicopter, Turtle, Rubiks, Drake, Physiball -->
+                <!-- Project Order: Wjet, Dry, CRS, Violin, Helicopter, Turtle, Rubiks, Drake, Clock, Physiball -->
 
                 <div class="project-card reveal">
                     <div class="project-image" data-project-id="wjet">
@@ -495,8 +495,8 @@
                     </div>
                 </div>
 
-                <!-- === DRAKE MUSIC PROJECT (Moved here) === -->
-                 <div class="project-card reveal delay-100"> <!-- Adjusted delay -->
+                <!-- === DRAKE MUSIC PROJECT === -->
+                 <div class="project-card reveal delay-100">
                     <div class="project-image" data-project-id="drake-music-project">
                         <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors">
                     </div>
@@ -505,10 +505,7 @@
                         <div class="description">
                              <p>I led the development of an innovative interactive musical interface designed to overcome conventional technological limitations and support personalized creative expression for individuals with physical disabilities. This project centered around the design and creation of an adaptive musical soccer ball, inspired by the unique aspirations of a person whose love for music and football transcended her physical constraints.</p>
                              <p>Using Arduino technology and carefully placed force-sensitive resistors within a solid core, the ball was engineered to convert physical pressure into expressive musical output. Each segment of the standard size 3 soccer ball functions as a dynamic trigger, with variations in applied pressure influencing pitch and scale. The result is a tactile, intuitive interface that enables rich musical interaction through minimal physical input.</p>
-                             <!--<p>This custom-designed instrument integrates seamlessly with MIDI output, allowing the user to generate melodic sequences through natural movement and touch. The system combines precise sensor mapping, real-time pitch modulation, and direct audio output to deliver a uniquely accessible and emotionally resonant experience.</p> -->
-                             <!-- Removed the specific paragraph as requested -->
-                             <!-- <p>The project reflects the power of adaptive technology...</p> -->
-                        </div> <!-- Closing div verified to be correct -->
+                        </div>
                         <div class="project-tags">
                             <span class="tag">Arduino</span>
                             <span class="tag">FastPrototyping</span>
@@ -523,8 +520,8 @@
                 </div>
                 <!-- === END DRAKE MUSIC === -->
 
-                                <!-- === MECHANICAL CLOCK PROJECT === -->
-                <div class="project-card reveal delay-200"> <!-- Added delay-200 -->
+                <!-- === MECHANICAL CLOCK PROJECT === -->
+                <div class="project-card reveal delay-200">
                     <div class="project-image" data-project-id="clock">
                         <img src="./clock/logo.png" alt="Mechanical Geared Wooden Clock">
                     </div>
@@ -547,16 +544,8 @@
                 </div>
                 <!-- === END MECHANICAL CLOCK === -->
 
-                <!-- Existing PHYSIBALL Project Card (Keep its delay as delay-200 or adjust if needed visually) -->
-                <div class="project-card reveal delay-200">
-                    <div class="project-image"> <!-- No trigger for PDF on image -->
-                        <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
-                    </div>
-                    <div class="project-info">
-                        <h3 id="physiball-project" data-project-id="physiball">PHYSIBALL</h3>
-                        <!-- ... rest of Physiball card ... -->
-
-                <div class="project-card reveal delay-200"> <!-- Adjusted delay -->
+                <!-- === PHYSIBALL Project Card === -->
+                <div class="project-card reveal delay-300"> <!-- Adjusted delay for cascade -->
                     <div class="project-image"> <!-- No trigger for PDF on image -->
                         <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
                     </div>
@@ -567,12 +556,13 @@
                              <p>Battery-powered for mobility or USB-connected for analysis, it can also function as an active sensor in other equipment.</p>
                              <p>The system outputs raw data, calibrated measurements, or yaw/pitch/roll values with customizable visualization graphs (size, quantity, colors).</p>
                              <p>Using Jeenode modules instead of Bluetooth eliminates pairing requirements, enhancing communication reliability.</p>
-                             <p>Testing revealed signal integrity up to 30 meters indoors, even through walls and amid electronic interference.</p>                          
+                             <p>Testing revealed signal integrity up to 30 meters indoors, even through walls and amid electronic interference.</p>
                          </div>
                         <div class="project-tags"><span class="tag">Wireless</span><span class="tag">Sensors</span><span class="tag">Data Visualization</span><span class="tag">JeeNode</span></div>
                         <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
+                <!-- === END PHYSIBALL === -->
 
             </div> <!-- End projects-grid -->
         </div>
@@ -598,6 +588,7 @@
                         <input type="text" name="_honey" style="display:none">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_domain" value="h34rtb34t.github.io">
+                        <!-- Corrected _next path if needed, assuming abdelatizelbane is the repo name -->
                         <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html">
                         <input type="hidden" name="_subject" value="New submission from portfolio!">
                         <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" class="form-control" required></div>
@@ -682,27 +673,12 @@
             const closeModalBtns = document.querySelectorAll('[data-close-modal]');
             const revealElements = document.querySelectorAll('.reveal');
 
-            // --- Slideshow Data (Using ORIGINAL Relative Paths) ---
-            const slideshowData = {
-                            // --- Slideshow Data (Using ORIGINAL Relative Paths) ---
+            // --- Slideshow Data (Using ORIGINAL Relative Paths) --- CORRECTED
             const slideshowData = {
                 // ADDED Drake Music Project
                 'drake-music-project': { totalSlides: 15, prefix: './drake-music/', extension: 'png' },
-                // *** ADD THIS LINE ***
+                // Added Clock Project
                 'clock':               { totalSlides: 1,  prefix: './clock/',        extension: 'png' },
-                // Existing Projects
-                rubiks:     { totalSlides: 16, prefix: './Rubiks_cube/',         extension: 'webp', rotations: { 1: -90, 3: -90, 5: -90 } },
-                turtle:     { totalSlides: 27, prefix: './turtle-cloud/',        extension: 'webp' },
-                helicopter: { totalSlides: 32, prefix: './1dof helicopter/',     extension: 'webp', rotations: { 29: -90 } },
-                violin:     { totalSlides: 10, prefix: './violin-bot-player/',   extension: 'jpg' },
-                crs:        { totalSlides: 1,  prefix: './csr robot/',           extension: 'png' }, // Make sure totalSlides is correct
-                wjet:       { totalSlides: 37, prefix: './wjet/',                extension: 'png' }
-            };
-                
-
-                
-                // ADDED Drake Music Project
-                'drake-music-project': { totalSlides: 15, prefix: './drake-music/', extension: 'png' },
                 // Existing Projects
                 rubiks:     { totalSlides: 16, prefix: './Rubiks_cube/',         extension: 'webp', rotations: { 1: -90, 3: -90, 5: -90 } },
                 turtle:     { totalSlides: 27, prefix: './turtle-cloud/',        extension: 'webp' },
@@ -773,23 +749,39 @@
                     if (modalElement === imageModal) {
                         currentProjectData = null;
                         slideImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                        // Ensure slide counter and buttons are reset/hidden for single image modals if needed
+                        if (slideCounter) slideCounter.style.display = 'block'; // Default show
+                        if (prevBtn) prevBtn.style.display = 'block';
+                        if (nextBtn) nextBtn.style.display = 'block';
                     }
                  }, 300);
             }
 
             // --- Slideshow Functions ---
             function showSlide(slideNumber) {
-                 if (!currentProjectData || !slideImage || !slideCounter) return;
+                 if (!currentProjectData || !slideImage || !slideCounter || !prevBtn || !nextBtn) return; // Added checks for buttons
                  currentSlide = ((slideNumber - 1 + currentProjectData.totalSlides) % currentProjectData.totalSlides) + 1;
                  const imageUrl = `${currentProjectData.prefix}${currentSlide}.${currentProjectData.extension}`;
                  slideImage.src = imageUrl;
                  slideImage.alt = `Project image ${currentSlide} of ${currentProjectData.totalSlides}`;
-                 slideCounter.textContent = `${currentSlide} / ${currentProjectData.totalSlides}`;
+
+                 // Handle single-image display (like the clock)
+                 if (currentProjectData.totalSlides === 1) {
+                     slideCounter.style.display = 'none'; // Hide counter
+                     prevBtn.style.display = 'none';      // Hide prev button
+                     nextBtn.style.display = 'none';      // Hide next button
+                 } else {
+                     slideCounter.textContent = `${currentSlide} / ${currentProjectData.totalSlides}`;
+                     slideCounter.style.display = 'block'; // Show counter
+                     prevBtn.style.display = 'block';     // Show prev button
+                     nextBtn.style.display = 'block';     // Show next button
+                 }
+
                  const rotation = currentProjectData.rotations?.[currentSlide] ?? 0;
                  slideImage.style.transform = `rotate(${rotation}deg)`;
             }
-            function nextSlide() { showSlide(currentSlide + 1); }
-            function prevSlide() { showSlide(currentSlide - 1); }
+            function nextSlide() { if (currentProjectData && currentProjectData.totalSlides > 1) showSlide(currentSlide + 1); }
+            function prevSlide() { if (currentProjectData && currentProjectData.totalSlides > 1) showSlide(currentSlide - 1); }
 
             // --- Event Listeners ---
             closeModalBtns.forEach(btn => btn.addEventListener('click', () => closeModal(btn.closest('.modal'))));
@@ -797,7 +789,7 @@
                 if(modal) modal.addEventListener('click', e => (e.target === modal) && closeModal(modal));
             });
 
-                        // *** Project Click Handler (Handles PDF vs Slideshow vs Single Image) ***
+            // *** Project Click Handler (Handles PDF vs Slideshow vs Single Image) *** CORRECTED
             document.querySelectorAll('[data-project-id]').forEach(element => {
                 element.addEventListener('click', function(event) {
                     const projectId = this.getAttribute('data-project-id');
@@ -856,7 +848,7 @@
                         event.preventDefault();
                          if (!imageModal) return;
                          currentProjectData = slideshowData[projectId];
-                         showSlide(1);
+                         showSlide(1); // Reset to first slide for slideshows
                          openModal(imageModal);
                     }
                 });
@@ -885,14 +877,23 @@
              }
              mobileNavLinks.forEach(link => {
                  link.addEventListener('click', (e) => {
-                     if(hamburgerMenu) hamburgerMenu.classList.remove('active');
-                     if(mobileNavPanel) mobileNavPanel.classList.remove('active');
-                     document.body.style.overflow = '';
+                     // Close menu if open
+                     if(hamburgerMenu && hamburgerMenu.classList.contains('active')) {
+                         hamburgerMenu.classList.remove('active');
+                         if(mobileNavPanel) mobileNavPanel.classList.remove('active');
+                         document.body.style.overflow = '';
+                     }
+                     // Special handling for publications link in mobile menu
                      if (link.id === 'publications-link-mobile') {
-                          e.preventDefault(); openPublicationsModal();
+                          e.preventDefault();
+                          openPublicationsModal();
+                     } else {
+                         // Allow normal navigation for other links
+                         // Smooth scrolling is handled by CSS 'scroll-behavior: smooth;'
                      }
                  });
              });
+
 
             // Publications Modal
             function populatePublications() {
@@ -904,6 +905,33 @@
                  publicationsData.forEach(pub => {
                      const item = document.createElement('div'); item.classList.add('publication-item');
                      const link = document.createElement('a'); link.href = pub.filePath; link.textContent = pub.title; link.target = '_blank'; link.rel = 'noopener noreferrer';
+                     // Make publication links open PDF modal instead of new tab
+                     link.addEventListener('click', (e) => {
+                         e.preventDefault();
+                         if (!pdfModal || !pdfViewer) return;
+
+                         const pdfPath = link.getAttribute('href');
+                         pdfViewer.src = 'about:blank'; // Clear previous PDF
+                         if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl); // Revoke old blob URL
+
+                         fetch(pdfPath)
+                             .then(response => {
+                                 if (!response.ok) throw new Error(`Fetch Error: ${response.status} for ${pdfPath}`);
+                                 return response.blob();
+                             })
+                             .then(blob => {
+                                 currentPdfBlobUrl = URL.createObjectURL(blob);
+                                 pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0"; // Use blob URL
+                                 // Close publications modal BEFORE opening PDF modal
+                                 closeModal(publicationsModal);
+                                 setTimeout(() => openModal(pdfModal), 50); // Slight delay may help rendering
+                             }).catch(err => {
+                                 console.error("PDF Blob Error:", err);
+                                 pdfViewer.src = pdfPath; // Fallback to direct path
+                                 closeModal(publicationsModal);
+                                 setTimeout(() => openModal(pdfModal), 50);
+                             });
+                     });
                      item.appendChild(link);
                      publicationsGrid.appendChild(item);
                  });
