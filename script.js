@@ -21,9 +21,8 @@ function trackEvent(eventType, eventData = {}) {
             const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
             navigator.sendBeacon(INGESTION_WORKER_URL, blob);
          } catch (e) {
-            // Fallback to fetch if sendBeacon fails immediately (e.g., data too large, though unlikely here)
             console.error('Beacon error:', e);
-            sendWithFetch(payload);
+            sendWithFetch(payload); // Fallback if immediate error
          }
     } else {
         sendWithFetch(payload);
@@ -42,34 +41,31 @@ function sendWithFetch(payload) {
 }
 
 // --- Track Page View ---
-// This listener should be defined *outside* the main DOMContentLoaded to ensure it runs
 document.addEventListener('DOMContentLoaded', () => {
     trackEvent('pageview');
 });
 
 // --- General Link Click Tracker (Placed outside main DOMContentLoaded) ---
-// This listener is added carefully to avoid interfering with specific modal/project triggers.
 document.addEventListener('click', function(event) {
     const link = event.target.closest('a'); // Find the nearest ancestor anchor tag
 
     if (link && link.href) { // Check if it's a link with an href
+        const href = link.getAttribute('href'); // Get href attribute directly
 
-        // --- Determine if this click's primary action is handled elsewhere (modal open, project click) ---
+        // --- FIX: Explicitly ignore internal page navigation links ---
+        if (href.startsWith('#')) {
+            return; // Do nothing for links like #about, #projects etc.
+        }
+        // --- END FIX ---
 
-        // 1. Is it the main publications link trigger?
+
+        // --- Determine if this click's primary action is handled elsewhere ---
         const isMainNavPubLink = link.id === 'publications-link' || link.id === 'publications-link-mobile';
-
-        // 2. Is it a publication item link (handled inside populatePublications)?
         const isPubItemLink = link.closest('.publication-item') !== null;
-
-        // 3. Is it a project image/title click (handled by the specific project listener)?
-        // Check if the original event target or the link itself is part of a known project trigger
         const isProjectModalTrigger = (event.target.closest('.project-image[data-project-id]') || event.target.closest('h3[data-project-id]'));
 
-
-        // --- Only track here if NOT handled by more specific logic ---
+        // --- Only track here if NOT handled by specific logic AND not an internal anchor ---
         if (!isMainNavPubLink && !isPubItemLink && !isProjectModalTrigger) {
-            const href = link.getAttribute('href');
             let linkType = 'generic_link';
             let context = '';
 
@@ -79,10 +75,9 @@ document.addEventListener('click', function(event) {
                  if (projElement) context = projElement.getAttribute('data-project-id');
             }
 
-            // Determine link type more specifically
-            if (link.closest('.project-links')) linkType = 'project_link'; // Links within project card footer
+            if (link.closest('.project-links')) linkType = 'project_link';
             if (link.closest('.social-links') || link.closest('.contact-links a[href*="linkedin"]') || link.closest('.contact-links a[href*="github"]')) linkType = 'social_contact_link';
-            if (href.includes('github.com') && linkType !== 'social_contact_link') linkType = 'github_link'; // Avoid double-tagging
+            if (href.includes('github.com') && linkType !== 'social_contact_link') linkType = 'github_link';
             if (href.includes('vimeo.com')) linkType = 'video_platform_link';
             if (href.includes('buymeacoffee.com')) linkType = 'donation_link';
             if (href.endsWith('.mp4')) linkType = 'direct_video_link';
@@ -97,8 +92,7 @@ document.addEventListener('click', function(event) {
              });
         }
     }
- }, false); // Use bubbling phase (false) - less likely to interfere than capture
-
+ }, false); // Use bubbling phase
 
 console.log('Basic tracker defined. Main script follows.');
 
@@ -154,10 +148,25 @@ document.addEventListener('DOMContentLoaded', function() {
      ];
 
     // --- Utility ---
-     const isElementInViewport = (el) => { /* ... (original code) ... */ };
+     const isElementInViewport = (el) => {
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+            rect.bottom >= 0 &&
+            rect.right >= 0
+        );
+    };
 
     // --- Intersection Observer ---
-     const handleIntersection = (entries, observer) => { /* ... (original code) ... */ };
+     const handleIntersection = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    };
      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
      const observer = new IntersectionObserver(handleIntersection, observerOptions);
      revealElements.forEach(el => observer.observe(el));
@@ -169,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
          // --- Track Modal Open ---
          let modalType = modalElement.id || 'unknown_modal';
          let modalDetail = '';
-         let context = contextData.projectId || ''; // Use passed project ID if available
+         let context = contextData.projectId || '';
 
          if (modalElement.id === 'imageModal' && currentProjectData) {
              modalType = 'image_modal';
@@ -177,9 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
              context = currentProjectData.prefix.replace(/[.\/]/g, '');
          } else if (modalElement.id === 'pdfModal') {
              modalType = 'pdf_modal';
-             // Use stored original path if available, otherwise use iframe src (might be blob)
              modalDetail = currentPdfOriginalPath || pdfViewer.src;
-             // Try to extract context (e.g., project ID) if passed via contextData
              context = contextData.projectId || contextData.pdfPath || '';
          } else if (modalElement.id === 'publicationsModal') {
              modalType = 'publications_modal';
@@ -187,12 +194,11 @@ document.addEventListener('DOMContentLoaded', function() {
          trackEvent('modal_open', {
              modalId: modalElement.id,
              modalType: modalType,
-             detail: (modalDetail || '').substring(0, 150), // Limit detail length
-             context: String(context).replace(/[.\/]/g, '') // Clean context
+             detail: (modalDetail || '').substring(0, 150),
+             context: String(context).replace(/[.\/]/g, '')
          });
          // --- End Tracking ---
 
-         // --- Original openModal Logic ---
          modalElement.classList.add('show');
          document.body.style.overflow = 'hidden';
          const focusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
@@ -200,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeModal(modalElement) {
-        // --- Original closeModal Logic ---
         if (!modalElement || !modalElement.classList.contains('show')) return;
          modalElement.style.opacity = '0';
          const content = modalElement.querySelector('.modal-content');
@@ -228,8 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Slideshow Functions (with Tracking Integration) ---
     function showSlide(slideNumber) {
          if (!currentProjectData || !slideImage || !slideCounter || !prevBtn || !nextBtn) return;
-
-         // --- Original showSlide Logic ---
          currentSlide = ((slideNumber - 1 + currentProjectData.totalSlides) % currentProjectData.totalSlides) + 1;
          const imageUrl = `${currentProjectData.prefix}${currentSlide}.${currentProjectData.extension}`;
          slideImage.src = imageUrl;
@@ -247,13 +250,11 @@ document.addEventListener('DOMContentLoaded', function() {
          }
          const rotation = currentProjectData.rotations?.[currentSlide] ?? 0;
          slideImage.style.transform = `rotate(${rotation}deg)`;
-         // --- End Original showSlide Logic ---
 
          // --- Track Image View ---
-         // Check modal is actually visible to avoid tracking on initial load before open
          if (imageModal.classList.contains('show')) {
              trackEvent('image_view', {
-                 projectId: currentProjectData.prefix.replace(/[.\/]/g, ''), // Cleaned project ID
+                 projectId: currentProjectData.prefix.replace(/[.\/]/g, ''),
                  slide: currentSlide,
                  totalSlides: currentProjectData.totalSlides,
                  imageUrl: imageUrl
@@ -261,7 +262,6 @@ document.addEventListener('DOMContentLoaded', function() {
          }
          // --- End Tracking ---
     }
-    // --- Original next/prevSlide functions ---
     function nextSlide() { if (currentProjectData && currentProjectData.totalSlides > 1) showSlide(currentSlide + 1); }
     function prevSlide() { if (currentProjectData && currentProjectData.totalSlides > 1) showSlide(currentSlide - 1); }
 
@@ -273,19 +273,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // *** Project Click Handler (Using Original Structure + Tracking) ***
     document.querySelectorAll('[data-project-id]').forEach(element => {
-        // Attach listener to the *element* that has the data-project-id
-        // This assumes the element itself (image or H3) has the attribute, matching original HTML structure
          element.addEventListener('click', function(event) {
 
             const projectId = this.getAttribute('data-project-id');
-            if (!projectId) return; // Exit if no project ID found on clicked element
+            if (!projectId) return;
 
             // --- Track Project Click Intent ---
-            // This fires whenever the image or title with data-project-id is clicked
             trackEvent('project_click', { projectId: projectId });
             // --- End Tracking ---
 
-            // --- Original Logic to determine action ---
             const isTitleClick = this.tagName === 'H3';
             const isImageClick = this.classList.contains('project-image');
 
@@ -293,14 +289,14 @@ document.addEventListener('DOMContentLoaded', function() {
                  event.preventDefault();
                  if (slideshowData[projectId] && imageModal) {
                      currentProjectData = slideshowData[projectId];
-                     showSlide(1);
-                     openModal(imageModal, { projectId: projectId }); // Pass context
+                     showSlide(1); // Will trigger image_view tracking IF modal opens successfully
+                     openModal(imageModal, { projectId: projectId });
                  }
                  return;
             }
 
             let pdfPath = null;
-            if (isTitleClick) { // Original logic: PDF only on title click
+            if (isTitleClick) { // PDF only on title click
                 if (projectId === 'physiball') pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
                 else if (projectId === 'drake-music-project') pdfPath = './drake-music/drake-music-handover.pdf';
             }
@@ -318,32 +314,29 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(blob => {
                         currentPdfBlobUrl = URL.createObjectURL(blob);
                         pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0";
-                        openModal(pdfModal, { projectId: projectId, pdfPath: pdfPath }); // Pass context
+                        openModal(pdfModal, { projectId: projectId, pdfPath: pdfPath });
                     }).catch(err => {
                         console.error("PDF Blob Error:", err);
                         pdfViewer.src = pdfPath; // Fallback
-                        openModal(pdfModal, { projectId: projectId, pdfPath: pdfPath }); // Pass context
+                        openModal(pdfModal, { projectId: projectId, pdfPath: pdfPath });
                     });
                 return;
             }
 
-            if (slideshowData[projectId] && isImageClick) { // Original logic: Slideshow only on image click
+            if (slideshowData[projectId] && isImageClick) { // Slideshow only on image click
                 event.preventDefault();
                  if (!imageModal) return;
                  currentProjectData = slideshowData[projectId];
-                 showSlide(1); // Will trigger image_view tracking
-                 openModal(imageModal, { projectId: projectId }); // Pass context
+                 showSlide(1); // Will trigger image_view tracking IF modal opens successfully
+                 openModal(imageModal, { projectId: projectId });
             }
-            // If no specific action matched (e.g., clicking image for PDE/Salamander), do nothing extra
         });
     });
     // *** END Project Click Handler ***
 
-    // --- Original Listeners for Slideshow Buttons ---
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
     if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
-    // --- Original Listener for Keyboard ---
     document.addEventListener('keydown', function(e) {
          if (e.key === "Escape") [pdfModal, imageModal, publicationsModal].forEach(closeModal);
          if (imageModal?.classList.contains('show')) {
@@ -352,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
          }
     });
 
-    // --- Original Hamburger Menu Logic ---
+    // --- Hamburger Menu Logic ---
      if (hamburgerMenu && mobileNavPanel) {
          hamburgerMenu.addEventListener('click', () => {
              const isActive = hamburgerMenu.classList.toggle('active');
@@ -362,14 +355,22 @@ document.addEventListener('DOMContentLoaded', function() {
      }
      mobileNavLinks.forEach(link => {
          link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+             // Close menu if open
              if(hamburgerMenu && hamburgerMenu.classList.contains('active')) {
                  hamburgerMenu.classList.remove('active');
                  if(mobileNavPanel) mobileNavPanel.classList.remove('active');
                  document.body.style.overflow = '';
              }
+             // Handle specific actions or allow default scroll for # links
              if (link.id === 'publications-link-mobile') {
-                  e.preventDefault();
-                  openPublicationsModal(); // Will trigger modal_open tracking
+                  e.preventDefault(); // Prevent default link behavior
+                  openPublicationsModal(); // Open the modal
+             } else if (href && href.startsWith('#')) {
+                 // Allow default scroll behavior for internal links like #about, #projects
+                 // No e.preventDefault() needed here
+             } else {
+                 // Handle other potential mobile links if needed
              }
          });
      });
@@ -387,18 +388,16 @@ document.addEventListener('DOMContentLoaded', function() {
              const link = document.createElement('a');
              link.href = pub.filePath;
              link.textContent = pub.title;
-             link.rel = 'noopener noreferrer'; // Keep rel, remove target=_blank if opening in modal
+             link.rel = 'noopener noreferrer';
 
-             // --- Modified Listener for Pub Links ---
              link.addEventListener('click', (e) => {
-                 e.preventDefault(); // Prevent default link navigation
+                 e.preventDefault();
                  if (!pdfModal || !pdfViewer) return;
-
                  const pdfPath = link.getAttribute('href');
                  currentPdfOriginalPath = pdfPath; // Store original path
 
-                 // Note: The general link tracker *might* also fire for this click depending on timing.
-                 // You might see both 'publication_link' and 'modal_open' for pdf_modal.
+                 // Tracking for the click *intent* might happen via general link tracker;
+                 // Tracking for the modal open happens in openModal.
 
                  pdfViewer.src = 'about:blank';
                  if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl);
@@ -408,9 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
                      .then(blob => {
                          currentPdfBlobUrl = URL.createObjectURL(blob);
                          pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0";
-                         // IMPORTANT: Close pub modal *before* opening PDF modal
-                         closeModal(publicationsModal);
-                         // Use setTimeout to ensure smooth transition after closing
+                         closeModal(publicationsModal); // Close pub list
                          setTimeout(() => openModal(pdfModal, { pdfPath: pdfPath }), 50);
                      }).catch(err => {
                          console.error("PDF Blob Error:", err);
@@ -419,21 +416,19 @@ document.addEventListener('DOMContentLoaded', function() {
                          setTimeout(() => openModal(pdfModal, { pdfPath: pdfPath }), 50);
                      });
              });
-             // --- End Modified Listener ---
              item.appendChild(link);
              publicationsGrid.appendChild(item);
          });
     }
-    // --- Original functions for publications modal ---
     function openPublicationsModal() {
         if(publicationsModal) {
             populatePublications();
-            openModal(publicationsModal); // Will trigger modal_open tracking
+            openModal(publicationsModal); // Tracks the modal open
         }
     }
-    if (publicationsLink) {
+    if (publicationsLink) { // Desktop link
         publicationsLink.addEventListener('click', (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Prevent default '#' link behavior
             openPublicationsModal();
         });
     }
@@ -443,19 +438,17 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', () => {
             if (scrollToTopBtn) { scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400); }
         }, { passive: true });
-        // --- Modified Listener ---
         scrollToTopBtn.addEventListener('click', () => {
             trackEvent('scroll_to_top'); // Track the click
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-        // --- End Modified Listener ---
     }
 
-    // --- Original Footer Year ---
+    // --- Footer Year ---
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // --- Original Image Protection ---
+    // --- Image Protection ---
     document.addEventListener('contextmenu', e => (e.target.tagName === 'IMG') && e.preventDefault());
     document.addEventListener('dragstart', e => (e.target.tagName === 'IMG') && e.preventDefault());
 
