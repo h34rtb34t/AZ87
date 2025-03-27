@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { title: "PhysiBall",             filePath: "./physiball/Physiballs handover.pdf" },
         { title: "MDF-Mechanical-clock-Development",             filePath: "./mdf-clock/Wooden-Clock-Design&Study.pdf" },
         { title: "Pneumatics-System-Concepts",             filePath: "./pde-industrial-automation/Basic-Concepts-and-Implementation-in-Pneumatic-Automation.pdf" },
+        { title: "Pneumatics-System-Concepts",             filePath: "./FunBox/FunBox-paper.pdf" },
         // Physiball & Drake PDFs handled by project title click
      ];
 
