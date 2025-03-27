@@ -40,6 +40,7 @@ section { padding: 100px 0; overflow: hidden; }
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .delay-100 { transition-delay: 0.1s !important; }
+.delay-150 { transition-delay: 0.15s !important; } /* Added for new element */
 .delay-200 { transition-delay: 0.2s !important; }
 .delay-300 { transition-delay: 0.3s !important; }
 
@@ -105,13 +106,24 @@ nav { display: flex; justify-content: space-between; align-items: center; }
 .hero h1 .highlight { color: var(--accent-primary); }
 .hero p {
     font-size: clamp(1.1rem, 3vw, 1.3rem); color: var(--text-secondary);
-    max-width: 750px; margin: 0 auto 45px auto;
+    max-width: 750px; margin: 0 auto 0 auto; /* Adjusted margin-bottom */
+}
+/* ADDED STYLE for the new phrase */
+.hero-cta-phrase {
+    font-size: clamp(1.3rem, 4vw, 1.8rem); /* Adjust size as needed, make it responsive */
+    color: var(--accent-secondary); /* Use a different accent color */
+    font-weight: 600; /* Make it stand out slightly */
+    margin-top: 30px; /* Add space above */
+    margin-bottom: 40px; /* Add space between it and the button */
+    line-height: 1.4;
+    letter-spacing: 0.5px; /* Optional subtle spacing */
 }
 .btn {
     display: inline-block; padding: 14px 35px; background: var(--accent-primary);
     color: #fff; border-radius: var(--radius-md); font-weight: 600; font-size: 1rem;
     transition: all var(--transition-speed) var(--transition-timing); border: none;
     cursor: pointer; box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    /* margin-top: 45px; Removed default top margin as .hero-cta-phrase provides spacing */
 }
 .btn:hover {
     background: var(--accent-primary-darker); transform: translateY(-3px) scale(1.03);
