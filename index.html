@@ -415,11 +415,11 @@
         </div>
     </section>
 
-    <!-- Website Feedback Section -->
+        <!-- Website Feedback Section -->
     <section id="feedback" class="feedback">
         <div class="container reveal"> <!-- Use existing container and reveal classes for consistency -->
             <h2 class="section-title">Website Feedback</h2>
-            <p>Any feedback is appreciated!</p>
+            <p>How was your experience browsing my portfolio? Any feedback is appreciated!</p>
             <!-- Using FormSubmit.co for feedback submission -->
             <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST" class="feedback-form">
                 <!-- Hidden fields for FormSubmit -->
@@ -429,18 +429,44 @@
                 <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-feedback.html">
                 <input type="text" name="_honey" style="display:none"> <!-- Honeypot spam trap -->
 
-                <!-- Rating (Example using radio buttons styled as stars) -->
-                <div class="form-group feedback-rating">
-                    <label>Overall Rating:</label>
-                    <!-- Requires CSS for star appearance and interaction -->
-                    <div class="rating-stars">
-                        <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
-                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
-                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
-                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
-                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                <!-- ****** MODIFIED AREA START ****** -->
+                <!-- Wrapper Div to hold Rating and Top Reviews side-by-side -->
+                <div class="form-group" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 30px; /* Adjust gap as needed */">
+
+                    <!-- Original Rating Section (now flex item) -->
+                    <div class="feedback-rating" style="flex: 0 1 auto; /* Adjust flex properties if needed */">
+                        <label>Overall Rating:</label>
+                        <!-- Requires CSS for star appearance and interaction -->
+                        <div class="rating-stars">
+                            <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                        </div>
                     </div>
+
+                    <!-- ****** NEW: Manual Top Reviews List ****** -->
+                    <div class="top-reviews-manual" style="flex: 1 1 250px; /* Allows it to grow and shrink, min width ~250px */">
+                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: #444;">Feedback Highlights:</h4>
+                        <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.9em; color: #555; line-height: 1.5;">
+                            <!--
+                                MANUAL EDIT AREA:
+                                Add your selected top reviews here.
+                                Format: <li>[Stars] - [Optional Comment Snippet] - [Name/Initial]</li>
+                                Example: <li>★★★★★ - "Amazing work!" - J. Doe</li>
+                                Example: <li>★★★★☆ - M. Smith</li>
+                            -->
+                            <li style="margin-bottom: 0.4rem;">★★★★★ - "Incredible portfolio!" - Alex R.</li>
+                            <li style="margin-bottom: 0.4rem;">★★★★★ - Sarah K.</li>
+                            <li style="margin-bottom: 0.4rem;">★★★★☆ - Ben T.</li>
+                            <!-- Add more list items (<li>) as needed -->
+                        </ul>
+                    </div>
+                    <!-- ****** NEW AREA END ****** -->
+
                 </div>
+                <!-- ****** MODIFIED AREA END ****** -->
 
                 <!-- Feedback Comments -->
                 <div class="form-group">
