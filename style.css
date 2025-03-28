@@ -315,3 +315,43 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
      .whatsapp-chat { width: 50px; height: 50px; bottom: 15px; left: 15px;}
      .whatsapp-icon svg { width: 24px; height: 24px; } .whatsapp-chat .tooltip { display: none; }
 }
+
+/* --- Feedback Slider Styles --- */
+#feedback-list {
+    position: relative; /* Establishes positioning context for list items */
+    min-height: 100px; /* Adjust based on typical content height to prevent collapse */
+    overflow: hidden; /* Optional: Ensure nothing spills out */
+}
+
+.feedback-item {
+    /* Use relative positioning to allow items to take up space */
+    /* position: absolute; */ /* Stack items on top of each other */
+    /* top: 0; */
+    /* left: 0; */
+    width: 100%; /* Take full width of the container */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.6s ease-in-out; /* Smooth fade transition */
+    pointer-events: none; /* Prevent interaction with hidden items */
+    /* Add padding/margin previously handled by inline styles if needed */
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px dashed #eee;
+    /* Hide non-active items visually and from layout */
+    max-height: 0;
+    overflow: hidden;
+}
+
+.feedback-item.active {
+    opacity: 1; /* Visible */
+    position: relative; /* Take up space when active */
+    pointer-events: auto; /* Allow interaction when active */
+    /* Allow item to take its natural height */
+    max-height: 500px; /* Set a large enough max-height */
+    overflow: visible;
+}
+
+/* --- Ensure parent container allows space --- */
+.top-reviews-manual {
+    position: relative; /* Needed if feedback-items are absolute */
+    /* min-height is already set inline, but could be moved here */
+}
