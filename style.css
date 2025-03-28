@@ -335,7 +335,7 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
     /* left: 0; */
     width: 100%; /* Take full width of the container */
     opacity: 0; /* Hidden by default */
-    transition: opacity 0.3s ease-in-out; /* MODIFIED: Faster transition (0.6s -> 0.3s) */
+    transition: opacity 0.2s ease-in-out; /* MODIFIED: Faster transition (0.6s -> 0.3s) */
     pointer-events: none; /* Prevent interaction with hidden items */
     /* Add padding/margin previously handled by inline styles if needed */
     margin-bottom: 0.6rem;
