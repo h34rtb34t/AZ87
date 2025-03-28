@@ -321,6 +321,11 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
     position: relative; /* Establishes positioning context for list items */
     min-height: 100px; /* Adjust based on typical content height to prevent collapse */
     overflow: hidden; /* Optional: Ensure nothing spills out */
+    list-style: none; /* Removing bullet points */
+    padding-left: 0; /* Removing default padding */
+    margin: 0; /* Removing default margin */
+    font-size: 1.1em; /* MODIFIED: Increased font size */
+    line-height: 1.5; /* MODIFIED: Adjusted line height for bigger font */
 }
 
 .feedback-item {
@@ -330,7 +335,7 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
     /* left: 0; */
     width: 100%; /* Take full width of the container */
     opacity: 0; /* Hidden by default */
-    transition: opacity 0.6s ease-in-out; /* Smooth fade transition */
+    transition: opacity 0.3s ease-in-out; /* MODIFIED: Faster transition (0.6s -> 0.3s) */
     pointer-events: none; /* Prevent interaction with hidden items */
     /* Add padding/margin previously handled by inline styles if needed */
     margin-bottom: 0.6rem;
