@@ -452,6 +452,59 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('contextmenu', e => (e.target.tagName === 'IMG') && e.preventDefault());
     document.addEventListener('dragstart', e => (e.target.tagName === 'IMG') && e.preventDefault());
 
+    // --- Feedback Slider Logic ---
+    const feedbackList = document.getElementById('feedback-list');
+    if (feedbackList) {
+        const feedbackItems = feedbackList.querySelectorAll('.feedback-item');
+        let currentFeedbackIndex = 0;
+        const intervalTime = 5000; // Time in milliseconds (e.g., 5 seconds)
+        let feedbackInterval;
+
+        function showNextFeedback() {
+            if (feedbackItems.length < 2) return; // No need to cycle if less than 2 items
+
+            // Remove 'active' class from current item
+            feedbackItems[currentFeedbackIndex].classList.remove('active');
+
+            // Calculate index of the next item, looping back to 0
+            currentFeedbackIndex = (currentFeedbackIndex + 1) % feedbackItems.length;
+
+            // Add 'active' class to the new current item
+            feedbackItems[currentFeedbackIndex].classList.add('active');
+        }
+
+        function startFeedbackSlider() {
+            // Ensure interval is clear before starting
+            clearInterval(feedbackInterval);
+            if (feedbackItems.length > 1) {
+                feedbackInterval = setInterval(showNextFeedback, intervalTime);
+            }
+        }
+
+        function stopFeedbackSlider() {
+            clearInterval(feedbackInterval);
+        }
+
+        if (feedbackItems.length > 0) {
+            // Initially hide all items then show the first one
+            feedbackItems.forEach(item => item.classList.remove('active'));
+            feedbackItems[0].classList.add('active');
+
+            // Start the slider if there's more than one item
+            startFeedbackSlider();
+
+            // Optional: Pause slider on hover
+            feedbackList.addEventListener('mouseenter', stopFeedbackSlider);
+            feedbackList.addEventListener('mouseleave', startFeedbackSlider);
+
+            console.log('Feedback slider initialized.');
+        } else {
+            console.log('No feedback items found for slider.');
+        }
+    }
+    // --- End Feedback Slider Logic ---
+
+
     console.log('Portfolio script fully initialized.');
 
 }); // End DOMContentLoaded
