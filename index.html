@@ -11,7 +11,7 @@
     <!-- Meta Tags -->
     <meta name="google-site-verification" content="szIijqrxQEsLWXIrwuJbHtxVO9S89fY_LqPvIVzHqd4" />
     <!-- Adjusted CSP slightly to allow external resources if needed, but prioritize self -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; frame-src 'self' blob: https://vimeo.com; object-src 'self' blob:;connect-src 'self' https://stats-ingress-worker.azelbane87.workers.dev;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; frame-src 'self' blob: https://vimeo.com; object-src 'self' blob:;">
     <meta name="description" content="Abdelati Zelbane's portfolio showcasing projects in Design Engineering and Mechatronics.">
     <title>ABDELATI ZELBANE - DESIGN ENGINEERING MECHATRONICS</title>
 
@@ -22,6 +22,60 @@
 
     <!-- Link to External CSS file -->
     <link rel="stylesheet" href="./style.css">
+
+    <!-- Basic Styling for Feedback Stars (Consider moving to style.css) -->
+    <style>
+        .feedback-rating .rating-stars {
+            display: inline-block;
+            direction: rtl; /* Right-to-left to make stars select left-to-right */
+            font-size: 1.8em; /* Adjust size as needed */
+            margin-left: 10px;
+        }
+        .feedback-rating .rating-stars input[type="radio"] {
+            display: none; /* Hide the actual radio buttons */
+        }
+        .feedback-rating .rating-stars label {
+            color: #ccc; /* Default star color */
+            cursor: pointer;
+            padding: 0 2px;
+            transition: color 0.2s;
+        }
+        .feedback-rating .rating-stars input[type="radio"]:checked ~ label,
+        .feedback-rating .rating-stars label:hover,
+        .feedback-rating .rating-stars label:hover ~ label {
+            color: #ffc107; /* Color for selected/hovered stars */
+        }
+        .feedback-form .form-group {
+            margin-bottom: 1.5rem; /* Consistent spacing */
+        }
+        .feedback-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .feedback-form .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
+        .feedback-form textarea.form-control {
+            resize: vertical; /* Allow vertical resizing */
+        }
+        .feedback-form .btn { /* Use existing button style if available */
+            padding: 0.8rem 1.5rem;
+            background-color: #007bff; /* Example color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .feedback-form .btn:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
 
 </head>
 <body>
@@ -360,6 +414,52 @@
             </div>
         </div>
     </section>
+
+    <!-- Website Feedback Section -->
+    <section id="feedback" class="feedback">
+        <div class="container reveal"> <!-- Use existing container and reveal classes for consistency -->
+            <h2 class="section-title">Website Feedback</h2>
+            <p>How was your experience browsing my portfolio? Any feedback is appreciated!</p>
+            <!-- Using FormSubmit.co for feedback submission -->
+            <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST" class="feedback-form">
+                <!-- Hidden fields for FormSubmit -->
+                <input type="hidden" name="_subject" value="New Portfolio Feedback Received!">
+                <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling captcha ('true') for production -->
+                <!-- Optional: Redirect to a specific thank you page for feedback -->
+                <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-feedback.html">
+                <input type="text" name="_honey" style="display:none"> <!-- Honeypot spam trap -->
+
+                <!-- Rating (Example using radio buttons styled as stars) -->
+                <div class="form-group feedback-rating">
+                    <label>Overall Rating:</label>
+                    <!-- Requires CSS for star appearance and interaction -->
+                    <div class="rating-stars">
+                        <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                    </div>
+                </div>
+
+                <!-- Feedback Comments -->
+                <div class="form-group">
+                    <label for="feedback-message">Your Feedback:</label>
+                    <textarea id="feedback-message" name="feedback_message" class="form-control" rows="4" placeholder="What did you like or what could be improved?" required></textarea>
+                </div>
+
+                <!-- Optional Email -->
+                <div class="form-group">
+                    <label for="feedback-email">Your Email (Optional - if you'd like a response):</label>
+                    <input type="email" id="feedback-email" name="user_email" class="form-control" placeholder="your.email@example.com">
+                </div>
+
+                <button type="submit" class="btn">Submit Feedback</button>
+            </form>
+        </div>
+    </section>
+    <!-- End Website Feedback Section -->
+
 
     <!-- Footer -->
     <footer>
