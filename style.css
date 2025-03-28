@@ -73,7 +73,7 @@ nav { display: flex; justify-content: space-between; align-items: center; }
 }
 .hamburger-menu span {
     display: block; height: 3px; width: 100%; background-color: #fff;
-    border-radius: 3px; transition: all 0.3s ease-in-out;
+    border-radius: 3px; transition: all 0.1s ease-in-out;
 }
 .hamburger-menu.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
 .hamburger-menu.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
