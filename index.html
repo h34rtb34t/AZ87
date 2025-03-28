@@ -446,48 +446,47 @@
                         </div>
                     </div>
 
-                    <!-- ****** NEW: Manual Top Reviews List (Styled) ****** -->
-                    <div class="top-reviews-manual" style="flex: 1 1 250px;">
+                    <!-- ****** NEW: Top Reviews Container for Slider ****** -->
+                    <div class="top-reviews-manual" style="flex: 1 1 250px; min-height: 150px; /* Adjust min-height as needed */">
                         <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: #0056b3; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Feedback Highlights:</h4>
-                                                <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.9em; line-height: 1.6;">
-                            <!--
-                                MANUAL EDIT AREA:
-                                Add your selected top reviews here using the styled format below.
-                                Comment color is now blue (#0056b3).
-                            -->
 
-                           
-                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                        <!-- Add id="feedback-list" to the ul -->
+                        <ul id="feedback-list" style="list-style: none; padding-left: 0; margin: 0; font-size: 0.9em; line-height: 1.6; position: relative; /* Needed for absolute positioning of items */">
+                            <!--
+                                ADD class="feedback-item" to each li
+                                REMOVE inline styles from li (will be handled in CSS)
+                            -->
+                            <li class="feedback-item">
                                 <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
-                                <span style="color: #0056b3;"> - "Bravissimo Adeeeeee!!"</span> 
+                                <span style="color: #0056b3;"> - "Bravissimo Adeeeeee!!"</span>
                                 <span style="color: #777; font-style: italic;"> - M. Arianna</span>
                             </li>
-                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                            <li class="feedback-item">
                                 <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
-                               
+                                <!-- Added placeholder text for empty review -->
+                                <span style="color: #0056b3;"> - "Great work!"</span>
                                 <span style="color: #777; font-style: italic;"> - F.Fabrizio</span>
                             </li>
-                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                            <li class="feedback-item">
                                 <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
-                                <span style="color: #0056b3;"> - "Grandissimo!!Ade You Rockkkkk!!"</span> 
+                                <span style="color: #0056b3;"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
                                 <span style="color: #777; font-style: italic;"> - J. Doe</span>
                             </li>
-                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                            <li class="feedback-item">
                                 <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
-                                <span style="color: #0056b3;"> - "Well Done My friend!"</span> 
+                                <span style="color: #0056b3;"> - "Well Done My friend!"</span>
                                 <span style="color: #777; font-style: italic;"> - Alex R.</span>
                             </li>
-                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                            <li class="feedback-item">
                                 <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
-                                <span style="color: #0056b3;"> - "Great Job!! We miss you in here!!"</span> 
+                                <span style="color: #0056b3;"> - "Great Job!! We miss you in here!!"</span>
                                 <span style="color: #777; font-style: italic;"> - Sarah K.</span>
                             </li>
-                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                            <li class="feedback-item">
                                 <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
-                                <span style="color: #0056b3;"> - "TOP"</span> 
+                                <span style="color: #0056b3;"> - "TOP"</span>
                                 <span style="color: #777; font-style: italic;"> - Ben T.</span>
                             </li>
-                           
                         </ul>
                     </div>
                     <!-- ****** NEW AREA END ****** -->
