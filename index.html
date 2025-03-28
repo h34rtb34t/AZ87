@@ -431,7 +431,7 @@
 
                 <!-- ****** MODIFIED AREA START ****** -->
                 <!-- Wrapper Div to hold Rating and Top Reviews side-by-side -->
-                <div class="form-group" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 30px; /* Adjust gap as needed */">
+                <div class="form-group" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 50px; /* INCREASED GAP */">
 
                     <!-- Original Rating Section (now flex item) -->
                     <div class="feedback-rating" style="flex: 0 1 auto; /* Adjust flex properties if needed */">
@@ -446,24 +446,47 @@
                         </div>
                     </div>
 
-                    <!-- ****** NEW: Manual Top Reviews List ****** -->
-                    <div class="top-reviews-manual" style="flex: 1 1 250px; /* Allows it to grow and shrink, min width ~250px */">
-                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: #444;">Feedback Highlights:</h4>
-                        <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.9em; color: #555; line-height: 1.5;">
+                    <!-- ****** NEW: Manual Top Reviews List (Styled) ****** -->
+                    <div class="top-reviews-manual" style="flex: 1 1 250px;">
+                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: #333; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Feedback Highlights:</h4>
+                        <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.9em; line-height: 1.6;">
                             <!--
                                 MANUAL EDIT AREA:
-                                Add your selected top reviews here.
-                                Format: <li>[Stars] - [Optional Comment Snippet] - [Name/Initial]</li>
-                                Example: <li>★★★★★ - "Amazing work!" - J. Doe</li>
-                                Example: <li>★★★★☆ - M. Smith</li>
+                                Add your selected top reviews here using the styled format below.
+                                Format: <li><span style="color: #ffc107;">[Stars]</span><span style="color: #333;"> - "[Comment]"</span><span style="color: #777; font-style: italic;"> - [Name]</span></li>
+                                Or without comment: <li><span style="color: #ffc107;">[Stars]</span><span style="color: #777; font-style: italic;"> - [Name]</span></li>
                             -->
-                            <li style="margin-bottom: 0.4rem;">★★★★☆ -"Bravissimo Adeeeeee!! "- M. Arianna</li>
-                            <li style="margin-bottom: 0.4rem;">★★★★☆ - F.Fabrizio</li>
-                            <li style="margin-bottom: 0.4rem;">★★★★★ - "Grandissimo!!Ade You Rockkkkk!! " - J. Doe</li>
-                            <li style="margin-bottom: 0.4rem;">★★★★★ - "Well Done My friend!" - Alex R.</li>
-                            <li style="margin-bottom: 0.4rem;">★★★★★ -"Great Job!! We miss you in here!!"- Sarah K.</li>
-                            <li style="margin-bottom: 0.4rem;">★★★★☆ - "TOP"- Ben T.</li>
-                            <!-- Add more list items (<li>) as needed -->
+
+                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
+                                <span style="color: #333;"> - "Bravissimo Adeeeeee!!"</span>
+                                <span style="color: #777; font-style: italic;"> - M. Arianna</span>
+                            </li>
+                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
+                                <span style="color: #777; font-style: italic;"> - F.Fabrizio</span>
+                            </li>
+                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
+                                <span style="color: #333;"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
+                                <span style="color: #777; font-style: italic;"> - J. Doe</span>
+                            </li>
+                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
+                                <span style="color: #333;"> - "Well Done My friend!"</span>
+                                <span style="color: #777; font-style: italic;"> - Alex R.</span>
+                            </li>
+                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
+                                <span style="color: #333;"> - "Great Job!! We miss you in here!!"</span>
+                                <span style="color: #777; font-style: italic;"> - Sarah K.</span>
+                            </li>
+                            <li style="margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #eee;">
+                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
+                                <span style="color: #333;"> - "TOP"</span>
+                                <span style="color: #777; font-style: italic;"> - Ben T.</span>
+                            </li>
+                            <!-- Add more list items using the same span structure -->
                         </ul>
                     </div>
                     <!-- ****** NEW AREA END ****** -->
