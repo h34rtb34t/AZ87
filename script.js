@@ -417,10 +417,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (projectId === 'physiball') {
                 pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
                 pdfContext.pdfPath = pdfPath; // Add specific path to context
-            } else if (projectId === 'drake-music-project') {
-                pdfPath = './drake-music/drake-music-handover.pdf';
-                pdfContext.pdfPath = pdfPath;
-            }
+            } //else if (projectId === 'drake-music-project') {
+                //pdfPath = './drake-music/drake-music-handover.pdf';
+                //pdfContext.pdfPath = pdfPath;
+            //}
 
             // --- Action: Open PDF Modal if path is set ---
             if (pdfPath) {
