@@ -414,10 +414,10 @@ document.addEventListener('DOMContentLoaded', function() {
             let pdfContext = { projectId: projectId }; // Base context
 
             // --- Special Case: Specific titles trigger PDF modal ---
-            if (projectId === 'physiball') {
-                pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
-                pdfContext.pdfPath = pdfPath; // Add specific path to context
-            } //else if (projectId === 'drake-music-project') {
+            //if (projectId === 'physiball') {
+                //pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
+                //pdfContext.pdfPath = pdfPath; // Add specific path to context
+            //} //else if (projectId === 'drake-music-project') {
                 //pdfPath = './drake-music/drake-music-handover.pdf';
                 //pdfContext.pdfPath = pdfPath;
             //}
