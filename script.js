@@ -102,6 +102,72 @@ console.log('Basic tracker defined. Main script follows.');
 // ----------------------------------------------------------------------- //
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    // --- START: Theme Toggle Logic ---
+    const themeToggleButton = document.getElementById('theme-toggle-btn');
+    const themeToggleButtonMobile = document.getElementById('theme-toggle-btn-mobile');
+    const body = document.body;
+    const sunIconDesktop = themeToggleButton?.querySelector('.sun-icon');
+    const moonIconDesktop = themeToggleButton?.querySelector('.moon-icon');
+    const sunIconMobile = themeToggleButtonMobile?.querySelector('.sun-icon');
+    const moonIconMobile = themeToggleButtonMobile?.querySelector('.moon-icon');
+
+    // Function to update button state (icons and aria-label)
+    const updateButtonState = (theme) => {
+        const isLight = theme === 'light';
+        if (sunIconDesktop && moonIconDesktop) {
+            sunIconDesktop.style.display = isLight ? 'block' : 'none';
+            moonIconDesktop.style.display = isLight ? 'none' : 'block';
+            themeToggleButton.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+        }
+         if (sunIconMobile && moonIconMobile) {
+            sunIconMobile.style.display = isLight ? 'block' : 'none';
+            moonIconMobile.style.display = isLight ? 'none' : 'block';
+            themeToggleButtonMobile.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+        }
+    };
+
+    // Function to apply the theme
+    const applyTheme = (theme) => {
+        if (theme === 'light') {
+            body.classList.add('light-theme');
+        } else {
+            body.classList.remove('light-theme');
+        }
+        updateButtonState(theme);
+        try { // Add try...catch for localStorage access
+             localStorage.setItem('portfolioTheme', theme);
+        } catch (e) {
+             console.warn("Could not save theme preference to localStorage:", e);
+        }
+    };
+
+    // Function to handle the toggle click
+    const handleToggleClick = () => {
+        const currentThemeIsLight = body.classList.contains('light-theme');
+        const newTheme = currentThemeIsLight ? 'dark' : 'light';
+        applyTheme(newTheme);
+    };
+
+    // Check localStorage on load
+    let savedTheme = 'dark'; // Default to dark
+    try { // Add try...catch for localStorage access
+         savedTheme = localStorage.getItem('portfolioTheme') || 'dark';
+    } catch (e) {
+         console.warn("Could not read theme preference from localStorage:", e);
+    }
+    applyTheme(savedTheme); // Apply saved or default theme immediately
+
+    // Add event listeners
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', handleToggleClick);
+    }
+     if (themeToggleButtonMobile) {
+         themeToggleButtonMobile.addEventListener('click', handleToggleClick);
+     }
+    // --- END: Theme Toggle Logic ---
+
+
     // --- Elements ---
     const pdfModal = document.getElementById("pdfModal");
     const pdfViewer = document.getElementById("pdfViewer");
@@ -116,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const publicationsLinkMobile = document.getElementById("publications-link-mobile");
     const hamburgerMenu = document.getElementById("hamburger-menu");
     const mobileNavPanel = document.getElementById("mobile-nav-panel");
-    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link"); // Excludes the button now
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     const closeModalBtns = document.querySelectorAll('[data-close-modal]');
     const revealElements = document.querySelectorAll('.reveal');
@@ -353,7 +419,8 @@ document.addEventListener('DOMContentLoaded', function() {
              document.body.style.overflow = isActive ? 'hidden' : '';
          });
      }
-     mobileNavLinks.forEach(link => {
+     // Select only actual navigation links, not the theme toggle button
+     document.querySelectorAll('.mobile-nav-panel a.mobile-nav-link').forEach(link => {
          link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
              // Close menu if open
