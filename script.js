@@ -1,77 +1,3 @@
-// --- START THEME TOGGLE SCRIPT (Added here) ---
-
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggleButton = document.getElementById('theme-toggle-btn');
-    const htmlElement = document.documentElement; // Target the <html> element
-    const iconSpan = themeToggleButton.querySelector('.icon');
-
-    // Function to update button icon based on theme
-    const updateButtonIcon = (theme) => {
-        // Ensure elements exist before trying to access them
-        if (!iconSpan || !themeToggleButton) {
-            console.warn("Theme toggle elements not found.");
-            return;
-        }
-        if (theme === 'dark') {
-            iconSpan.textContent = '☀️'; // Sun icon for switching to light
-            themeToggleButton.setAttribute('aria-label', 'Switch to light theme');
-        } else {
-            iconSpan.textContent = '🌙'; // Moon icon for switching to dark
-            themeToggleButton.setAttribute('aria-label', 'Switch to dark theme');
-        }
-    };
-
-    // Check for saved theme preference or default to light
-    const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
-    htmlElement.setAttribute('data-theme', savedTheme);
-    // Call updateButtonIcon only if the button exists
-    if (themeToggleButton) {
-        updateButtonIcon(savedTheme);
-    }
-
-    // Add event listener for the button only if it exists
-    if (themeToggleButton) {
-        themeToggleButton.addEventListener('click', () => {
-            // Get the current theme
-            const currentTheme = htmlElement.getAttribute('data-theme');
-
-            // Toggle the theme
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            // Apply the new theme
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme); // Save preference
-
-            // Update button icon
-            updateButtonIcon(newTheme);
-        });
-    }
-
-    // --- Optional: Add system preference detection ( uncomment if needed) ---
-    // const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    // if (!localStorage.getItem('theme')) { // Only apply if no preference saved
-    //     const systemTheme = prefersDarkScheme.matches ? 'dark' : 'light';
-    //     htmlElement.setAttribute('data-theme', systemTheme);
-    //     if (themeToggleButton) { // Check button exists before updating icon
-    //         updateButtonIcon(systemTheme);
-    //     }
-    // }
-    // // Optional: Listen for changes in system preference
-    // prefersDarkScheme.addEventListener('change', (e) => {
-    //     if (!localStorage.getItem('theme')) { // Only update if no preference set
-    //         const systemTheme = e.matches ? 'dark' : 'light';
-    //         htmlElement.setAttribute('data-theme', systemTheme);
-    //         if (themeToggleButton) { // Check button exists before updating icon
-    //             updateButtonIcon(systemTheme);
-    //         }
-    //     }
-    // });
-
-}); // End DOMContentLoaded for Theme Toggle
-
-// --- END THEME TOGGLE SCRIPT ---
-
-
 // --- Simple Analytics Tracker ---
 const INGESTION_WORKER_URL = 'https://stats-ingress-worker.azelbane87.workers.dev/'; // <-- Worker URL Integrated
 
@@ -115,10 +41,9 @@ function sendWithFetch(payload) {
 }
 
 // --- Track Page View ---
-// NOTE: Moved pageview tracking into the main DOMContentLoaded listener below
-// document.addEventListener('DOMContentLoaded', () => {
-//     trackEvent('pageview');
-// });
+document.addEventListener('DOMContentLoaded', () => {
+    trackEvent('pageview');
+});
 
 // --- General Link Click Tracker (Placed outside main DOMContentLoaded) ---
 document.addEventListener('click', function(event) {
@@ -177,10 +102,6 @@ console.log('Basic tracker defined. Main script follows.');
 // ----------------------------------------------------------------------- //
 
 document.addEventListener('DOMContentLoaded', function() {
-
-    // --- Track Page View (Moved inside main listener) ---
-    trackEvent('pageview');
-
     // --- Elements ---
     const pdfModal = document.getElementById("pdfModal");
     const pdfViewer = document.getElementById("pdfViewer");
@@ -210,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
         violin:     { totalSlides: 10, prefix: './violin-bot-player/',   extension: 'jpg' },
         crs:        { totalSlides: 1,  prefix: './csr robot/',           extension: 'png' },
         wjet:       { totalSlides: 37, prefix: './wjet/',                extension: 'png' }
-        // Add 'pde-automation' and 'salamander-bot' if they have slideshows
     };
     let currentSlide = 1;
     let currentProjectData = null; // For active slideshow
@@ -365,12 +285,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const isTitleClick = this.tagName === 'H3';
             const isImageClick = this.classList.contains('project-image');
 
-            // Handle PDF clicks (specific projects on title click)
+            if (projectId === 'clock' && (isTitleClick || isImageClick)) {
+                 event.preventDefault();
+                 if (slideshowData[projectId] && imageModal) {
+                     currentProjectData = slideshowData[projectId];
+                     showSlide(1); // Will trigger image_view tracking IF modal opens successfully
+                     openModal(imageModal, { projectId: projectId });
+                 }
+                 return;
+            }
+
             let pdfPath = null;
             if (isTitleClick) { // PDF only on title click
                 if (projectId === 'physiball') pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
                 else if (projectId === 'drake-music-project') pdfPath = './drake-music/drake-music-handover.pdf';
-                // Add more else if conditions here for other title-click PDFs
             }
 
             if (pdfPath) {
@@ -392,22 +320,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         pdfViewer.src = pdfPath; // Fallback
                         openModal(pdfModal, { projectId: projectId, pdfPath: pdfPath });
                     });
-                return; // Stop further processing if PDF handled
+                return;
             }
 
-            // Handle Slideshow clicks (specific projects on image click)
             if (slideshowData[projectId] && isImageClick) { // Slideshow only on image click
                 event.preventDefault();
                  if (!imageModal) return;
                  currentProjectData = slideshowData[projectId];
                  showSlide(1); // Will trigger image_view tracking IF modal opens successfully
                  openModal(imageModal, { projectId: projectId });
-                 return; // Stop further processing if slideshow handled
             }
-
-            // If neither PDF nor Slideshow was triggered by this specific click type (title/image),
-            // let the default link behavior happen (if any) or do nothing.
-            // The general link tracker might still catch clicks on other links within the card.
         });
     });
     // *** END Project Click Handler ***
@@ -416,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
     document.addEventListener('keydown', function(e) {
-         if (e.key === "Escape") [pdfModal, imageModal, publicationsModal].forEach(modal => { if (modal) closeModal(modal); }); // Check if modal exists
+         if (e.key === "Escape") [pdfModal, imageModal, publicationsModal].forEach(closeModal);
          if (imageModal?.classList.contains('show')) {
              if (e.key === "ArrowLeft") prevSlide();
              else if (e.key === "ArrowRight") nextSlide();
@@ -510,7 +432,6 @@ document.addEventListener('DOMContentLoaded', function() {
             openPublicationsModal();
         });
     }
-    // Mobile publications link is handled within the mobileNavLinks listener above
 
     // --- Scroll to Top Button (with Tracking) ---
     if (scrollToTopBtn) {
@@ -536,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (feedbackList) {
         const feedbackItems = feedbackList.querySelectorAll('.feedback-item');
         let currentFeedbackIndex = 0;
-        const intervalTime = 1500; // Time in milliseconds (e.g., 1.5 seconds)
+        const intervalTime = 1500; // Time in milliseconds (e.g., 5 seconds)
         let feedbackInterval;
 
         function showNextFeedback() {
@@ -586,4 +507,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('Portfolio script fully initialized.');
 
-}); // End MAIN DOMContentLoaded
+}); // End DOMContentLoaded
