@@ -1,4 +1,5 @@
 /* --- CSS Variables --- */
+/* --- CSS Variables --- */
 :root {
     --bg-dark: #0f0f0f;
     --bg-card: #1a1a1a;
@@ -20,6 +21,35 @@
     --transition-speed: 0.3s;
     --transition-timing: ease-in-out;
 }
+
+/* --- START: Light Theme Overrides --- */
+body.light-theme {
+    --bg-dark: #ffffff; /* Light background */
+    --bg-card: #f9f9f9; /* Slightly off-white card */
+    --bg-card-lighter: #eeeeee; /* Lighter card element bg */
+    --border-color: #dddddd; /* Light border */
+    --border-color-light: #cccccc; /* Slightly darker light border */
+    --text-primary: #222222; /* Dark primary text */
+    --text-secondary: #555555; /* Dark secondary text */
+    --text-muted: #777777; /* Muted text (can stay similar) */
+    --accent-primary: #0069d9; /* Slightly adjusted primary accent */
+    --accent-primary-darker: #0056b3; /* Can stay same or darken slightly */
+    --accent-secondary: #20c997; /* Slightly adjusted secondary accent */
+    --accent-glow: rgba(0, 105, 217, 0.4); /* Adjusted glow */
+    --shadow-color: rgba(0, 0, 0, 0.15); /* Lighter shadow */
+    --shadow-color-light: rgba(0, 0, 0, 0.1); /* Even lighter shadow */
+
+    /* Specific overrides needed for elements not perfectly covered by variables */
+    --feedback-star-inactive: #ccc;
+    --feedback-star-active: #ffc107;
+    --feedback-item-border: #eee;
+    --feedback-highlight-color: #0056b3; /* Adjust if needed for light */
+    --footer-bg: #f1f1f1; /* Light footer background */
+    --header-bg: rgba(255, 255, 255, 0.85); /* Light header background */
+}
+/* --- END: Light Theme Overrides --- */
+
+/* ... rest of the :root variables ... */
 
 /* --- Reset & Base --- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
