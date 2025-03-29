@@ -1,5 +1,4 @@
 /* --- CSS Variables --- */
-/* --- CSS Variables --- */
 :root {
     --bg-dark: #0f0f0f;
     --bg-card: #1a1a1a;
@@ -20,6 +19,14 @@
     --radius-lg: 12px;
     --transition-speed: 0.3s;
     --transition-timing: ease-in-out;
+
+    /* Define default feedback/other colors here for consistency */
+    --feedback-star-inactive: #ccc;
+    --feedback-star-active: #ffc107;
+    --feedback-item-border: #eee; /* Used in light theme */
+    --feedback-highlight-color: #0056b3; /* Used in light theme */
+    --footer-bg: #000; /* Default dark footer */
+    --header-bg: rgba(15, 15, 15, 0.8); /* Default dark header */
 }
 
 /* --- START: Light Theme Overrides --- */
@@ -39,7 +46,7 @@ body.light-theme {
     --shadow-color: rgba(0, 0, 0, 0.15); /* Lighter shadow */
     --shadow-color-light: rgba(0, 0, 0, 0.1); /* Even lighter shadow */
 
-    /* Specific overrides needed for elements not perfectly covered by variables */
+    /* Overrides for specific elements/colors */
     --feedback-star-inactive: #ccc;
     --feedback-star-active: #ffc107;
     --feedback-item-border: #eee;
@@ -49,7 +56,6 @@ body.light-theme {
 }
 /* --- END: Light Theme Overrides --- */
 
-/* ... rest of the :root variables ... */
 
 /* --- Reset & Base --- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -59,6 +65,7 @@ body {
     line-height: 1.7; color: var(--text-primary); background-color: var(--bg-dark);
     -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    transition: background-color var(--transition-speed) var(--transition-timing), color var(--transition-speed) var(--transition-timing); /* Smooth theme transition */
 }
 a { text-decoration: none; color: var(--accent-primary); transition: color var(--transition-speed) var(--transition-timing); }
 a:hover { color: var(--accent-primary-darker); text-decoration: none; }
@@ -76,10 +83,11 @@ section { padding: 100px 0; overflow: hidden; }
 
 /* --- Header --- */
 header {
-    padding: 15px 0; background-color: rgba(15, 15, 15, 0.8);
+    padding: 15px 0; background-color: var(--header-bg); /* Use variable */
     border-bottom: 1px solid var(--border-color); position: sticky;
     top: 0; z-index: 100; backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transition: background-color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
 }
 nav { display: flex; justify-content: space-between; align-items: center; }
 .logo {
@@ -102,8 +110,8 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     width: 30px; height: 21px; cursor: pointer; z-index: 1001; position: relative;
 }
 .hamburger-menu span {
-    display: block; height: 3px; width: 100%; background-color: #fff;
-    border-radius: 3px; transition: all 0.1s ease-in-out;
+    display: block; height: 3px; width: 100%; background-color: var(--text-primary); /* Use variable */
+    border-radius: 3px; transition: all 0.1s ease-in-out, background-color var(--transition-speed) var(--transition-timing);
 }
 .hamburger-menu.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
 .hamburger-menu.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
@@ -111,16 +119,81 @@ nav { display: flex; justify-content: space-between; align-items: center; }
 .mobile-nav-panel {
     display: none; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
     background-color: var(--bg-card); padding: 80px 30px 30px;
-    box-shadow: -5px 0 20px var(--shadow-color); transition: right 0.4s ease-in-out;
+    box-shadow: -5px 0 20px var(--shadow-color); transition: right 0.4s ease-in-out, background-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
     z-index: 1000; flex-direction: column; gap: 15px; overflow-y: auto;
 }
 .mobile-nav-panel.active { display: flex; right: 0; }
 .mobile-nav-panel a {
     color: var(--text-secondary); font-weight: 600; font-size: 1.1rem;
     padding: 12px 0; border-bottom: 1px solid var(--border-color);
+    transition: color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
 }
 .mobile-nav-panel a:last-child { border-bottom: none; }
 .mobile-nav-panel a:hover { color: var(--text-primary); text-decoration: none; }
+
+/* --- Theme Toggle Button --- */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 15px; /* Adjust spacing as needed */
+    display: inline-flex; /* Use flex to center icon */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: color var(--transition-speed), background-color var(--transition-speed);
+    vertical-align: middle; /* Align with nav links */
+}
+
+.theme-toggle-btn:hover {
+    color: var(--text-primary);
+    background-color: rgba(128, 128, 128, 0.1); /* Subtle hover */
+}
+
+.theme-toggle-btn svg {
+    width: 20px; /* Consistent size */
+    height: 20px;
+    transition: transform var(--transition-speed);
+}
+.theme-toggle-btn:hover svg {
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* Hide desktop button on mobile */
+@media (max-width: 768px) {
+    #theme-toggle-btn {
+        display: none;
+    }
+}
+
+/* Style mobile button (initially hidden via panel CSS) */
+.theme-toggle-btn.mobile {
+    display: flex; /* Use flex for icon + text */
+    align-items: center;
+    width: 100%;
+    padding: 12px 0;
+    margin-left: 0;
+    border-radius: 0;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
+}
+.theme-toggle-btn.mobile:hover {
+    color: var(--text-primary);
+    background: none; /* Override general hover bg */
+}
+.theme-toggle-btn.mobile svg {
+    margin-right: 10px; /* Space between icon and text */
+    transition: none; /* No transform for mobile icon */
+}
+.theme-toggle-btn.mobile:hover svg {
+     transform: none; /* No icon transform on mobile button hover */
+}
+
 
 /* --- Hero Section --- */
 .hero {
@@ -128,6 +201,7 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
     position: relative; min-height: 70vh; display: flex; align-items: center;
     justify-content: center; flex-direction: column;
+    transition: background var(--transition-speed) var(--transition-timing);
 }
 .hero h1 {
     font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 25px; font-weight: 900;
@@ -152,14 +226,19 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     display: inline-block; padding: 14px 35px; background: var(--accent-primary);
     color: #fff; border-radius: var(--radius-md); font-weight: 600; font-size: 1rem;
     transition: all var(--transition-speed) var(--transition-timing); border: none;
-    cursor: pointer; box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    cursor: pointer; box-shadow: 0 4px 15px var(--accent-glow); /* Use variable */
     /* margin-top: 45px; Removed default top margin as .hero-cta-phrase provides spacing */
+}
+body.light-theme .btn { /* Ensure button text remains white in light theme */
+    color: #fff;
 }
 .btn:hover {
     background: var(--accent-primary-darker); transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4); text-decoration: none;
+    box-shadow: 0 6px 20px var(--accent-glow); /* Use variable */
+    text-decoration: none;
 }
-.btn:active { transform: translateY(-1px) scale(1); box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); }
+.btn:active { transform: translateY(-1px) scale(1); box-shadow: 0 4px 15px var(--accent-glow); } /* Use variable */
+
 
 /* --- Section Title --- */
 .section-title {
@@ -173,16 +252,16 @@ nav { display: flex; justify-content: space-between; align-items: center; }
 }
 
 /* --- About Section --- */
-.about { background-color: var(--bg-dark); }
+.about { background-color: var(--bg-dark); } /* Will transition with body */
 .about-content { display: flex; flex-wrap: wrap; gap: 60px; align-items: center; }
 .about-image { flex: 1 1 350px; max-width: 400px; margin: 0 auto; perspective: 1000px; }
-.about-image img { width: 100%; border-radius: var(--radius-lg); box-shadow: 0 15px 30px var(--shadow-color); transition: transform 0.5s ease-out; }
+.about-image img { width: 100%; border-radius: var(--radius-lg); box-shadow: 0 15px 30px var(--shadow-color); transition: transform 0.5s ease-out, box-shadow var(--transition-speed) var(--transition-timing); }
 .about-text { flex: 2 1 450px; color: var(--text-secondary); }
 .about-text h3 { font-size: 1.7rem; margin-bottom: 25px; color: var(--text-primary); font-weight: 700; }
 .about-text p { margin-bottom: 18px; }
 
 /* --- Projects Section --- */
-.projects { background-color: var(--bg-dark); }
+.projects { background-color: var(--bg-dark); } /* Will transition with body */
 .projects-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 40px; margin-top: 40px;
@@ -190,7 +269,7 @@ nav { display: flex; justify-content: space-between; align-items: center; }
 .project-card {
     background-color: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden;
     box-shadow: 0 5px 15px var(--shadow-color-light);
-    transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+    transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing), background-color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
     display: flex; flex-direction: column; border: 1px solid var(--border-color);
 }
 .project-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px var(--shadow-color); border-color: var(--border-color-light); }
@@ -209,6 +288,7 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     background-color: var(--bg-card-lighter); color: var(--accent-secondary);
     padding: 5px 12px; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600;
     border: 1px solid var(--border-color-light); text-transform: uppercase; letter-spacing: 0.5px;
+    transition: background-color var(--transition-speed) var(--transition-timing), color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
 }
 .project-links { display: flex; gap: 15px; margin-top: 15px; }
 .project-links a {
@@ -217,10 +297,13 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     color: var(--text-secondary); background-color: transparent;
     transition: all var(--transition-speed) var(--transition-timing);
 }
- .project-links a:hover { background-color: var(--accent-primary); border-color: var(--accent-primary); color: white; transform: translateY(-2px); text-decoration: none; }
+.project-links a:hover { background-color: var(--accent-primary); border-color: var(--accent-primary); color: white; transform: translateY(-2px); text-decoration: none; }
+body.light-theme .project-links a:hover { /* Ensure link text is white on hover */
+    color: white;
+}
 
 /* --- Contact Section --- */
-.contact { background-color: var(--bg-dark); }
+.contact { background-color: var(--bg-dark); } /* Will transition with body */
 .contact-container { display: flex; flex-wrap: wrap; gap: 60px; align-items: flex-start; }
 .contact-info { flex: 1 1 400px; color: var(--text-secondary); }
 .contact-info p { margin-bottom: 35px; }
@@ -238,13 +321,18 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     width: 100%; padding: 14px; border: 1px solid var(--border-color-light);
     border-radius: var(--radius-md); background-color: var(--bg-card-lighter);
     color: var(--text-primary); font-size: 1rem;
-    transition: border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+    transition: border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing), background-color var(--transition-speed) var(--transition-timing), color var(--transition-speed) var(--transition-timing);
 }
 .form-control:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--accent-glow); }
 textarea.form-control { min-height: 160px; resize: vertical; }
 
 /* --- Footer --- */
-footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text-align: center; border-top: 1px solid var(--border-color); }
+footer {
+    background-color: var(--footer-bg); /* Use variable */
+    color: var(--text-muted); padding: 50px 0; text-align: center;
+    border-top: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed) var(--transition-timing), color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
+}
 .social-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; }
 .social-link { color: var(--text-secondary); font-size: 1.1rem; font-weight: 500; transition: color var(--transition-speed) var(--transition-timing), transform var(--transition-speed) var(--transition-timing); }
 .social-link:hover { color: var(--accent-primary); transform: translateY(-3px); text-decoration: none;}
@@ -252,16 +340,20 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
 
 /* --- Modals --- */
 .modal {
-    display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.85);
+    display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.85); /* Default dark overlay */
     z-index: 1000; align-items: center; justify-content: center; padding: 20px;
-    opacity: 0; transition: opacity var(--transition-speed) ease-out;
+    opacity: 0; transition: opacity var(--transition-speed) ease-out, background-color var(--transition-speed) ease-out;
+}
+body.light-theme .modal {
+    background-color: rgba(50, 50, 50, 0.85); /* Slightly lighter backdrop for light theme */
 }
 .modal.show { display: flex; opacity: 1; }
 .modal-content {
     position: relative; background-color: var(--bg-card); border-radius: var(--radius-lg);
     box-shadow: 0 10px 30px var(--shadow-color); overflow: hidden; max-width: 95vw;
     max-height: 95vh; width: 1100px; height: 90vh; display: flex; flex-direction: column;
-    transform: scale(0.95); transition: transform var(--transition-speed) ease-out;
+    transform: scale(0.95);
+    transition: transform var(--transition-speed) ease-out, background-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
 }
 .modal.show .modal-content { transform: scale(1); }
 /* PDF Modal */
@@ -269,6 +361,8 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
 .pdf-modal iframe { flex-grow: 1; border: none; width: 100%; height: 100%;}
 /* Image Slideshow */
 .image-modal .modal-content { background-color: transparent; box-shadow: none; width: auto; height: auto; overflow: visible;}
+/* Explicitly set transparent background for light theme */
+body.light-theme .image-modal .modal-content { background-color: transparent !important; }
 .image-content-wrapper { max-width: 90vw; max-height: 90vh; display: flex; align-items: center; justify-content: center; position: relative;}
 .image-content { position: relative; display: flex; align-items: center; justify-content: center; max-width: 100%; max-height: 100%;}
 .slide-image { display: block; max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; transition: transform 0.3s ease-in-out; border-radius: var(--radius-sm); -webkit-user-drag: none; }
@@ -287,6 +381,7 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
 .publications-grid { display: grid; gap: 18px; overflow-y: auto; max-height: calc(85vh - 120px); padding-right: 10px;}
 .publication-item { padding: 18px; background-color: var(--bg-card-lighter); border-radius: var(--radius-md); border: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
 .publication-item:hover { background-color: #333; border-color: var(--border-color-light); }
+body.light-theme .publication-item:hover { background-color: #e0e0e0; border-color: var(--border-color-light); } /* Adjusted hover for light */
 .publication-item a { color: var(--accent-primary); display: block; font-weight: 600; font-size: 1rem; }
 .publication-item a:hover { color: var(--accent-primary-darker); text-decoration: underline;}
 /* Modal Close */
@@ -319,9 +414,10 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
     position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%);
     background-color: #333; color: white; padding: 6px 12px; border-radius: var(--radius-sm);
     font-size: 0.875rem; white-space: nowrap; opacity: 0; visibility: hidden;
-    transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+    transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease;
     pointer-events: none; z-index: 1000;
 }
+body.light-theme .whatsapp-chat .tooltip { background-color: var(--text-primary); color: var(--bg-dark); } /* Adjust tooltip for light */
 .whatsapp-chat:hover .tooltip { opacity: 1; visibility: visible; }
 
 /* --- Responsive --- */
@@ -346,7 +442,24 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
      .whatsapp-icon svg { width: 24px; height: 24px; } .whatsapp-chat .tooltip { display: none; }
 }
 
-/* --- Feedback Slider Styles --- */
+/* --- Feedback Section & Slider Styles --- */
+.feedback {
+    background-color: var(--bg-dark); /* Will transition */
+    transition: background-color var(--transition-speed) var(--transition-timing);
+}
+.feedback-form label { color: var(--text-primary); } /* Ensure labels follow theme */
+.feedback-rating .rating-stars label { color: var(--feedback-star-inactive); }
+.feedback-rating .rating-stars input[type="radio"]:checked ~ label,
+.feedback-rating .rating-stars label:hover,
+.feedback-rating .rating-stars label:hover ~ label {
+    color: var(--feedback-star-active);
+}
+.top-reviews-manual h4 {
+    color: var(--feedback-highlight-color);
+    border-bottom-color: var(--border-color-light); /* Use a theme variable */
+    transition: color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
+}
+
 #feedback-list {
     position: relative; /* Establishes positioning context for list items */
     min-height: 100px; /* Adjust based on typical content height to prevent collapse */
@@ -356,13 +469,12 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
     margin: 0; /* Removing default margin */
     font-size: 1.1em; /* MODIFIED: Increased font size */
     line-height: 1.5; /* MODIFIED: Adjusted line height for bigger font */
+    color: var(--text-secondary); /* Base text color */
+    transition: color var(--transition-speed) var(--transition-timing);
 }
 
 .feedback-item {
     /* Use relative positioning to allow items to take up space */
-    /* position: absolute; */ /* Stack items on top of each other */
-    /* top: 0; */
-    /* left: 0; */
     width: 100%; /* Take full width of the container */
     opacity: 0; /* Hidden by default */
     transition: opacity 0.2s ease-in-out; /* MODIFIED: Faster transition (0.6s -> 0.3s) */
@@ -370,10 +482,11 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
     /* Add padding/margin previously handled by inline styles if needed */
     margin-bottom: 0.6rem;
     padding-bottom: 0.6rem;
-    border-bottom: 1px dashed #eee;
+    border-bottom: 1px dashed var(--border-color-light); /* Use theme variable */
     /* Hide non-active items visually and from layout */
     max-height: 0;
     overflow: hidden;
+    transition: opacity 0.2s ease-in-out, border-color var(--transition-speed) var(--transition-timing);
 }
 
 .feedback-item.active {
@@ -385,8 +498,18 @@ footer { background-color: #000; color: var(--text-muted); padding: 50px 0; text
     overflow: visible;
 }
 
+/* Ensure specific colors inside feedback items use variables or are overridden */
+/* !important might be needed if inline styles persist, but variables are cleaner */
+.feedback-item span[style*="#ffc107"] { color: var(--feedback-star-active) !important; }
+.feedback-item span[style*="#0056b3"] { color: var(--feedback-highlight-color) !important; }
+.feedback-item span[style*="#777"] { color: var(--text-muted) !important; }
+
+
 /* --- Ensure parent container allows space --- */
 .top-reviews-manual {
     position: relative; /* Needed if feedback-items are absolute */
     /* min-height is already set inline, but could be moved here */
 }
+
+/* Explicit light theme feedback overrides (might be redundant if variables cover everything) */
+body.light-theme .feedback-item { border-bottom-color: var(--feedback-item-border); }
