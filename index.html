@@ -56,24 +56,19 @@
         .feedback-form .form-control {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #ccc;
+            border: 1px solid #ccc; /* Note: Will be overridden by theme variable in style.css */
             border-radius: 4px;
             box-sizing: border-box; /* Include padding and border in element's total width and height */
         }
         .feedback-form textarea.form-control {
             resize: vertical; /* Allow vertical resizing */
         }
-        .feedback-form .btn { /* Use existing button style if available */
-            padding: 0.8rem 1.5rem;
-            background-color: #007bff; /* Example color */
-            color: white;
-            border: none;
-            border-radius: 4px;
+        .feedback-form .btn { /* Uses existing .btn style from style.css */
             cursor: pointer;
             transition: background-color 0.3s;
         }
         .feedback-form .btn:hover {
-            background-color: #0056b3; /* Darker shade on hover */
+             /* Hover effect handled by general .btn:hover in style.css */
         }
     </style>
 
@@ -165,11 +160,13 @@
                 <!-- Project Order: Wjet, Dry, CRS, Violin, Helicopter, Turtle, Rubiks, Drake, Clock, PDE Automation, Salamander, Physiball -->
 
                 <div class="project-card reveal">
+                    <!-- Image click still triggers slideshow for wjet -->
                     <div class="project-image" data-project-id="wjet">
                         <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine">
                     </div>
                     <div class="project-info">
-                        <h3 id="wjet-machine" data-project-id="wjet">WATER-JET RETREADING MACHINE</h3>
+                         <!-- Title click now triggers description modal -->
+                        <h3 data-project-id="wjet">WATER-JET RETREADING MACHINE</h3>
                         <div class="description">
                             <p>Powered by Rover Research’s groundbreaking patented technology, this state-of-the-art machine is engineered for high-efficiency retreading of R22.5 tires while minimizing energy consumption. Operating on a closed-loop water cycle, it continuously recirculates H₂O into the high-pressure main water pump, ensuring sustainability and performance optimization.</p>
                             <p>With a processing capacity exceeding 4 tires/ hour, it offers precise adjustability, allowing for customized devulcanization to meet specific performance and quality requirements. Furthermore, the WJet MAchine generates exceptionally fine devulcanized rubber powder at a micron scale, paving the way for innovative applications in sustainable material reuse and advanced manufacturing.</p>
@@ -180,11 +177,13 @@
                 </div>
 
                 <div class="project-card reveal delay-100">
+                    <!-- No data-project-id on image, so no slideshow -->
                     <div class="project-image">
                         <img src="./dry/DryMachine.jpeg" alt="DryMachine">
                     </div>
                     <div class="project-info">
-                        <h3 id="dry-machine">DRY MACHINE</h3>
+                         <!-- Title click triggers description modal -->
+                        <h3 data-project-id="dry-machine">DRY MACHINE</h3>
                         <div class="description">
                             <p>The Dry Machine operates in perfect synchronization with the WJet Tire Retreading Machine and is specifically engineered to efficiently dry the tire at the end of the WJet Tire Retreading Machine treatment.</p>
                             <p>Designed for maximum efficiency, it minimizes the overall cycle time, ensuring the tire is fully prepared for the next stage—the application of new rubber coating.</p>
@@ -196,11 +195,13 @@
                 </div>
 
                 <div class="project-card reveal delay-200">
+                     <!-- Image click still triggers slideshow for crs -->
                     <div class="project-image" data-project-id="crs">
                         <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot">
                     </div>
                     <div class="project-info">
-                        <h3 id="crs-robot" data-project-id="crs">CRS INDUSTRIAL ROBOT</h3>
+                         <!-- Title click triggers description modal -->
+                        <h3 data-project-id="crs">CRS INDUSTRIAL ROBOT</h3>
                          <div class="description">
                             <p>This project tackles the challenge of high-precision pick-and-place operations in a dynamic simulated industrial environment. The CRS robot is designed to identify, handle, and accurately position diverse objects, adapting seamlessly to variations in shape, material, and fragility. It represents a fusion of advanced hardware and intelligent software, pushing the boundaries of industrial automation to ensure consistent and reliable performance.</p>
                          </div>
@@ -210,11 +211,13 @@
                 </div>
 
                 <div class="project-card reveal">
+                    <!-- Image click still triggers slideshow for violin -->
                     <div class="project-image" data-project-id="violin">
                         <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER">
                     </div>
                     <div class="project-info">
-                        <h3 id="violin-bot-player" data-project-id="violin">VIOLIN-BOT-PLAYER</h3>
+                        <!-- Title click triggers description modal -->
+                        <h3 data-project-id="violin">VIOLIN-BOT-PLAYER</h3>
                          <div class="description">
                             <p>Violin-Bot_Player is an innovative and programmable machine that masterfully plays the violin. Its design focuses on optimizing both the bowing and fingering systems. Various approaches were evaluated to achieve a smooth and harmonious bowing technique, culminating in a design that produces a rich, expressive sound. Similarly, the fingering system employs an array of push-type solenoids that mimic the delicate touch of a skilled violinist. With fixed distances maintained between solenoids to ensure accuracy, the entire configuration can shift seamlessly along the fingerboard to articulate intermediary notes, effectively covering at least the first full octave on each string.</p>
                         </div>
@@ -224,11 +227,13 @@
                 </div>
 
                 <div class="project-card reveal delay-100">
+                     <!-- Image click still triggers slideshow for helicopter -->
                     <div class="project-image" data-project-id="helicopter">
                         <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER">
                     </div>
                     <div class="project-info">
-                        <h3 id="helicopter-project" data-project-id="helicopter">PID 1DOF HELICOPTER</h3>
+                        <!-- Title click triggers description modal -->
+                        <h3 data-project-id="helicopter">PID 1DOF HELICOPTER</h3>
                          <div class="description">
                              <p>Me and my colleague Abend Eduardo have been asked to design, prototype and build a one degree of freedom helicopter in order to study and analyze the PID control theory. This is the brief of the project given to us from Dr Payam Rahmdel: One degree of freedom helicopter control system design.</p>
                              <p>After 4 months of hard work, we successfully created a fully functional 1DOF helicopter platform that demonstrates precise control through PID implementation. The system features real-time feedback mechanisms, custom-built mechanical components, and sophisticated control algorithms that allow for stable hovering and position control despite external disturbances.</p>
@@ -239,11 +244,13 @@
                 </div>
 
                 <div class="project-card reveal delay-200">
+                     <!-- Image click still triggers slideshow for turtle -->
                     <div class="project-image" data-project-id="turtle">
                         <img src="./turtle-cloud/1.webp" alt="TURTLE-CLOUD Logo">
                     </div>
                     <div class="project-info">
-                        <h3 id="project-3" data-project-id="turtle">TURTLE-CLOUD</h3>
+                         <!-- Title click triggers description modal -->
+                        <h3 data-project-id="turtle">TURTLE-CLOUD</h3>
                          <div class="description">
                              <p>A dynamic collaboration between MDX Mechatronics Engineering and Fine Art students, this innovative project seamlessly blends technology with creative expression. Centered around the immersive use of sound and light, the installation features synchronized robotic motion powered by the Robot Operating System (ROS). Engineering precision meets artistic imagination as custom-designed mechatronic systems respond in real time to sensory input, producing choreographed movements enhanced by atmospheric lighting and ambient audio. The result is a living, reactive sculpture that explores the intersection of engineering, art, and human perception — a testament to the power of interdisciplinary innovation.</p>
                          </div>
@@ -253,11 +260,13 @@
                 </div>
 
                 <div class="project-card reveal">
+                     <!-- Image click still triggers slideshow for rubiks -->
                     <div class="project-image" data-project-id="rubiks">
                         <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
                     </div>
                     <div class="project-info">
-                        <h3 id="rubiks-cube-project" data-project-id="rubiks">GIANT MECHATRONIC RUBIK'S CUBE</h3>
+                        <!-- Title click triggers description modal -->
+                        <h3 data-project-id="rubiks">GIANT MECHATRONIC RUBIK'S CUBE</h3>
                          <div class="description">
                             <p>An end-of-year University individual project that combines mechanical engineering with software control. I designed and built an autonomous, oversized Rubik's cube controlled through LabVIEW and Arduino.</p>
                             <p>The challenge was understanding and reproducing the complex mechanism that allows rotation on three different axes. I designed a larger core component based on the intersection of three axes, each allowing freedom of rotation at both ends. This project required extensive mathematical calculations and precise mechanical design to ensure smooth operation.</p>
@@ -269,10 +278,12 @@
 
                 <!-- === DRAKE MUSIC PROJECT === -->
                  <div class="project-card reveal delay-100">
+                    <!-- Image click still triggers slideshow for drake -->
                     <div class="project-image" data-project-id="drake-music-project">
                         <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors">
                     </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="drake-music-project">DRAKE MUSIC PROJECT</h3>
                         <div class="description">
                              <p>I led the development of an innovative interactive musical interface designed to overcome conventional technological limitations and support personalized creative expression for individuals with physical disabilities. This project centered around the design and creation of an adaptive musical soccer ball, inspired by the unique aspirations of a person whose love for music and football transcended her physical constraints.</p>
@@ -294,11 +305,13 @@
 
                 <!-- === MECHANICAL CLOCK PROJECT === -->
                 <div class="project-card reveal delay-200">
+                    <!-- Image click still triggers slideshow for clock -->
                     <div class="project-image" data-project-id="clock">
                         <img src="./mdf-clock/logo.png" alt="Mechanical Geared Wooden Clock">
                     </div>
                     <div class="project-info">
-                        <h3 id="clock-project" data-project-id="clock">MECHANICAL GEARED WOODEN CLOCK</h3>
+                        <!-- Title click triggers description modal -->
+                        <h3 data-project-id="clock">MECHANICAL GEARED WOODEN CLOCK</h3>
                         <div class="description">
                             <p>A fascinating project exploring traditional clockmaking techniques combined with modern precision.</p>
                             <p>A fully mechanical clock was developed, designed to operate without any electrical or electronic components.</p>
@@ -320,11 +333,13 @@
                 <!-- === END MECHANICAL CLOCK === -->
 
                 <!-- === PDE Industrial Automation Project === -->
-                <div class="project-card reveal delay-200"> <!-- Existing delay -->
-                    <div class="project-image" data-project-id="pde-automation">
+                <div class="project-card reveal delay-200">
+                    <!-- No data-project-id on image -->
+                    <div class="project-image">
                         <img src="./pde-industrial-automation/logo.png" alt="PDE Industrial Automation System">
                     </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="pde-automation">PDE INDUSTRIAL AUTOMATION</h3>
                         <div class="description">
                             <p>Demonstration of an industrial automation system that features piston mechanisms: overview of the system, role of pistons in industrial automation and the design of a simple system within a simulated industrial manufacturing or processing environment.</p>
@@ -349,11 +364,13 @@
                 <!-- === END PDE Industrial Automation === -->
 
                 <!-- === SALAMANDER-BOT Project === -->
-                <div class="project-card reveal delay-300"> <!-- New card with adjusted delay -->
-                    <div class="project-image" data-project-id="salamander-bot">
+                <div class="project-card reveal delay-300">
+                    <!-- No data-project-id on image -->
+                    <div class="project-image">
                         <img src="./salamander/logo.png" alt="Salamander-Bot Project">
                     </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="salamander-bot">SALAMANDER-BOT</h3>
                         <div class="description">
                             <p>Amphibious-Inspired Robot Demonstration – Mechatronics Engineering Project</p>
@@ -378,12 +395,14 @@
 
 
                 <!-- === PHYSIBALL Project Card === -->
-                <div class="project-card reveal delay-300"> <!-- Kept delay 300 for cascade effect -->
-                    <div class="project-image"> <!-- No trigger for PDF on image -->
+                <div class="project-card reveal delay-300">
+                    <!-- No data-project-id on image, so no slideshow -->
+                    <div class="project-image">
                         <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
                     </div>
                     <div class="project-info">
-                        <h3 id="physiball-project" data-project-id="physiball">PHYSIBALL</h3>
+                        <!-- Title click triggers description modal -->
+                        <h3 data-project-id="physiball">PHYSIBALL</h3>
                          <div class="description">
                              <p>The PHYSIBALL is a fully functional, wireless tennis-ball-size that transmits and visualizes data in real-time.</p>
                              <p>Battery-powered for mobility or USB-connected for analysis, it can also function as an active sensor in other equipment.</p>
@@ -468,44 +487,39 @@
 
                     <!-- ****** NEW: Top Reviews Container for Slider ****** -->
                     <div class="top-reviews-manual" style="flex: 1 1 250px; min-height: 150px; /* Adjust min-height as needed */">
-                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: #0056b3; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Feedback Highlights:</h4>
+                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: var(--feedback-highlight-color); border-bottom: 1px solid var(--border-color-light); padding-bottom: 0.5rem;">Feedback Highlights:</h4>
 
                         <!-- MODIFIED: Removed inline style from UL -->
                         <ul id="feedback-list">
-                            <!--
-                                ADD class="feedback-item" to each li
-                                REMOVE inline styles from li (will be handled in CSS)
-                            -->
                             <li class="feedback-item">
-                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
-                                <span style="color: #0056b3;"> - "Bravissimo Adeeeeee!!"</span>
-                                <span style="color: #777; font-style: italic;"> - M. Arianna</span>
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Bravissimo Adeeeeee!!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - M. Arianna</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
-                                <!-- Added placeholder text for empty review -->
-                                <span style="color: #0056b3;"> - "Great work!"</span>
-                                <span style="color: #777; font-style: italic;"> - F.Fabrizio</span>
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Great work!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - F.Fabrizio</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
-                                <span style="color: #0056b3;"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
-                                <span style="color: #777; font-style: italic;"> - J. Doe</span>
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - J. Doe</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
-                                <span style="color: #0056b3;"> - "Well Done My friend!"</span>
-                                <span style="color: #777; font-style: italic;"> - Alex R.</span>
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Well Done My friend!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - Alex R.</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
-                                <span style="color: #0056b3;"> - "Great Job!! We miss you in here!!"</span>
-                                <span style="color: #777; font-style: italic;"> - Sarah K.</span>
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Great Job!! We miss you in here!!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - Sarah K.</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
-                                <span style="color: #0056b3;"> - "TOP"</span>
-                                <span style="color: #777; font-style: italic;"> - Ben T.</span>
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "TOP"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - Ben T.</span>
                             </li>
                         </ul>
                     </div>
@@ -580,6 +594,20 @@
              <div class="publications-grid" id="publicationsGrid"><p>Loading publications...</p></div>
         </div>
     </div>
+
+    <!-- **** START: New Modal for Project Description **** -->
+    <div id="descriptionModal" class="modal description-modal" role="dialog" aria-modal="true" aria-labelledby="modalDescTitle">
+        <div class="modal-content description-content">
+             <button class="close-modal-btn" aria-label="Close project details" data-close-modal>×</button>
+             <!-- Content will be populated by JavaScript -->
+             <img id="modalDescImage" src="" alt="Project Image" class="modal-project-image">
+             <h2 id="modalDescTitle" class="modal-project-title">Project Title</h2>
+             <div id="modalDescText" class="modal-project-description">
+                 Project description goes here...
+             </div>
+        </div>
+    </div>
+    <!-- **** END: New Modal for Project Description **** -->
 
 
     <!-- Link to External JavaScript file -->
