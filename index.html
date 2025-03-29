@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- Add data-theme attribute here for JS -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,264 +25,6 @@
 
     <!-- Basic Styling for Feedback Stars (Consider moving to style.css) -->
     <style>
-        /* --- START THEME VARIABLES --- */
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --text-muted-color: #555555;
-            --primary-color: #007bff;
-            --primary-hover-color: #0056b3;
-            --highlight-color: #007bff; /* Hero highlight */
-            --section-bg-color: #f8f9fa;
-            --card-bg-color: #ffffff;
-            --card-border-color: #e9ecef;
-            --card-shadow-color: rgba(0, 0, 0, 0.1);
-            --tag-bg-color: #e9ecef;
-            --tag-text-color: #495057;
-            --link-color: #007bff;
-            --link-hover-color: #0056b3;
-            --modal-bg-color: rgba(0, 0, 0, 0.6);
-            --modal-content-bg-color: #ffffff;
-            --modal-close-color: #aaaaaa;
-            --modal-close-hover-color: #333333;
-            --button-text-color: #ffffff;
-            --footer-bg-color: #343a40;
-            --footer-text-color: #f8f9fa;
-            --footer-link-color: #adb5bd;
-            --footer-link-hover-color: #ffffff;
-            --separator-color: #dee2e6;
-            --feedback-star-default: #ccc;
-            --feedback-star-selected: #ffc107;
-            --form-border-color: #ccc;
-            --form-input-bg: #fff;
-            --form-input-text: #333;
-            --theme-toggle-bg: #eee;
-            --theme-toggle-fg: #333;
-            --theme-toggle-hover-bg: #ddd;
-        }
-
-        html[data-theme="dark"] {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --text-muted-color: #b0b0b0;
-            --primary-color: #3a9cff; /* Lighter blue for dark mode */
-            --primary-hover-color: #5aaaff;
-            --highlight-color: #3a9cff;
-            --section-bg-color: #1f1f1f;
-            --card-bg-color: #2a2a2a;
-            --card-border-color: #444444;
-            --card-shadow-color: rgba(0, 0, 0, 0.4);
-            --tag-bg-color: #333333;
-            --tag-text-color: #cccccc;
-            --link-color: #3a9cff;
-            --link-hover-color: #7bbfff;
-            --modal-bg-color: rgba(0, 0, 0, 0.8);
-            --modal-content-bg-color: #2a2a2a;
-            --modal-close-color: #aaaaaa;
-            --modal-close-hover-color: #ffffff;
-            --button-text-color: #ffffff; /* Keep button text white or adjust if needed */
-            --footer-bg-color: #1f1f1f;
-            --footer-text-color: #e0e0e0;
-            --footer-link-color: #b0b0b0;
-            --footer-link-hover-color: #ffffff;
-            --separator-color: #444444;
-            --feedback-star-default: #555;
-            --feedback-star-selected: #ffc107;
-            --form-border-color: #555;
-            --form-input-bg: #333;
-            --form-input-text: #e0e0e0;
-            --theme-toggle-bg: #444;
-            --theme-toggle-fg: #eee;
-            --theme-toggle-hover-bg: #555;
-        }
-        /* --- END THEME VARIABLES --- */
-
-        /* --- Apply Theme Variables --- */
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif; /* Ensure font is applied */
-            margin: 0;
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Apply to specific elements */
-        header {
-            background-color: var(--bg-color);
-             /* Add a subtle border maybe */
-            border-bottom: 1px solid var(--separator-color);
-        }
-         nav .logo, nav .nav-links a, .mobile-nav-panel a {
-             color: var(--text-color);
-         }
-         nav .logo:hover, nav .nav-links a:hover, .mobile-nav-panel a:hover {
-             color: var(--primary-color);
-         }
-
-        .hero { background-color: var(--bg-color); }
-        .hero h1 .highlight { color: var(--highlight-color); }
-        .hero .btn { background-color: var(--primary-color); color: var(--button-text-color); }
-        .hero .btn:hover { background-color: var(--primary-hover-color); }
-
-        .about, .projects, .contact, .feedback {
-            background-color: var(--section-bg-color);
-            padding: 60px 0; /* Ensure sections have padding */
-        }
-        /* Alternate section background */
-        .about, .contact {
-             background-color: var(--bg-color); /* Light theme has white */
-        }
-        html[data-theme="dark"] .about,
-        html[data-theme="dark"] .contact {
-             background-color: var(--bg-color); /* Dark theme has dark grey */
-        }
-        html[data-theme="light"] .projects,
-        html[data-theme="light"] .feedback {
-             background-color: var(--section-bg-color); /* Light grey for light theme */
-        }
-         html[data-theme="dark"] .projects,
-         html[data-theme="dark"] .feedback {
-              background-color: var(--section-bg-color); /* Darker grey for dark theme */
-         }
-
-
-        .section-title {
-            color: var(--text-color);
-            border-bottom: 2px solid var(--primary-color);
-        }
-        .about-text h3 { color: var(--primary-color); }
-        .about-text p, .description p, .contact-info p, .feedback p { color: var(--text-muted-color); }
-        html[data-theme="dark"] .about-text p,
-        html[data-theme="dark"] .description p,
-        html[data-theme="dark"] .contact-info p,
-        html[data-theme="dark"] .feedback p {
-             color: var(--text-muted-color); /* Slightly adjust if needed for dark mode */
-        }
-
-        .project-card {
-            background-color: var(--card-bg-color);
-            border: 1px solid var(--card-border-color);
-            box-shadow: 0 4px 8px var(--card-shadow-color);
-        }
-        .project-info h3 { color: var(--text-color); }
-        .project-tags .tag {
-            background-color: var(--tag-bg-color);
-            color: var(--tag-text-color);
-        }
-        .project-links a { color: var(--link-color); }
-        .project-links a:hover { color: var(--link-hover-color); }
-
-        .contact-link i { color: var(--primary-color); }
-        .contact-link a { color: var(--link-color); }
-        .contact-link a:hover { color: var(--link-hover-color); }
-
-        .form-group label { color: var(--text-color); }
-        .form-control {
-            background-color: var(--form-input-bg);
-            color: var(--form-input-text);
-            border: 1px solid var(--form-border-color);
-        }
-        .form-control::placeholder { /* Standard */
-           color: var(--text-muted-color);
-           opacity: 0.7;
-        }
-        .btn {
-             background-color: var(--primary-color);
-             color: var(--button-text-color);
-             border: none;
-        }
-        .btn:hover {
-            background-color: var(--primary-hover-color);
-        }
-
-        /* Feedback Stars */
-        .feedback-rating .rating-stars label { color: var(--feedback-star-default); }
-        .feedback-rating .rating-stars input[type="radio"]:checked ~ label,
-        .feedback-rating .rating-stars label:hover,
-        .feedback-rating .rating-stars label:hover ~ label {
-            color: var(--feedback-star-selected);
-        }
-        /* Adjust feedback highlight text color in dark mode */
-        html[data-theme="dark"] .top-reviews-manual h4 { color: var(--link-color); border-bottom-color: var(--separator-color); }
-        html[data-theme="dark"] .feedback-item span:nth-child(2) { color: var(--link-color); }
-        html[data-theme="dark"] .feedback-item span:nth-child(3) { color: var(--text-muted-color); }
-
-
-        footer {
-            background-color: var(--footer-bg-color);
-            color: var(--footer-text-color);
-        }
-        footer .social-link {
-            color: var(--footer-link-color);
-            border-color: var(--footer-link-color);
-        }
-        footer .social-link:hover {
-            color: var(--footer-link-hover-color);
-            border-color: var(--footer-link-hover-color);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        html[data-theme="dark"] footer .social-link:hover {
-             background-color: rgba(255, 255, 255, 0.15); /* Slightly more visible hover */
-        }
-        footer .footer-text { color: var(--footer-text-color); }
-
-        /* Modals */
-        .modal { background-color: var(--modal-bg-color); }
-        .modal-content { background-color: var(--modal-content-bg-color); color: var(--text-color); }
-        .close-modal-btn { color: var(--modal-close-color); }
-        .close-modal-btn:hover { color: var(--modal-close-hover-color); }
-        .modal h2 { color: var(--text-color); }
-        .publications-grid p { color: var(--text-muted-color); } /* Ensure loading text is visible */
-
-        /* Scroll/WhatsApp buttons */
-        .scroll-to-top { background-color: var(--primary-color); color: var(--button-text-color); }
-        .scroll-to-top:hover { background-color: var(--primary-hover-color); }
-        .whatsapp-chat .whatsapp-icon { background-color: #25D366; } /* Keep WhatsApp color */
-
-        /* Hamburger Menu */
-        .hamburger-menu span { background-color: var(--text-color); }
-        .mobile-nav-panel { background-color: var(--bg-color); border-top: 1px solid var(--separator-color); }
-
-        /* --- Theme Toggle Button Style --- */
-        #theme-toggle-btn {
-            background-color: var(--theme-toggle-bg);
-            color: var(--theme-toggle-fg);
-            border: 1px solid var(--separator-color);
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 0.8em; /* Smaller text */
-            margin-left: 15px; /* Space from nav links */
-            transition: background-color 0.3s, color 0.3s;
-        }
-        #theme-toggle-btn:hover {
-            background-color: var(--theme-toggle-hover-bg);
-        }
-        /* Simple icon content change via JS */
-        #theme-toggle-btn .icon {
-             display: inline-block;
-             width: 1em;
-             height: 1em;
-             margin-right: 5px;
-        }
-        /* Hide icon text for screen readers */
-        #theme-toggle-btn .label {
-             position: absolute;
-             width: 1px;
-             height: 1px;
-             padding: 0;
-             margin: -1px;
-             overflow: hidden;
-             clip: rect(0, 0, 0, 0);
-             white-space: nowrap; /* added line */
-             border: 0;
-        }
-
-        /* --- END Apply Theme Variables --- */
-
-
-        /* Keep existing feedback styles, but ensure colors use variables */
         .feedback-rating .rating-stars {
             display: inline-block;
             direction: rtl; /* Right-to-left to make stars select left-to-right */
@@ -292,9 +34,17 @@
         .feedback-rating .rating-stars input[type="radio"] {
             display: none; /* Hide the actual radio buttons */
         }
-        /* .feedback-rating .rating-stars label was handled above */
-        /* .feedback-rating .rating-stars input[type="radio"]:checked ~ label, etc was handled above */
-
+        .feedback-rating .rating-stars label {
+            color: #ccc; /* Default star color */
+            cursor: pointer;
+            padding: 0 2px;
+            transition: color 0.2s;
+        }
+        .feedback-rating .rating-stars input[type="radio"]:checked ~ label,
+        .feedback-rating .rating-stars label:hover,
+        .feedback-rating .rating-stars label:hover ~ label {
+            color: #ffc107; /* Color for selected/hovered stars */
+        }
         .feedback-form .form-group {
             margin-bottom: 1.5rem; /* Consistent spacing */
         }
@@ -302,42 +52,33 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            /* color handled by .form-group label */
         }
-        /* .feedback-form .form-control handled above */
+        .feedback-form .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
         .feedback-form textarea.form-control {
             resize: vertical; /* Allow vertical resizing */
         }
-        /* .feedback-form .btn handled above */
-        /* .feedback-form .btn:hover handled above */
-
-        /* Existing styles for feedback list (colors handled by theme variables) */
-        #feedback-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 110px; /* Set a max height */
-            overflow-y: auto; /* Enable vertical scroll if needed */
-            border: 1px solid var(--separator-color); /* Add subtle border */
+        .feedback-form .btn { /* Use existing button style if available */
+            padding: 0.8rem 1.5rem;
+            background-color: #007bff; /* Example color */
+            color: white;
+            border: none;
             border-radius: 4px;
-            padding: 10px;
-            background-color: var(--bg-color); /* Match background */
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-
-        .feedback-item {
-            padding: 5px 0;
-            font-size: 0.9em;
-             border-bottom: 1px dashed var(--separator-color); /* Separator */
+        .feedback-form .btn:hover {
+            background-color: #0056b3; /* Darker shade on hover */
         }
-        .feedback-item:last-child {
-            border-bottom: none; /* No border for the last item */
-        }
-        /* Colors for spans within feedback-item are handled by theme variables */
-
     </style>
 
 </head>
-<body> <!-- Removed data-theme attribute, will be set by JS -->
+<body>
     <!-- Header -->
     <header>
         <div class="container">
@@ -349,11 +90,6 @@
                     <a href="#contact">Contact</a>
                     <a href="#" id="publications-link">Publications</a>
                 </div>
-                <!-- ADDED THEME TOGGLE BUTTON -->
-                <button id="theme-toggle-btn" aria-label="Toggle theme">
-                    <span class="icon" aria-hidden="true">◐</span> <!-- Initial icon, JS will update -->
-                    <span class="label">Toggle Light/Dark Theme</span>
-                </button>
                 <div class="hamburger-menu" id="hamburger-menu">
                     <span></span><span></span><span></span>
                 </div>
@@ -364,7 +100,6 @@
             <a href="#projects" class="mobile-nav-link">Projects</a>
             <a href="#contact" class="mobile-nav-link">Contact</a>
             <a href="#" id="publications-link-mobile" class="mobile-nav-link">Publications</a>
-             <!-- Optionally add theme toggle here for mobile too, or control via JS -->
         </div>
     </header>
 
@@ -713,44 +448,44 @@
 
                     <!-- ****** NEW: Top Reviews Container for Slider ****** -->
                     <div class="top-reviews-manual" style="flex: 1 1 250px; min-height: 150px; /* Adjust min-height as needed */">
-                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: var(--primary-color); border-bottom: 1px solid var(--separator-color); padding-bottom: 0.5rem;">Feedback Highlights:</h4>
+                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: #0056b3; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Feedback Highlights:</h4>
 
-                        <!-- MODIFIED: Removed inline style from UL, added theme support -->
+                        <!-- MODIFIED: Removed inline style from UL -->
                         <ul id="feedback-list">
                             <!--
                                 ADD class="feedback-item" to each li
                                 REMOVE inline styles from li (will be handled in CSS)
                             -->
                             <li class="feedback-item">
-                                <span style="color: var(--feedback-star-selected); font-weight: bold;">★★★★☆</span>
-                                <span style="color: var(--link-color);"> - "Bravissimo Adeeeeee!!"</span>
-                                <span style="color: var(--text-muted-color); font-style: italic;"> - M. Arianna</span>
+                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
+                                <span style="color: #0056b3;"> - "Bravissimo Adeeeeee!!"</span>
+                                <span style="color: #777; font-style: italic;"> - M. Arianna</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: var(--feedback-star-selected); font-weight: bold;">★★★★☆</span>
+                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
                                 <!-- Added placeholder text for empty review -->
-                                <span style="color: var(--link-color);"> - "Great work!"</span>
-                                <span style="color: var(--text-muted-color); font-style: italic;"> - F.Fabrizio</span>
+                                <span style="color: #0056b3;"> - "Great work!"</span>
+                                <span style="color: #777; font-style: italic;"> - F.Fabrizio</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: var(--feedback-star-selected); font-weight: bold;">★★★★★</span>
-                                <span style="color: var(--link-color);"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
-                                <span style="color: var(--text-muted-color); font-style: italic;"> - J. Doe</span>
+                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
+                                <span style="color: #0056b3;"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
+                                <span style="color: #777; font-style: italic;"> - J. Doe</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: var(--feedback-star-selected); font-weight: bold;">★★★★★</span>
-                                <span style="color: var(--link-color);"> - "Well Done My friend!"</span>
-                                <span style="color: var(--text-muted-color); font-style: italic;"> - Alex R.</span>
+                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
+                                <span style="color: #0056b3;"> - "Well Done My friend!"</span>
+                                <span style="color: #777; font-style: italic;"> - Alex R.</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: var(--feedback-star-selected); font-weight: bold;">★★★★★</span>
-                                <span style="color: var(--link-color);"> - "Great Job!! We miss you in here!!"</span>
-                                <span style="color: var(--text-muted-color); font-style: italic;"> - Sarah K.</span>
+                                <span style="color: #ffc107; font-weight: bold;">★★★★★</span>
+                                <span style="color: #0056b3;"> - "Great Job!! We miss you in here!!"</span>
+                                <span style="color: #777; font-style: italic;"> - Sarah K.</span>
                             </li>
                             <li class="feedback-item">
-                                <span style="color: var(--feedback-star-selected); font-weight: bold;">★★★★☆</span>
-                                <span style="color: var(--link-color);"> - "TOP"</span>
-                                <span style="color: var(--text-muted-color); font-style: italic;"> - Ben T.</span>
+                                <span style="color: #ffc107; font-weight: bold;">★★★★☆</span>
+                                <span style="color: #0056b3;"> - "TOP"</span>
+                                <span style="color: #777; font-style: italic;"> - Ben T.</span>
                             </li>
                         </ul>
                     </div>
@@ -825,7 +560,9 @@
              <div class="publications-grid" id="publicationsGrid"><p>Loading publications...</p></div>
         </div>
     </div>
-    
+
+
+    <!-- Link to External JavaScript file -->
     <script src="./script.js"></script>
 
 </body>
