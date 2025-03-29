@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (feedbackList) {
         const feedbackItems = feedbackList.querySelectorAll('.feedback-item');
         let currentFeedbackIndex = 0;
-        const intervalTime = 5000; // Time in milliseconds (e.g., 5 seconds)
+        const intervalTime = 2000; // Time in milliseconds (e.g., 5 seconds)
         let feedbackInterval;
 
         function showNextFeedback() {
