@@ -279,7 +279,45 @@ body.light-theme .btn { /* Ensure button text remains white in light theme */
 .project-info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
 .project-info h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--text-primary); font-weight: 700; cursor: pointer; transition: color var(--transition-speed) var(--transition-timing); }
 .project-info h3:hover { color: var(--accent-primary); }
-.project-info .description { color: var(--text-secondary); margin-bottom: 20px; flex-grow: 1; font-size: 0.95rem; }
+
+/* --- Project Description Truncation (Keep This) --- */
+.project-info .description {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    flex-grow: 1;
+    font-size: 0.95rem;
+    /* Initial collapsed state */
+    max-height: 4.8em; /* Adjust this value! ~3 lines (1.7 line-height * 3 lines) */
+    overflow: hidden;
+    position: relative; /* Needed for the fade-out effect */
+    /* transition: max-height 0.4s ease-in-out; /* REMOVED - Not expanding inline */
+}
+/* Add a subtle fade-out effect at the bottom when collapsed */
+body:not(.light-theme) .project-info .description::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5em; /* Height of the fade */
+    background: linear-gradient(to bottom, rgba(26, 26, 26, 0), var(--bg-card) 90%); /* Dark theme fade */
+    pointer-events: none; /* Allow clicks through the fade */
+    transition: opacity 0.2s ease-in-out; /* Keep transition for potential future use? */
+}
+body.light-theme .project-info .description::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5em; /* Height of the fade */
+    background: linear-gradient(to bottom, rgba(249, 249, 249, 0), var(--bg-card) 90%); /* Light theme fade */
+    pointer-events: none; /* Allow clicks through the fade */
+    transition: opacity 0.2s ease-in-out;
+}
+/* --- End Description Truncation Styles --- */
+
+
 .project-info > p { color: var(--text-secondary); margin-bottom: 15px; } /* Support direct P */
 .project-info .description p { margin-bottom: 12px; }
 .project-info .description p:last-child { margin-bottom: 0; }
@@ -351,16 +389,19 @@ body.light-theme .modal {
 .modal-content {
     position: relative; background-color: var(--bg-card); border-radius: var(--radius-lg);
     box-shadow: 0 10px 30px var(--shadow-color); overflow: hidden; max-width: 95vw;
-    max-height: 95vh; width: 1100px; height: 90vh; display: flex; flex-direction: column;
+    max-height: 95vh; width: 1100px; /* Default width, specific modals override */
+    display: flex; flex-direction: column; /* Default direction */
     transform: scale(0.95);
     transition: transform var(--transition-speed) ease-out, background-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
 }
 .modal.show .modal-content { transform: scale(1); }
+
 /* PDF Modal */
-.pdf-modal .modal-content { width: 90%; height: 90%; margin: 0; }
+.pdf-modal .modal-content { width: 90%; height: 90%; margin: 0; padding: 0; /* Remove padding for iframe */ }
 .pdf-modal iframe { flex-grow: 1; border: none; width: 100%; height: 100%;}
+
 /* Image Slideshow */
-.image-modal .modal-content { background-color: transparent; box-shadow: none; width: auto; height: auto; overflow: visible;}
+.image-modal .modal-content { background-color: transparent; box-shadow: none; width: auto; height: auto; overflow: visible; padding: 0;}
 /* Explicitly set transparent background for light theme */
 body.light-theme .image-modal .modal-content { background-color: transparent !important; }
 .image-content-wrapper { max-width: 90vw; max-height: 90vh; display: flex; align-items: center; justify-content: center; position: relative;}
@@ -375,6 +416,7 @@ body.light-theme .image-modal .modal-content { background-color: transparent !im
 }
 .slide-btn:hover { background-color: rgba(0, 0, 0, 0.7); }
 .prev-btn { left: 20px; } .next-btn { right: 20px; }
+
 /* Publications */
 .publications-modal .modal-content { width: 90%; max-width: 700px; height: auto; max-height: 85vh; padding: 30px; }
 .publications-modal h2 { font-size: 1.6rem; color: var(--text-primary); margin-bottom: 25px; text-align: center; font-weight: 700;}
@@ -384,7 +426,68 @@ body.light-theme .image-modal .modal-content { background-color: transparent !im
 body.light-theme .publication-item:hover { background-color: #e0e0e0; border-color: var(--border-color-light); } /* Adjusted hover for light */
 .publication-item a { color: var(--accent-primary); display: block; font-weight: 600; font-size: 1rem; }
 .publication-item a:hover { color: var(--accent-primary-darker); text-decoration: underline;}
-/* Modal Close */
+
+
+/* --- Style for the New Description Modal (Added Here) --- */
+.description-modal .modal-content {
+    width: 90%;
+    max-width: 750px; /* Adjust as needed */
+    height: auto; /* Height based on content */
+    max-height: 85vh; /* Limit height and allow scrolling */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    /* Inherits background, border-radius, shadow from .modal-content */
+    background-color: var(--bg-card);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    transition: transform var(--transition-speed) ease-out, background-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+}
+
+.description-modal .modal-project-image {
+    max-width: 100%; /* Prevent image exceeding modal width */
+    height: auto;
+    max-height: 300px; /* Optional: Limit image height */
+    object-fit: contain; /* Scale image nicely */
+    border-radius: var(--radius-md); /* Match card style */
+    margin-bottom: 25px;
+    display: block; /* Remove extra space below image */
+    margin-left: auto; /* Center if needed */
+    margin-right: auto; /* Center if needed */
+}
+
+.description-modal .modal-project-title {
+    font-size: 1.7rem; /* Adjust size */
+    font-weight: 700;
+    color: var(--text-primary); /* Use theme variable */
+    margin-bottom: 15px;
+    text-align: center; /* Optional: Center title */
+    transition: color var(--transition-speed) var(--transition-timing);
+}
+
+.description-modal .modal-project-description {
+    flex-grow: 1; /* Allow description to take available space */
+    overflow-y: auto; /* Enable scrolling if description is long */
+    line-height: 1.7; /* Match body line height */
+    color: var(--text-secondary); /* Use theme variable */
+    padding-right: 10px; /* Add space for scrollbar if it appears */
+    transition: color var(--transition-speed) var(--transition-timing);
+}
+.description-modal .modal-project-description p {
+    margin-bottom: 1em;
+}
+.description-modal .modal-project-description p:last-child {
+    margin-bottom: 0;
+}
+
+.description-modal .close-modal-btn {
+    /* Adjust top/right if needed based on the 30px padding */
+    top: 15px;
+    right: 15px;
+}
+/* --- End Description Modal Styles --- */
+
+
+/* Modal Close Button (General) */
 .close-modal-btn {
     position: absolute; top: 12px; right: 12px; color: var(--text-secondary); font-size: 1.8rem;
     font-weight: bold; cursor: pointer; z-index: 10; line-height: 1; padding: 5px;
@@ -429,8 +532,10 @@ body.light-theme .whatsapp-chat .tooltip { background-color: var(--text-primary)
     .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
     .slide-btn { width: 40px; height: 40px; font-size: 1.5rem; }
     .prev-btn { left: 10px; } .next-btn { right: 10px; }
-    .modal-content { height: auto; max-height: 90vh; width: 95vw; }
+    .modal-content { height: auto; max-height: 90vh; width: 95vw; } /* General adjustment */
     .publications-modal .modal-content { padding: 20px; } .publications-grid { padding-right: 5px; }
+    .description-modal .modal-content { padding: 20px; } /* Adjust description modal padding */
+    .description-modal .modal-project-title { font-size: 1.5rem; } /* Adjust title size */
 }
 @media (max-width: 480px) {
      section { padding: 60px 0; } .hero { padding: 80px 0; min-height: 50vh;}
@@ -440,6 +545,7 @@ body.light-theme .whatsapp-chat .tooltip { background-color: var(--text-primary)
      .scroll-to-top { width: 40px; height: 40px; line-height: 40px; font-size: 1.1rem; bottom: 15px; right: 15px;}
      .whatsapp-chat { width: 50px; height: 50px; bottom: 15px; left: 15px;}
      .whatsapp-icon svg { width: 24px; height: 24px; } .whatsapp-chat .tooltip { display: none; }
+     .description-modal .modal-project-title { font-size: 1.3rem; } /* Smaller title on very small screens */
 }
 
 /* --- Feedback Section & Slider Styles --- */
