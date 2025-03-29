@@ -62,17 +62,23 @@ document.addEventListener('click', function(event) {
         // --- Determine if this click's primary action is handled elsewhere ---
         const isMainNavPubLink = link.id === 'publications-link' || link.id === 'publications-link-mobile';
         const isPubItemLink = link.closest('.publication-item') !== null;
-        const isProjectModalTrigger = (event.target.closest('.project-image[data-project-id]') || event.target.closest('h3[data-project-id]'));
+        // Title clicks are handled separately now for description modal or specific PDFs
+        const isTitleClick = event.target.matches('.project-info h3[data-project-id]') || event.target.closest('.project-info h3[data-project-id]');
+        // Image clicks handled separately for slideshow
+        const isProjectImageClick = event.target.closest('.project-image[data-project-id]') !== null;
+
 
         // --- Only track here if NOT handled by specific logic AND not an internal anchor ---
-        if (!isMainNavPubLink && !isPubItemLink && !isProjectModalTrigger) {
+        // This checks if the click was on a link AND wasn't one of the specific interactive elements handled elsewhere
+        if (!isMainNavPubLink && !isPubItemLink && !isTitleClick && !isProjectImageClick) {
             let linkType = 'generic_link';
             let context = '';
 
             const projectCard = link.closest('.project-card');
             if (projectCard) {
-                const projElement = projectCard.querySelector('[data-project-id]');
-                 if (projElement) context = projElement.getAttribute('data-project-id');
+                // Find the h3 within the same card to get the projectId
+                const titleElement = projectCard.querySelector('h3[data-project-id]');
+                 if (titleElement) context = titleElement.getAttribute('data-project-id');
             }
 
             if (link.closest('.project-links')) linkType = 'project_link';
@@ -98,7 +104,7 @@ console.log('Basic tracker defined. Main script follows.');
 
 
 // ----------------------------------------------------------------------- //
-// --- ORIGINAL SCRIPT.JS CONTENT STARTS HERE (with integrations) ---      //
+// --- MAIN SCRIPT CONTENT STARTS HERE ---                                 //
 // ----------------------------------------------------------------------- //
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -147,6 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentThemeIsLight = body.classList.contains('light-theme');
         const newTheme = currentThemeIsLight ? 'dark' : 'light';
         applyTheme(newTheme);
+        // Track theme change
+        trackEvent('theme_change', { theme: newTheme });
     };
 
     // Check localStorage on load
@@ -178,6 +186,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const slideCounter = document.getElementById("slideCounter");
     const publicationsModal = document.getElementById("publicationsModal");
     const publicationsGrid = document.getElementById("publicationsGrid");
+    // *** Description Modal Elements ***
+    const descriptionModal = document.getElementById('descriptionModal');
+    const modalDescImage = document.getElementById('modalDescImage');
+    const modalDescTitle = document.getElementById('modalDescTitle');
+    const modalDescText = document.getElementById('modalDescText');
+    // *** End Description Modal Elements ***
     const publicationsLink = document.getElementById("publications-link");
     const publicationsLinkMobile = document.getElementById("publications-link-mobile");
     const hamburgerMenu = document.getElementById("hamburger-menu");
@@ -197,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         violin:     { totalSlides: 10, prefix: './violin-bot-player/',   extension: 'jpg' },
         crs:        { totalSlides: 1,  prefix: './csr robot/',           extension: 'png' },
         wjet:       { totalSlides: 37, prefix: './wjet/',                extension: 'png' }
+        // Add other projects that should have slideshows on IMAGE click here
     };
     let currentSlide = 1;
     let currentProjectData = null; // For active slideshow
@@ -230,6 +245,8 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // Optional: Unobserve after revealed to save resources
+                // observer.unobserve(entry.target);
             }
         });
     };
@@ -238,37 +255,45 @@ document.addEventListener('DOMContentLoaded', function() {
      revealElements.forEach(el => observer.observe(el));
 
     // --- Modal Functions (with Tracking Integration) ---
-    function openModal(modalElement, contextData = {}) { // Added contextData parameter
+    function openModal(modalElement, contextData = {}) {
          if (!modalElement) return;
 
          // --- Track Modal Open ---
          let modalType = modalElement.id || 'unknown_modal';
          let modalDetail = '';
-         let context = contextData.projectId || '';
+         let context = contextData.projectId || contextData.pdfPath || ''; // Use projectId or pdfPath as context
 
-         if (modalElement.id === 'imageModal' && currentProjectData) {
-             modalType = 'image_modal';
+         // Refine modal type based on ID
+         if (modalElement.id === 'imageModal') modalType = 'image_modal';
+         if (modalElement.id === 'pdfModal') modalType = 'pdf_modal';
+         if (modalElement.id === 'publicationsModal') modalType = 'publications_modal';
+         if (modalElement.id === 'descriptionModal') modalType = 'description_modal'; // NEW
+
+         // Add detail based on modal type
+         if (modalType === 'image_modal' && currentProjectData) {
              modalDetail = currentProjectData.prefix;
-             context = currentProjectData.prefix.replace(/[.\/]/g, '');
-         } else if (modalElement.id === 'pdfModal') {
-             modalType = 'pdf_modal';
+             context = context || currentProjectData.prefix.replace(/[.\/]/g, ''); // Use prefix if no projectId passed
+         } else if (modalType === 'pdf_modal') {
              modalDetail = currentPdfOriginalPath || pdfViewer.src;
-             context = contextData.projectId || contextData.pdfPath || '';
-         } else if (modalElement.id === 'publicationsModal') {
-             modalType = 'publications_modal';
+             context = context || (currentPdfOriginalPath ? currentPdfOriginalPath.split('/').pop() : ''); // Use filename if no context passed
+         } else if (modalType === 'description_modal') {
+             modalDetail = modalDescTitle ? modalDescTitle.textContent : '';
+             // Context (projectId) should already be set from contextData
          }
+
          trackEvent('modal_open', {
              modalId: modalElement.id,
              modalType: modalType,
-             detail: (modalDetail || '').substring(0, 150),
-             context: String(context).replace(/[.\/]/g, '')
+             detail: String(modalDetail).substring(0, 150), // Ensure detail is string
+             context: String(context).replace(/[.\/]/g, '') // Ensure context is string & cleaned
          });
          // --- End Tracking ---
 
          modalElement.classList.add('show');
          document.body.style.overflow = 'hidden';
-         const focusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-         if (focusable) setTimeout(() => { try { focusable.focus(); } catch(e){} }, 50);
+         // Try focusing the close button first, then any other focusable element
+         const focusable = modalElement.querySelector('.close-modal-btn') || modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+         if (focusable) setTimeout(() => { try { focusable.focus(); } catch(e){ console.warn("Focus failed:", e) } }, 50);
     }
 
     function closeModal(modalElement) {
@@ -281,6 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = '';
             modalElement.style.opacity = '';
             if (content) content.style.transform = '';
+            // Reset specific modals
             if (modalElement === pdfModal) {
                 pdfViewer.src = 'about:blank';
                 if (currentPdfBlobUrl) { URL.revokeObjectURL(currentPdfBlobUrl); currentPdfBlobUrl = null; }
@@ -288,12 +314,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             if (modalElement === imageModal) {
                 currentProjectData = null;
-                slideImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-                if (slideCounter) slideCounter.style.display = 'block';
+                slideImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Blank image
+                if (slideCounter) slideCounter.style.display = 'block'; // Reset display
                 if (prevBtn) prevBtn.style.display = 'block';
                 if (nextBtn) nextBtn.style.display = 'block';
             }
-         }, 300);
+            if (modalElement === descriptionModal) { // Reset description modal content
+                 if(modalDescImage) modalDescImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                 if(modalDescTitle) modalDescTitle.textContent = '';
+                 if(modalDescText) modalDescText.innerHTML = '';
+            }
+         }, 300); // Matches CSS transition speed
     }
 
     // --- Slideshow Functions (with Tracking Integration) ---
@@ -332,79 +363,136 @@ document.addEventListener('DOMContentLoaded', function() {
     function prevSlide() { if (currentProjectData && currentProjectData.totalSlides > 1) showSlide(currentSlide - 1); }
 
     // --- Event Listeners ---
+    // Close Modal Button Listener (Applies to all modals with the button)
     closeModalBtns.forEach(btn => btn.addEventListener('click', () => closeModal(btn.closest('.modal'))));
-    [pdfModal, imageModal, publicationsModal].forEach(modal => {
+    // Close modal on overlay click (Applies to all modals)
+    [pdfModal, imageModal, publicationsModal, descriptionModal].forEach(modal => {
         if(modal) modal.addEventListener('click', e => (e.target === modal) && closeModal(modal));
     });
 
-    // *** Project Click Handler (Using Original Structure + Tracking) ***
-    document.querySelectorAll('[data-project-id]').forEach(element => {
+    // *** Project Image Click Handler (for Slideshow ONLY) ***
+    document.querySelectorAll('.project-image[data-project-id]').forEach(element => {
          element.addEventListener('click', function(event) {
-
             const projectId = this.getAttribute('data-project-id');
-            if (!projectId) return;
+            // Only proceed if this project is configured for slideshow in slideshowData
+            if (!projectId || !slideshowData[projectId]) return;
 
-            // --- Track Project Click Intent ---
-            trackEvent('project_click', { projectId: projectId });
+            // Prevent default if image is wrapped in a link (though it shouldn't be needed now)
+            // event.preventDefault();
+
+             // --- Track Project Click Intent (Image for Slideshow) ---
+             trackEvent('project_click_image', { projectId: projectId, action: 'open_slideshow' });
+             // --- End Tracking ---
+
+            // Open Slideshow Modal
+             if (imageModal) {
+                 currentProjectData = slideshowData[projectId];
+                 showSlide(1); // Will trigger image_view tracking IF modal opens successfully
+                 openModal(imageModal, { projectId: projectId });
+            } else {
+                console.error("Image modal element not found!");
+            }
+         });
+    });
+    // *** END Project Image Click Handler ***
+
+    // *** Project Title Click Handler (for Description Modal / Specific PDFs) ***
+    document.querySelectorAll('.project-info h3[data-project-id]').forEach(title => {
+        const projectId = title.getAttribute('data-project-id');
+        const projectCard = title.closest('.project-card');
+        // Ensure we have the necessary elements within the card
+        const descriptionDiv = projectCard ? projectCard.querySelector('.description') : null;
+        const imageElement = projectCard ? projectCard.querySelector('.project-image img') : null;
+
+        title.addEventListener('click', function(event) {
+            // --- Track Project Click Intent (Title) ---
+            // We track here, then decide which modal/action to take
+            trackEvent('project_click_title', { projectId: projectId });
             // --- End Tracking ---
 
-            const isTitleClick = this.tagName === 'H3';
-            const isImageClick = this.classList.contains('project-image');
-
-            if (projectId === 'clock' && (isTitleClick || isImageClick)) {
-                 event.preventDefault();
-                 if (slideshowData[projectId] && imageModal) {
-                     currentProjectData = slideshowData[projectId];
-                     showSlide(1); // Will trigger image_view tracking IF modal opens successfully
-                     openModal(imageModal, { projectId: projectId });
-                 }
-                 return;
-            }
-
             let pdfPath = null;
-            if (isTitleClick) { // PDF only on title click
-                if (projectId === 'physiball') pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
-                else if (projectId === 'drake-music-project') pdfPath = './drake-music/drake-music-handover.pdf';
+            let pdfContext = { projectId: projectId }; // Base context
+
+            // --- Special Case: Specific titles trigger PDF modal ---
+            if (projectId === 'physiball') {
+                pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
+                pdfContext.pdfPath = pdfPath; // Add specific path to context
+            } else if (projectId === 'drake-music-project') {
+                pdfPath = './drake-music/drake-music-handover.pdf';
+                pdfContext.pdfPath = pdfPath;
             }
 
+            // --- Action: Open PDF Modal if path is set ---
             if (pdfPath) {
-                event.preventDefault();
-                if (!pdfModal || !pdfViewer) return;
-                currentPdfOriginalPath = pdfPath; // Store for tracking context
+                event.preventDefault(); // Prevent any default link behavior
+                if (!pdfModal || !pdfViewer) {
+                    console.error("PDF modal or viewer element not found!");
+                    return;
+                }
+                currentPdfOriginalPath = pdfPath; // Store for tracking detail
 
-                pdfViewer.src = 'about:blank';
-                if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl);
+                pdfViewer.src = 'about:blank'; // Clear previous content
+                if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl); // Release old blob
 
                 fetch(pdfPath)
                     .then(response => { if (!response.ok) throw new Error(`Fetch Error: ${response.status} for ${pdfPath}`); return response.blob(); })
                     .then(blob => {
                         currentPdfBlobUrl = URL.createObjectURL(blob);
-                        pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0";
-                        openModal(pdfModal, { projectId: projectId, pdfPath: pdfPath });
+                        pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0"; // Load blob URL
+                        openModal(pdfModal, pdfContext); // Open modal with context
                     }).catch(err => {
                         console.error("PDF Blob Error:", err);
-                        pdfViewer.src = pdfPath; // Fallback
-                        openModal(pdfModal, { projectId: projectId, pdfPath: pdfPath });
+                        pdfViewer.src = pdfPath; // Fallback to direct path if blob fails
+                        openModal(pdfModal, pdfContext); // Open modal with context
                     });
-                return;
+                return; // Stop further processing for this click
             }
 
-            if (slideshowData[projectId] && isImageClick) { // Slideshow only on image click
-                event.preventDefault();
-                 if (!imageModal) return;
-                 currentProjectData = slideshowData[projectId];
-                 showSlide(1); // Will trigger image_view tracking IF modal opens successfully
-                 openModal(imageModal, { projectId: projectId });
+            // --- Default Case: Open Description Modal ---
+            // Check if required elements exist for the description modal
+            if (descriptionDiv && imageElement && descriptionModal && modalDescImage && modalDescTitle && modalDescText) {
+                event.preventDefault(); // Prevent default if title is wrapped in a link
+
+                // Get content from the card
+                const fullDescriptionHTML = descriptionDiv.innerHTML;
+                const projectTitleText = title.textContent;
+                const imageSrc = imageElement.src;
+                const imageAlt = imageElement.alt || projectTitleText; // Use title as fallback alt text
+
+                // Populate the description modal
+                modalDescTitle.textContent = projectTitleText;
+                modalDescImage.src = imageSrc;
+                modalDescImage.alt = imageAlt;
+                modalDescText.innerHTML = fullDescriptionHTML; // Use innerHTML to preserve formatting
+
+                // Open the description modal
+                openModal(descriptionModal, { projectId: projectId }); // Pass context
+
+            } else {
+                 // This title was clicked, but doesn't trigger PDF and lacks elements for description modal
+                 console.warn(`Clicked title for '${projectId}', but required elements for description modal are missing.`);
+                 // Allow default browser behavior if the title is, e.g., a link to '#'
             }
         });
     });
-    // *** END Project Click Handler ***
+    // *** END Project Title Click Handler ***
 
+
+    // Slideshow Navigation Buttons
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
     if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
+    // Keyboard Navigation (Escape for all modals, Arrows for slideshow)
     document.addEventListener('keydown', function(e) {
-         if (e.key === "Escape") [pdfModal, imageModal, publicationsModal].forEach(closeModal);
+         // Close any open modal on Escape key
+         if (e.key === "Escape") {
+            [pdfModal, imageModal, publicationsModal, descriptionModal].forEach(modal => {
+                if (modal && modal.classList.contains('show')) {
+                    closeModal(modal);
+                }
+            });
+         }
+         // Slideshow arrow key navigation
          if (imageModal?.classList.contains('show')) {
              if (e.key === "ArrowLeft") prevSlide();
              else if (e.key === "ArrowRight") nextSlide();
@@ -417,27 +505,32 @@ document.addEventListener('DOMContentLoaded', function() {
              const isActive = hamburgerMenu.classList.toggle('active');
              mobileNavPanel.classList.toggle('active');
              document.body.style.overflow = isActive ? 'hidden' : '';
+             // Track menu toggle
+             trackEvent('mobile_menu_toggle', { state: isActive ? 'open' : 'close' });
          });
      }
-     // Select only actual navigation links, not the theme toggle button
+     // Select only actual navigation links within the mobile panel
      document.querySelectorAll('.mobile-nav-panel a.mobile-nav-link').forEach(link => {
          link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
-             // Close menu if open
+             // Close menu if open, regardless of link type
              if(hamburgerMenu && hamburgerMenu.classList.contains('active')) {
                  hamburgerMenu.classList.remove('active');
                  if(mobileNavPanel) mobileNavPanel.classList.remove('active');
                  document.body.style.overflow = '';
+                 // Track menu close via link click
+                 trackEvent('mobile_menu_toggle', { state: 'close', trigger: 'link_click' });
              }
-             // Handle specific actions or allow default scroll for # links
+             // Handle specific actions (like publications) or allow default scroll for # links
              if (link.id === 'publications-link-mobile') {
-                  e.preventDefault(); // Prevent default link behavior
+                  e.preventDefault(); // Prevent default '#' link behavior
                   openPublicationsModal(); // Open the modal
              } else if (href && href.startsWith('#')) {
-                 // Allow default scroll behavior for internal links like #about, #projects
-                 // No e.preventDefault() needed here
+                 // Allow default scroll behavior for internal section links like #about, #projects
+                 // Tracking for this internal navigation is implicitly handled by page view or scroll events if needed
              } else {
-                 // Handle other potential mobile links if needed
+                 // Handle other potential mobile links if needed (e.g., external links)
+                 // General link tracking should catch these if they are not handled specially
              }
          });
      });
@@ -446,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Publications Modal (with Tracking Integration) ---
     function populatePublications() {
          if (!publicationsGrid) return;
-         publicationsGrid.innerHTML = '';
+         publicationsGrid.innerHTML = ''; // Clear previous content
          if (publicationsData.length === 0) {
              publicationsGrid.innerHTML = '<p>No publications available yet.</p>'; return;
          }
@@ -455,32 +548,36 @@ document.addEventListener('DOMContentLoaded', function() {
              const link = document.createElement('a');
              link.href = pub.filePath;
              link.textContent = pub.title;
-             link.rel = 'noopener noreferrer';
+             link.rel = 'noopener noreferrer'; // Good practice
 
              link.addEventListener('click', (e) => {
                  e.preventDefault();
-                 if (!pdfModal || !pdfViewer) return;
+                 if (!pdfModal || !pdfViewer) {
+                     console.error("PDF modal or viewer element not found!");
+                     return;
+                 }
                  const pdfPath = link.getAttribute('href');
                  currentPdfOriginalPath = pdfPath; // Store original path
 
-                 // Tracking for the click *intent* might happen via general link tracker;
-                 // Tracking for the modal open happens in openModal.
+                 // Track click intent for this specific publication link
+                 trackEvent('publication_click', { title: pub.title, path: pdfPath });
 
-                 pdfViewer.src = 'about:blank';
-                 if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl);
+                 pdfViewer.src = 'about:blank'; // Clear previous content
+                 if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl); // Release old blob
 
                  fetch(pdfPath)
                      .then(response => { if (!response.ok) throw new Error(`Fetch Error: ${response.status} for ${pdfPath}`); return response.blob(); })
                      .then(blob => {
                          currentPdfBlobUrl = URL.createObjectURL(blob);
-                         pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0";
-                         closeModal(publicationsModal); // Close pub list
-                         setTimeout(() => openModal(pdfModal, { pdfPath: pdfPath }), 50);
+                         pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0"; // Load blob URL
+                         closeModal(publicationsModal); // Close pub list first
+                         // Add a slight delay before opening PDF modal for smoother transition
+                         setTimeout(() => openModal(pdfModal, { pdfPath: pdfPath }), 50); // Pass context
                      }).catch(err => {
                          console.error("PDF Blob Error:", err);
-                         pdfViewer.src = pdfPath; // Fallback
+                         pdfViewer.src = pdfPath; // Fallback to direct path
                          closeModal(publicationsModal);
-                         setTimeout(() => openModal(pdfModal, { pdfPath: pdfPath }), 50);
+                         setTimeout(() => openModal(pdfModal, { pdfPath: pdfPath }), 50); // Pass context
                      });
              });
              item.appendChild(link);
@@ -489,11 +586,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     function openPublicationsModal() {
         if(publicationsModal) {
-            populatePublications();
-            openModal(publicationsModal); // Tracks the modal open
+            populatePublications(); // Ensure content is fresh
+            openModal(publicationsModal); // Tracks the modal open automatically via openModal function
+        } else {
+            console.error("Publications modal element not found!");
         }
     }
-    if (publicationsLink) { // Desktop link
+    // Desktop Publications Link Listener
+    if (publicationsLink) {
         publicationsLink.addEventListener('click', (e) => {
             e.preventDefault(); // Prevent default '#' link behavior
             openPublicationsModal();
@@ -503,65 +603,74 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Scroll to Top Button (with Tracking) ---
     if (scrollToTopBtn) {
         window.addEventListener('scroll', () => {
-            if (scrollToTopBtn) { scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400); }
-        }, { passive: true });
+            // Toggle visibility based on scroll position
+            if (scrollToTopBtn) { // Check again inside handler in case it's removed dynamically
+                 scrollToTopBtn.classList.toggle('show', window.pageYOffset > 400);
+            }
+        }, { passive: true }); // Use passive listener for performance
         scrollToTopBtn.addEventListener('click', () => {
-            trackEvent('scroll_to_top'); // Track the click
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            trackEvent('scroll_to_top'); // Track the click event
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Perform smooth scroll
         });
     }
 
     // --- Footer Year ---
     const yearSpan = document.getElementById('current-year');
-    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    if (yearSpan) yearSpan.textContent = new Date().getFullYear(); // Update year dynamically
 
-    // --- Image Protection ---
-    document.addEventListener('contextmenu', e => (e.target.tagName === 'IMG') && e.preventDefault());
-    document.addEventListener('dragstart', e => (e.target.tagName === 'IMG') && e.preventDefault());
+    // --- Image Protection (Basic) ---
+    document.addEventListener('contextmenu', e => {
+        // Prevent right-click menu only on specific images if desired, e.g., inside modals
+        if (e.target.tagName === 'IMG' && (e.target.closest('.image-modal') || e.target.closest('.description-modal'))) {
+             e.preventDefault();
+        }
+    });
+    document.addEventListener('dragstart', e => {
+         // Prevent dragging images
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
 
     // --- Feedback Slider Logic ---
     const feedbackList = document.getElementById('feedback-list');
     if (feedbackList) {
         const feedbackItems = feedbackList.querySelectorAll('.feedback-item');
         let currentFeedbackIndex = 0;
-        const intervalTime = 1500; // Time in milliseconds (e.g., 5 seconds)
-        let feedbackInterval;
+        const intervalTime = 1500; // Time between slides in milliseconds
+        let feedbackInterval; // Variable to hold the interval ID
 
         function showNextFeedback() {
-            if (feedbackItems.length < 2) return; // No need to cycle if less than 2 items
-
-            // Remove 'active' class from current item
-            feedbackItems[currentFeedbackIndex].classList.remove('active');
-
-            // Calculate index of the next item, looping back to 0
-            currentFeedbackIndex = (currentFeedbackIndex + 1) % feedbackItems.length;
-
-            // Add 'active' class to the new current item
-            feedbackItems[currentFeedbackIndex].classList.add('active');
+            if (feedbackItems.length < 2) return; // No need to cycle if 0 or 1 item
+            feedbackItems[currentFeedbackIndex].classList.remove('active'); // Hide current
+            currentFeedbackIndex = (currentFeedbackIndex + 1) % feedbackItems.length; // Move to next index (looping)
+            feedbackItems[currentFeedbackIndex].classList.add('active'); // Show next
         }
 
         function startFeedbackSlider() {
-            // Ensure interval is clear before starting
+            // Clear any existing interval to prevent duplicates
             clearInterval(feedbackInterval);
+            // Start new interval only if there's more than one item
             if (feedbackItems.length > 1) {
                 feedbackInterval = setInterval(showNextFeedback, intervalTime);
             }
         }
 
         function stopFeedbackSlider() {
-            clearInterval(feedbackInterval);
+            clearInterval(feedbackInterval); // Stop the interval
         }
 
         if (feedbackItems.length > 0) {
-            // Initially hide all items then show the first one
+            // Initial setup: ensure all are hidden except the first one
             feedbackItems.forEach(item => item.classList.remove('active'));
-            feedbackItems[0].classList.add('active');
+            feedbackItems[0].classList.add('active'); // Show the first item immediately
 
-            // Start the slider if there's more than one item
+            // Start the automatic sliding
             startFeedbackSlider();
 
-            // Optional: Pause slider on hover
+            // Optional: Pause the slider when the mouse hovers over the list
             feedbackList.addEventListener('mouseenter', stopFeedbackSlider);
+            // Optional: Resume the slider when the mouse leaves the list
             feedbackList.addEventListener('mouseleave', startFeedbackSlider);
 
             console.log('Feedback slider initialized.');
