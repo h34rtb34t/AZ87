@@ -25,15 +25,51 @@
 
     <!-- Basic Styling for Feedback Stars (Consider moving to style.css) -->
     <style>
-        .feedback-rating .rating-stars { display: inline-block; direction: rtl; font-size: 1.8em; margin-left: 10px; }
-        .feedback-rating .rating-stars input[type="radio"] { display: none; }
-        .feedback-rating .rating-stars label { color: #ccc; cursor: pointer; padding: 0 2px; transition: color 0.2s; }
-        .feedback-rating .rating-stars input[type="radio"]:checked ~ label, .feedback-rating .rating-stars label:hover, .feedback-rating .rating-stars label:hover ~ label { color: #ffc107; }
-        .feedback-form .form-group { margin-bottom: 1.5rem; }
-        .feedback-form label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-        .feedback-form .form-control { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .feedback-form textarea.form-control { resize: vertical; }
-        .feedback-form .btn { cursor: pointer; transition: background-color 0.3s; }
+        .feedback-rating .rating-stars {
+            display: inline-block;
+            direction: rtl; /* Right-to-left to make stars select left-to-right */
+            font-size: 1.8em; /* Adjust size as needed */
+            margin-left: 10px;
+        }
+        .feedback-rating .rating-stars input[type="radio"] {
+            display: none; /* Hide the actual radio buttons */
+        }
+        .feedback-rating .rating-stars label {
+            color: #ccc; /* Default star color */
+            cursor: pointer;
+            padding: 0 2px;
+            transition: color 0.2s;
+        }
+        .feedback-rating .rating-stars input[type="radio"]:checked ~ label,
+        .feedback-rating .rating-stars label:hover,
+        .feedback-rating .rating-stars label:hover ~ label {
+            color: #ffc107; /* Color for selected/hovered stars */
+        }
+        .feedback-form .form-group {
+            margin-bottom: 1.5rem; /* Consistent spacing */
+        }
+        .feedback-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .feedback-form .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc; /* Note: Will be overridden by theme variable in style.css */
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
+        .feedback-form textarea.form-control {
+            resize: vertical; /* Allow vertical resizing */
+        }
+        .feedback-form .btn { /* Uses existing .btn style from style.css */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .feedback-form .btn:hover {
+             /* Hover effect handled by general .btn:hover in style.css */
+        }
     </style>
 
 </head>
@@ -49,12 +85,19 @@
                     <a href="#contact">Contact</a>
                     <a href="#" id="publications-link">Publications</a>
                 </div>
-                <!-- Theme Toggle Button (Desktop) -->
+
+                <!-- START: Added Theme Toggle Button (Desktop) -->
                 <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Switch to light theme">
+                    <!-- Sun icon (default, hidden in dark mode initially) -->
                     <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20px" height="20px" style="display: none;"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 011.06.044l1.768 1.768a.75.75 0 11-1.06 1.06l-1.768-1.768a.75.75 0 01-.044-1.06zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.83 17.83a.75.75 0 01.044 1.06l-1.768 1.768a.75.75 0 11-1.06-1.06l1.768-1.768a.75.75 0 011.06-.044zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75.75zM5.106 18.894a.75.75 0 01-.044-1.06l1.768-1.768a.75.75 0 111.06 1.06l-1.768 1.768a.75.75 0 01-1.06.044zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm3.106-5.106a.75.75 0 011.06-.044l1.768 1.768a.75.75 0 11-1.06 1.06L6.106 7.17a.75.75 0 01-.044-1.06z"></path></svg>
+                    <!-- Moon icon (shown in dark mode initially) -->
                     <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20px" height="20px"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.638 4.396-8.552a.75.75 0 01.819.162z" clip-rule="evenodd"></path></svg>
                 </button>
-                <div class="hamburger-menu" id="hamburger-menu"><span></span><span></span><span></span></div>
+                <!-- END: Added Theme Toggle Button (Desktop) -->
+
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <span></span><span></span><span></span>
+                </div>
             </nav>
         </div>
         <!-- Mobile Nav Panel -->
@@ -63,21 +106,52 @@
             <a href="#projects" class="mobile-nav-link">Projects</a>
             <a href="#contact" class="mobile-nav-link">Contact</a>
             <a href="#" id="publications-link-mobile" class="mobile-nav-link">Publications</a>
+            <!-- START: Added Theme Toggle Button (Mobile) -->
             <button id="theme-toggle-btn-mobile" class="theme-toggle-btn mobile" aria-label="Switch to light theme">
+                <!-- Sun icon -->
                 <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20px" height="20px" style="display: none;"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 011.06.044l1.768 1.768a.75.75 0 11-1.06 1.06l-1.768-1.768a.75.75 0 01-.044-1.06zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.83 17.83a.75.75 0 01.044 1.06l-1.768 1.768a.75.75 0 11-1.06-1.06l1.768-1.768a.75.75 0 011.06-.044zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75.75zM5.106 18.894a.75.75 0 01-.044-1.06l1.768-1.768a.75.75 0 111.06 1.06l-1.768 1.768a.75.75 0 01-1.06.044zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm3.106-5.106a.75.75 0 011.06-.044l1.768 1.768a.75.75 0 11-1.06 1.06L6.106 7.17a.75.75 0 01-.044-1.06z"></path></svg>
+                <!-- Moon icon -->
                 <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20px" height="20px"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.638 4.396-8.552a.75.75 0 01.819.162z" clip-rule="evenodd"></path></svg>
-                <span style="margin-left: 10px;">Toggle Theme</span>
+                <span style="margin-left: 10px;">Toggle Theme</span> <!-- Text label for mobile -->
             </button>
+            <!-- END: Added Theme Toggle Button (Mobile) -->
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero"> <div class="container reveal"> <h1>Hello, I'm <span class="highlight">ADE</span></h1> <p class="reveal delay-100">I'M A DESIGN ENGINEER SPECIALIZING IN MECHATRONICS.</p> <h2 class="hero-cta-phrase reveal delay-150">Let's Build Your Idea</h2> <a href="#contact" class="btn reveal delay-200">Get in Touch</a> </div> </section>
+    <section class="hero">
+        <div class="container reveal">
+            <h1>Hello, I'm <span class="highlight">ADE</span></h1>
+            <p class="reveal delay-100">I'M A DESIGN ENGINEER SPECIALIZING IN MECHATRONICS.</p>
+
+            <!-- ADDED ELEMENT - Use an h2 or a styled p -->
+            <h2 class="hero-cta-phrase reveal delay-150">Let's Build Your Idea</h2>
+            <!-- Original Button -->
+            <a href="#contact" class="btn reveal delay-200">Get in Touch</a>
+        </div>
+    </section>
 
     <!-- About Section -->
-    <section id="about" class="about"> <div class="container reveal"> <h2 class="section-title">Who I Am</h2> <div class="about-content"> <div class="about-image reveal"> <img src="./about/CV_pic.jpg" alt="Abdelati Zelbane"> </div> <div class="about-text reveal delay-100"> <h3>MECHATRONICS ENTHUSIAST</h3> <p>Hello! I have a deep passion for Technology and Science, with a strong enthusiasm for Physics and Mathematics.</p> <p>My journey in tech began with MDX UNIVERSITY, LONDON. Since then, I've worked on various projects ranging from ACADEMIC-RELATED PROJECTS to INDUSTRIAL PROTOTYPES.</p> <p>I draw inspiration from nature and the world around me, integrating these insights into my daily life.</p> <p>I enjoy exploring the latest technological advancements, as well as designing, assembling, deconstructing and reassembling back again various systems to enhance my understanding & feed my curiosity.</p> <p>When I'm not coding, sketching around strange ideas & concepts, soldering electronics, disassembling or interacting with some pieces of strange tech gadgets, you can find me Hiking, Cooking, Reading a random book or away Travelling the World</p> </div> </div> </div> </section>
+    <section id="about" class="about">
+        <div class="container reveal">
+            <h2 class="section-title">Who I Am</h2>
+            <div class="about-content">
+                <div class="about-image reveal">
+                    <img src="./about/CV_pic.jpg" alt="Abdelati Zelbane">
+                </div>
+                <div class="about-text reveal delay-100">
+                    <h3>MECHATRONICS ENTHUSIAST</h3>
+                    <p>Hello! I have a deep passion for Technology and Science, with a strong enthusiasm for Physics and Mathematics.</p>
+                    <p>My journey in tech began with MDX UNIVERSITY, LONDON. Since then, I've worked on various projects ranging from ACADEMIC-RELATED PROJECTS to INDUSTRIAL PROTOTYPES.</p>
+                    <p>I draw inspiration from nature and the world around me, integrating these insights into my daily life.</p>
+                    <p>I enjoy exploring the latest technological advancements, as well as designing, assembling, deconstructing and reassembling back again various systems to enhance my understanding & feed my curiosity.</p>
+                    <p>When I'm not coding, sketching around strange ideas & concepts, soldering electronics, disassembling or interacting with some pieces of strange tech gadgets, you can find me Hiking, Cooking, Reading a random book or away Travelling the World</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Projects Section (Corrected data-project-id attributes) -->
+    <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container reveal">
             <h2 class="section-title">My Projects</h2>
@@ -86,146 +160,455 @@
                 <!-- Project Order: Wjet, Dry, CRS, Violin, Helicopter, Turtle, Rubiks, Drake, Clock, PDE Automation, Salamander, Physiball -->
 
                 <div class="project-card reveal">
-                    <div class="project-image" data-project-id="wjet"> <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine"> </div>
+                    <!-- Image click still triggers slideshow for wjet -->
+                    <div class="project-image" data-project-id="wjet">
+                        <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine">
+                    </div>
                     <div class="project-info">
+                         <!-- Title click now triggers description modal -->
                         <h3 data-project-id="wjet">WATER-JET RETREADING MACHINE</h3>
-                        <div class="description"> <p>Powered by Rover Research’s groundbreaking patented technology...</p> <p>With a processing capacity exceeding 4 tires/ hour...</p> </div>
+                        <div class="description">
+                            <p>Powered by Rover Research’s groundbreaking patented technology, this state-of-the-art machine is engineered for high-efficiency retreading of R22.5 tires while minimizing energy consumption. Operating on a closed-loop water cycle, it continuously recirculates H₂O into the high-pressure main water pump, ensuring sustainability and performance optimization.</p>
+                            <p>With a processing capacity exceeding 4 tires/ hour, it offers precise adjustability, allowing for customized devulcanization to meet specific performance and quality requirements. Furthermore, the WJet MAchine generates exceptionally fine devulcanized rubber powder at a micron scale, paving the way for innovative applications in sustainable material reuse and advanced manufacturing.</p>
+                        </div>
                         <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span><span class="tag">Sustainability</span></div>
                         <div class="project-links"><a href="https://vimeo.com/1068594323" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
 
                 <div class="project-card reveal delay-100">
-                    <div class="project-image"> <img src="./dry/DryMachine.jpeg" alt="DryMachine"> </div>
+                    <!-- No data-project-id on image, so no slideshow -->
+                    <div class="project-image">
+                        <img src="./dry/DryMachine.jpeg" alt="DryMachine">
+                    </div>
                     <div class="project-info">
+                         <!-- Title click triggers description modal -->
                         <h3 data-project-id="dry-machine">DRY MACHINE</h3>
-                        <div class="description"> <p>The Dry Machine operates in perfect synchronization...</p> <p>Designed for maximum efficiency...</p> <p>The system consists of a rotating spindle...</p> </div>
+                        <div class="description">
+                            <p>The Dry Machine operates in perfect synchronization with the WJet Tire Retreading Machine and is specifically engineered to efficiently dry the tire at the end of the WJet Tire Retreading Machine treatment.</p>
+                            <p>Designed for maximum efficiency, it minimizes the overall cycle time, ensuring the tire is fully prepared for the next stage—the application of new rubber coating.</p>
+                            <p>The system consists of a rotating spindle and a series of specialized drying lamps strategically placed inside the cabin, optimized to function with a minimum of 4 and a maximum of 9 lamps.With a cycle time of 12 to 15 minutes, it guarantees the complete elimination of H₂O, ensuring the tire is perfectly conditioned for subsequent processing.</p>
+                        </div>
                         <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Industrial</span></div>
                         <div class="project-links"><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
 
                 <div class="project-card reveal delay-200">
-                    <div class="project-image" data-project-id="crs"> <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot"> </div>
+                     <!-- Image click still triggers slideshow for crs -->
+                    <div class="project-image" data-project-id="crs">
+                        <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot">
+                    </div>
                     <div class="project-info">
+                         <!-- Title click triggers description modal -->
                         <h3 data-project-id="crs">CRS INDUSTRIAL ROBOT</h3>
-                         <div class="description"> <p>This project tackles the challenge of high-precision pick-and-place operations...</p> </div>
+                         <div class="description">
+                            <p>This project tackles the challenge of high-precision pick-and-place operations in a dynamic simulated industrial environment. The CRS robot is designed to identify, handle, and accurately position diverse objects, adapting seamlessly to variations in shape, material, and fragility. It represents a fusion of advanced hardware and intelligent software, pushing the boundaries of industrial automation to ensure consistent and reliable performance.</p>
+                         </div>
                         <div class="project-tags"><span class="tag">Robotics</span><span class="tag">Automation</span><span class="tag">Computer Vision</span><span class="tag">Mechatronics</span></div>
                         <div class="project-links"><a href="./csr robot/CRS-Robot-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
 
                 <div class="project-card reveal">
-                    <div class="project-image" data-project-id="violin"> <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER"> </div>
+                    <!-- Image click still triggers slideshow for violin -->
+                    <div class="project-image" data-project-id="violin">
+                        <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="violin">VIOLIN-BOT-PLAYER</h3>
-                         <div class="description"> <p>Violin-Bot_Player is an innovative and programmable machine...</p> </div>
+                         <div class="description">
+                            <p>Violin-Bot_Player is an innovative and programmable machine that masterfully plays the violin. Its design focuses on optimizing both the bowing and fingering systems. Various approaches were evaluated to achieve a smooth and harmonious bowing technique, culminating in a design that produces a rich, expressive sound. Similarly, the fingering system employs an array of push-type solenoids that mimic the delicate touch of a skilled violinist. With fixed distances maintained between solenoids to ensure accuracy, the entire configuration can shift seamlessly along the fingerboard to articulate intermediary notes, effectively covering at least the first full octave on each string.</p>
+                        </div>
                         <div class="project-tags"><span class="tag">Automation</span><span class="tag">Mechatronics</span><span class="tag">Music Technology</span></div>
                         <div class="project-links"><a href="./violin-bot-player/ViolinBot-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
 
                 <div class="project-card reveal delay-100">
-                    <div class="project-image" data-project-id="helicopter"> <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER"> </div>
+                     <!-- Image click still triggers slideshow for helicopter -->
+                    <div class="project-image" data-project-id="helicopter">
+                        <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="helicopter">PID 1DOF HELICOPTER</h3>
-                         <div class="description"> <p>Me and my colleague Abend Eduardo have been asked to design...</p> <p>After 4 months of hard work...</p> </div>
+                         <div class="description">
+                             <p>Me and my colleague Abend Eduardo have been asked to design, prototype and build a one degree of freedom helicopter in order to study and analyze the PID control theory. This is the brief of the project given to us from Dr Payam Rahmdel: One degree of freedom helicopter control system design.</p>
+                             <p>After 4 months of hard work, we successfully created a fully functional 1DOF helicopter platform that demonstrates precise control through PID implementation. The system features real-time feedback mechanisms, custom-built mechanical components, and sophisticated control algorithms that allow for stable hovering and position control despite external disturbances.</p>
+                         </div>
                         <div class="project-tags"><span class="tag">PID Control</span><span class="tag">Mechatronics</span><span class="tag">Control Systems</span><span class="tag">Prototyping</span></div>
                         <div class="project-links"><a href="./1dof helicopter/PIDcontrol-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
 
                 <div class="project-card reveal delay-200">
-                    <div class="project-image" data-project-id="turtle"> <img src="./turtle-cloud/10.webp" alt="TURTLE-CLOUD Logo"> </div>
+                     <!-- Image click still triggers slideshow for turtle -->
+                    <div class="project-image" data-project-id="turtle">
+                        <img src="./turtle-cloud/10.webp" alt="TURTLE-CLOUD Logo">
+                    </div>
                     <div class="project-info">
+                         <!-- Title click triggers description modal -->
                         <h3 data-project-id="turtle">TURTLE-CLOUD</h3>
-                         <div class="description"> <p>A dynamic collaboration between MDX Mechatronics Engineering and Fine Art students...</p> </div>
+                         <div class="description">
+                             <p>A dynamic collaboration between MDX Mechatronics Engineering and Fine Art students, this innovative project seamlessly blends technology with creative expression. Centered around the immersive use of sound and light, the installation features synchronized robotic motion powered by the Robot Operating System (ROS). Engineering precision meets artistic imagination as custom-designed mechatronic systems respond in real time to sensory input, producing choreographed movements enhanced by atmospheric lighting and ambient audio. The result is a living, reactive sculpture that explores the intersection of engineering, art, and human perception — a testament to the power of interdisciplinary innovation.</p>
+                         </div>
                         <div class="project-tags"><span class="tag">SolidWorks</span><span class="tag">ROS Robotics</span><span class="tag">Arduino</span><span class="tag">Electronics</span></div>
                         <div class="project-links"><a href="./turtle-cloud/Turtlecloud-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
 
                 <div class="project-card reveal">
-                    <div class="project-image" data-project-id="rubiks"> <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube"> </div>
+                     <!-- Image click still triggers slideshow for rubiks -->
+                    <div class="project-image" data-project-id="rubiks">
+                        <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="rubiks">GIANT MECHATRONIC RUBIK'S CUBE</h3>
-                         <div class="description"> <p>An end-of-year University individual project...</p> <p>The challenge was understanding...</p> </div>
+                         <div class="description">
+                            <p>An end-of-year University individual project that combines mechanical engineering with software control. I designed and built an autonomous, oversized Rubik's cube controlled through LabVIEW and Arduino.</p>
+                            <p>The challenge was understanding and reproducing the complex mechanism that allows rotation on three different axes. I designed a larger core component based on the intersection of three axes, each allowing freedom of rotation at both ends. This project required extensive mathematical calculations and precise mechanical design to ensure smooth operation.</p>
+                        </div>
                         <div class="project-tags"><span class="tag">LabVIEW</span><span class="tag">Arduino</span><span class="tag">Mechanical Design</span><span class="tag">3D Modeling</span></div>
                         <div class="project-links"><a href="./Rubiks_cube/RubiksCube-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
 
-                <div class="project-card reveal delay-100">
-                    <div class="project-image" data-project-id="drake-music-project"> <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors"> </div>
+                <!-- === DRAKE MUSIC PROJECT === -->
+                 <div class="project-card reveal delay-100">
+                    <!-- Image click still triggers slideshow for drake -->
+                    <div class="project-image" data-project-id="drake-music-project">
+                        <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="drake-music-project">DRAKE MUSIC PROJECT</h3>
-                        <div class="description"> <p>I led the development of an innovative interactive musical interface...</p> <p>Using Arduino technology...</p> </div>
-                        <div class="project-tags"> <span class="tag">Arduino</span> <span class="tag">FastPrototyping</span> <span class="tag">Music</span> <span class="tag">Force Resistors</span> <span class="tag">Disability</span> </div>
-                        <div class="project-links"> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a> </div>
+                        <div class="description">
+                             <p>I led the development of an innovative interactive musical interface designed to overcome conventional technological limitations and support personalized creative expression for individuals with physical disabilities. This project centered around the design and creation of an adaptive musical soccer ball, inspired by the unique aspirations of a person whose love for music and football transcended her physical constraints.</p>
+                             <p>Using Arduino technology and carefully placed force-sensitive resistors within a solid core, the ball was engineered to convert physical pressure into expressive musical output. Each segment of the standard size 3 soccer ball functions as a dynamic trigger, with variations in applied pressure influencing pitch and scale. The result is a tactile, intuitive interface that enables rich musical interaction through minimal physical input.</p>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Arduino</span>
+                            <span class="tag">FastPrototyping</span>
+                            <span class="tag">Music</span>
+                            <span class="tag">Force Resistors</span>
+                            <span class="tag">Disability</span>
+                        </div>
+                        <div class="project-links">
+                             <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
                     </div>
                 </div>
+                <!-- === END DRAKE MUSIC === -->
 
+                <!-- === MECHANICAL CLOCK PROJECT === -->
                 <div class="project-card reveal delay-200">
-                    <div class="project-image" data-project-id="clock"> <img src="./mdf-clock/logo.png" alt="Mechanical Geared Wooden Clock"> </div>
+                    <!-- Image click still triggers slideshow for clock -->
+                    <div class="project-image" data-project-id="clock">
+                        <img src="./mdf-clock/logo.png" alt="Mechanical Geared Wooden Clock">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="clock">MECHANICAL GEARED WOODEN CLOCK</h3>
-                        <div class="description"> <p>A fascinating project exploring traditional clockmaking techniques...</p> <p>A fully mechanical clock was developed...</p> <p>The system relies entirely on an intricate arrangement...</p> <p>Emphasis was placed on achieving high precision...</p> <p>The lever-based mechanism ensures stability...</p> </div>
-                        <div class="project-tags"> <span class="tag">Mechanical Design</span> <span class="tag">Woodworking</span> <span class="tag">Clockmaking</span> <span class="tag">Kinetics</span> </div>
-                        <div class="project-links"> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a> </div>
+                        <div class="description">
+                            <p>A fascinating project exploring traditional clockmaking techniques combined with modern precision.</p>
+                            <p>A fully mechanical clock was developed, designed to operate without any electrical or electronic components.</p>
+                            <p>The system relies entirely on an intricate arrangement of gears, toothed wheels, and a spring-loaded mechanical lever to accurately display hours, minutes, and seconds in a conventional format.</p>
+                            <p>Emphasis was placed on achieving high precision in timekeeping through refined mechanical synchronization and consistent motion transmission.</p>
+                            <p>The lever-based mechanism ensures stability and reliability over repeated cycles, highlighting the potential of purely mechanical engineering solutions in time measurement applications.</p>
+                        </div>
+                        <div class="project-tags">
+                             <span class="tag">Mechanical Design</span>
+                             <span class="tag">Woodworking</span>
+                             <span class="tag">Clockmaking</span>
+                             <span class="tag">Kinetics</span>
+                        </div>
+                        <div class="project-links">
+                             <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
                     </div>
                 </div>
+                <!-- === END MECHANICAL CLOCK === -->
 
+                <!-- === PDE Industrial Automation Project === -->
                 <div class="project-card reveal delay-200">
-                    <div class="project-image"> <img src="./pde-industrial-automation/logo.png" alt="PDE Industrial Automation System"> </div>
+                    <!-- No data-project-id on image -->
+                    <div class="project-image">
+                        <img src="./pde-industrial-automation/logo.png" alt="PDE Industrial Automation System">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="pde-automation">PDE INDUSTRIAL AUTOMATION</h3>
-                        <div class="description"> <p>Demonstration of an industrial automation system...</p> <p>The demonstration shows the pistons in action...</p> <p>Additionally, the operational benefits...</p> <p>This is a practical simulation...</p> </div>
-                        <div class="project-tags"> <span class="tag">INDUSTRIAL AUTOMATION</span> <span class="tag">PNEUMATICS</span> <span class="tag">AUTOMATION</span> <span class="tag">LINEAR LOGIC</span> <span class="tag">PNEUMATIC-VALVES</span> <span class="tag">SINGLE/DOUBLE ACTING CILINDERS</span> </div>
-                        <div class="project-links"> <a href="./pde-industrial-automation/PDE-IndustrialAutomationPistons-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a> </div>
+                        <div class="description">
+                            <p>Demonstration of an industrial automation system that features piston mechanisms: overview of the system, role of pistons in industrial automation and the design of a simple system within a simulated industrial manufacturing or processing environment.</p>
+                            <p>The demonstration shows the pistons in action, illustrating how they move in response to control signals and how they integrate with other automated components. This includes detailed visuals of mechanical movements, control panels, and sensor feedback systems.</p>
+                            <p>Additionally, the operational benefits of using piston-based automation, such as enhanced precision, speed, reliability, and energy efficiency, including performance metrics or comparisons that underscore these advantages, are highlighted.</p>
+                            <p>This is a practical simulation of applications that can be implemented in various industrial contexts, such as assembly lines, packaging, or material handling, thereby emphasizing the value in boosting productivity and reducing costs.</p>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">INDUSTRIAL AUTOMATION</span>
+                            <span class="tag">PNEUMATICS</span>
+                            <span class="tag">AUTOMATION</span>
+                            <span class="tag">LINEAR LOGIC</span>
+                            <span class="tag">PNEUMATIC-VALVES</span>
+                            <span class="tag">SINGLE/DOUBLE ACTING CILINDERS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="./pde-industrial-automation/PDE-IndustrialAutomationPistons-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a>
+                            <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
                     </div>
                 </div>
+                <!-- === END PDE Industrial Automation === -->
 
+                <!-- === SALAMANDER-BOT Project === -->
                 <div class="project-card reveal delay-300">
-                    <div class="project-image"> <img src="./salamander/logo.png" alt="Salamander-Bot Project"> </div>
+                    <!-- No data-project-id on image -->
+                    <div class="project-image">
+                        <img src="./salamander/logo.png" alt="Salamander-Bot Project">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="salamander-bot">SALAMANDER-BOT</h3>
-                        <div class="description"> <p>Amphibious-Inspired Robot Demonstration...</p> <p>This Demonstration showcases the work...</p> <p>The robot gracefully slithers across...</p> <p>More than just a technical feat...</p> </div>
-                        <div class="project-tags"> <span class="tag">MECHATRONICS</span> <span class="tag">SALAMANDER-BOT</span> <span class="tag">ROBOT</span> <span class="tag">NATURE</span> <span class="tag">MOTION-CONTROL</span> </div>
-                        <div class="project-links"> <a href="./salamander/SalamanderBot.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a> </div>
+                        <div class="description">
+                            <p>Amphibious-Inspired Robot Demonstration – Mechatronics Engineering Project</p>
+                            <p>This Demonstration showcases the work of a dedicated group of mechatronics engineering students, who have developed an impressive biomimetic robot inspired by the natural locomotion of amphibious animals—particularly the salamander. The robot exhibits a segmented, flexible body that mimics the characteristic undulating movement of its biological counterpart, bridging the realms of nature and technology.</p>
+                            <p>The robot gracefully slithers across a flat indoor surface, demonstrating both its mechanical coordination and the success of its control algorithms. This project is a fine example of how bio-inspired robotics can inform the design of next-generation systems capable of navigating complex terrains, including water-to-land transitions.</p>
+                            <p>More than just a technical feat, the SalamanderBot represents a deeper aspiration in engineering: elegance and efficiency of nature meet modern robotic challenges. Such projects don’t just teach engineering principles—they represent the spirit of curiosity, interdisciplinary collaboration, and innovation that defines the future of robotics.</p>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">MECHATRONICS</span>
+                            <span class="tag">SALAMANDER-BOT</span>
+                            <span class="tag">ROBOT</span>
+                            <span class="tag">NATURE</span>
+                            <span class="tag">MOTION-CONTROL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="./salamander/SalamanderBot.mp4" target="_blank" rel="noopener noreferrer">View Demo</a>
+                            <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
                     </div>
                 </div>
+                <!-- === END SALAMANDER-BOT === -->
 
-                 <div class="project-card reveal delay-300">
-                    <div class="project-image"> <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project"> </div>
+
+                <!-- === PHYSIBALL Project Card === -->
+                <div class="project-card reveal delay-300">
+                    <!-- No data-project-id on image, so no slideshow -->
+                    <div class="project-image">
+                        <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
+                    </div>
                     <div class="project-info">
+                        <!-- Title click triggers description modal -->
                         <h3 data-project-id="physiball">PHYSIBALL</h3>
-                         <div class="description"> <p>The PHYSIBALL is a fully functional, wireless tennis-ball-size...</p> <p>Battery-powered for mobility...</p> <p>The system outputs raw data...</p> <p>Using Jeenode modules...</p> <p>Testing revealed signal integrity...</p> </div>
+                         <div class="description">
+                             <p>The PHYSIBALL is a fully functional, wireless tennis-ball-size that transmits and visualizes data in real-time.</p>
+                             <p>Battery-powered for mobility or USB-connected for analysis, it can also function as an active sensor in other equipment.</p>
+                             <p>The system outputs raw data, calibrated measurements, or yaw/pitch/roll values with customizable visualization graphs (size, quantity, colors).</p>
+                             <p>Using Jeenode modules instead of Bluetooth eliminates pairing requirements, enhancing communication reliability.</p>
+                             <p>Testing revealed signal integrity up to 30 meters indoors, even through walls and amid electronic interference.</p>
+                         </div>
                         <div class="project-tags"><span class="tag">Wireless</span><span class="tag">Sensors</span><span class="tag">Data Visualization</span><span class="tag">JeeNode</span></div>
                         <div class="project-links"><a href="./physiball/Physiball-demo.mp4" target="_blank" rel="noopener noreferrer">View Demo</a> <a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub</a></div>
                     </div>
                 </div>
+                <!-- === END PHYSIBALL === -->
 
             </div> <!-- End projects-grid -->
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact"> <div class="container reveal"> <h2 class="section-title">Get In Touch</h2> <div class="contact-container"> <div class="contact-info reveal"> <p>Have an idea brewing or a challenging project in mind? Let's connect! I'm open to collaborations, interesting opportunities, or just a friendly tech chat.</p> <div class="contact-links"> <div class="contact-link reveal delay-100"><i>📧</i><a href="mailto:azelbane@hotmail.com">azelbane@hotmail.com</a></div> <div class="contact-link reveal delay-200"><i>🔗</i><a href="https://www.linkedin.com/in/ade-zelbane" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div> <div class="contact-link reveal delay-300"><i>🐙</i><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub Profile</a></div> <div class="contact-link reveal delay-100"><i>🌍</i><a href="https://en.wikipedia.org/wiki/Italy" target="_blank" rel="noopener noreferrer" title="Italy">Location: IT</a></div> <div class="contact-link reveal delay-200"><a href="https://www.buymeacoffee.com/az87" target="_blank"><img src="./caffe.png" alt="Buy Me A Coffee"></a></div> </div> </div> <div class="contact-form reveal delay-100"> <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST"> <input type="text" name="_honey" style="display:none"> <input type="hidden" name="_captcha" value="false"> <input type="hidden" name="_domain" value="h34rtb34t.github.io"> <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html"> <input type="hidden" name="_subject" value="New submission from portfolio!"> <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" class="form-control" required></div> <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" required></div> <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" class="form-control" required></div> <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" class="form-control" required></textarea></div> <button type="submit" class="btn">Send Message</button> </form> </div> </div> </div> </section>
+    <section id="contact" class="contact">
+        <div class="container reveal">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info reveal">
+                    <p>Have an idea brewing or a challenging project in mind? Let's connect! I'm open to collaborations, interesting opportunities, or just a friendly tech chat.</p>
+                    <div class="contact-links">
+                        <div class="contact-link reveal delay-100"><i>📧</i><a href="mailto:azelbane@hotmail.com">azelbane@hotmail.com</a></div>
+                        <div class="contact-link reveal delay-200"><i>🔗</i><a href="https://www.linkedin.com/in/ade-zelbane" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div>
+                        <div class="contact-link reveal delay-300"><i>🐙</i><a href="https://github.com/h34rtb34t" target="_blank" rel="noopener noreferrer">GitHub Profile</a></div>
+                        <div class="contact-link reveal delay-100"><i>🌍</i><a href="https://en.wikipedia.org/wiki/Italy" target="_blank" rel="noopener noreferrer" title="Italy">Location: IT</a></div>
+                        <div class="contact-link reveal delay-200"><a href="https://www.buymeacoffee.com/az87" target="_blank"><img src="./caffe.png" alt="Buy Me A Coffee"></a></div>
+                    </div>
+                </div>
+                <div class="contact-form reveal delay-100">
+                    <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST">
+                        <input type="text" name="_honey" style="display:none">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_domain" value="h34rtb34t.github.io">
+                        <!-- Corrected _next path if needed, assuming abdelatizelbane is the repo name -->
+                        <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html">
+                        <input type="hidden" name="_subject" value="New submission from portfolio!">
+                        <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" class="form-control" required></div>
+                        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" required></div>
+                        <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" class="form-control" required></div>
+                        <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" class="form-control" required></textarea></div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
         <!-- Website Feedback Section -->
-    <section id="feedback" class="feedback"> <div class="container reveal"> <h2 class="section-title">Website Feedback</h2> <p>Any feedback is appreciated!</p> <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST" class="feedback-form"> <input type="hidden" name="_subject" value="New Portfolio Feedback Received!"> <input type="hidden" name="_captcha" value="false"> <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-feedback.html"> <input type="text" name="_honey" style="display:none"> <div class="form-group" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 50px;"> <div class="feedback-rating" style="flex: 0 1 auto;"> <label>Overall Rating:</label> <div class="rating-stars"> <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label> <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label> <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label> <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label> <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label> </div> </div> <div class="top-reviews-manual" style="flex: 1 1 250px; min-height: 150px;"> <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: var(--feedback-highlight-color); border-bottom: 1px solid var(--border-color-light); padding-bottom: 0.5rem;">Feedback Highlights:</h4> <ul id="feedback-list"> <li class="feedback-item"> <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span> <span style="color: var(--feedback-highlight-color);"> - "Bravissimo Adeeeeee!!"</span> <span style="color: var(--text-muted); font-style: italic;"> - M. Arianna</span> </li> <li class="feedback-item"> <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span> <span style="color: var(--feedback-highlight-color);"> - "Great work!"</span> <span style="color: var(--text-muted); font-style: italic;"> - F.Fabrizio</span> </li> <li class="feedback-item"> <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span> <span style="color: var(--feedback-highlight-color);"> - "Grandissimo!!Ade You Rockkkkk!!"</span> <span style="color: var(--text-muted); font-style: italic;"> - J. Doe</span> </li> <li class="feedback-item"> <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span> <span style="color: var(--feedback-highlight-color);"> - "Well Done My friend!"</span> <span style="color: var(--text-muted); font-style: italic;"> - Alex R.</span> </li> <li class="feedback-item"> <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span> <span style="color: var(--feedback-highlight-color);"> - "Great Job!! We miss you in here!!"</span> <span style="color: var(--text-muted); font-style: italic;"> - Sarah K.</span> </li> <li class="feedback-item"> <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span> <span style="color: var(--feedback-highlight-color);"> - "TOP"</span> <span style="color: var(--text-muted); font-style: italic;"> - Ben T.</span> </li> </ul> </div> </div> <div class="form-group"> <label for="feedback-message">Leave a thought, an idea...or whatever you feel to say!Thanks!:</label> <textarea id="feedback-message" name="feedback_message" class="form-control" rows="4" placeholder="What did you like or what could be improved?" required></textarea> </div> <div class="form-group"> <label for="feedback-email">Your Email </label> <input type="email" id="feedback-email" name="user_email" class="form-control" placeholder="your.email@example.com"> </div> <button type="submit" class="btn">Submit Feedback</button> </form> </div> </section>
+    <section id="feedback" class="feedback">
+        <div class="container reveal"> <!-- Use existing container and reveal classes for consistency -->
+            <h2 class="section-title">Website Feedback</h2>
+            <p>Any feedback is appreciated!</p>
+            <!-- Using FormSubmit.co for feedback submission -->
+            <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST" class="feedback-form">
+                <!-- Hidden fields for FormSubmit -->
+                <input type="hidden" name="_subject" value="New Portfolio Feedback Received!">
+                <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling captcha ('true') for production -->
+                <!-- Optional: Redirect to a specific thank you page for feedback -->
+                <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-feedback.html">
+                <input type="text" name="_honey" style="display:none"> <!-- Honeypot spam trap -->
+
+                <!-- ****** MODIFIED AREA START ****** -->
+                <!-- Wrapper Div to hold Rating and Top Reviews side-by-side -->
+                <div class="form-group" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 50px; /* INCREASED GAP */">
+
+                    <!-- Original Rating Section (now flex item) -->
+                    <div class="feedback-rating" style="flex: 0 1 auto; /* Adjust flex properties if needed */">
+                        <label>Overall Rating:</label>
+                        <!-- Requires CSS for star appearance and interaction -->
+                        <div class="rating-stars">
+                            <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                        </div>
+                    </div>
+
+                    <!-- ****** NEW: Top Reviews Container for Slider ****** -->
+                    <div class="top-reviews-manual" style="flex: 1 1 250px; min-height: 150px; /* Adjust min-height as needed */">
+                        <h4 style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95em; color: var(--feedback-highlight-color); border-bottom: 1px solid var(--border-color-light); padding-bottom: 0.5rem;">Feedback Highlights:</h4>
+
+                        <!-- MODIFIED: Removed inline style from UL -->
+                        <ul id="feedback-list">
+                            <li class="feedback-item">
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Bravissimo Adeeeeee!!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - M. Arianna</span>
+                            </li>
+                            <li class="feedback-item">
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Great work!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - F.Fabrizio</span>
+                            </li>
+                            <li class="feedback-item">
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - J. Doe</span>
+                            </li>
+                            <li class="feedback-item">
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Well Done My friend!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - Alex R.</span>
+                            </li>
+                            <li class="feedback-item">
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "Great Job!! We miss you in here!!"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - Sarah K.</span>
+                            </li>
+                            <li class="feedback-item">
+                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
+                                <span style="color: var(--feedback-highlight-color);"> - "TOP"</span>
+                                <span style="color: var(--text-muted); font-style: italic;"> - Ben T.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- ****** NEW AREA END ****** -->
+
+                </div>
+                <!-- ****** MODIFIED AREA END ****** -->
+
+                <!-- Feedback Comments -->
+                <div class="form-group">
+                    <label for="feedback-message">Your Feedback:</label>
+                    <textarea id="feedback-message" name="feedback_message" class="form-control" rows="4" placeholder="What did you like or what could be improved?" required></textarea>
+                </div>
+
+                <!-- Optional Email -->
+                <div class="form-group">
+                    <label for="feedback-email">Your Email (Optional - if you'd like a response):</label>
+                    <input type="email" id="feedback-email" name="user_email" class="form-control" placeholder="your.email@example.com">
+                </div>
+
+                <button type="submit" class="btn">Submit Feedback</button>
+            </form>
+        </div>
+    </section>
+    <!-- End Website Feedback Section -->
+
 
     <!-- Footer -->
-    <footer> <div class="container"> <div class="social-links"> <a href="https://github.com/h34rtb34t" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a> <a href="https://www.linkedin.com/in/ade-zelbane" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a> </div> <p class="footer-text">© <span id="current-year">2025</span> AZ87. Crafted with Passion & Curiosity.</p> </div> </footer>
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/h34rtb34t" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/ade-zelbane" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+            <p class="footer-text">© <span id="current-year">2025</span> AZ87. Crafted with Passion & Curiosity.</p>
+        </div>
+    </footer>
 
     <!-- Scroll to Top & WhatsApp Buttons -->
-    <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Scroll to top">▲</button> <a href="https://wa.me/00393205569959" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"> <div class="whatsapp-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></div> <span class="tooltip">Chat with me</span> </a>
+    <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Scroll to top">▲</button>
+    <a href="https://wa.me/00393205569959" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <div class="whatsapp-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></div>
+        <span class="tooltip">Chat with me</span>
+    </a>
 
     <!-- Modals -->
-    <div id="pdfModal" class="modal pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle"> <div class="modal-content pdf-content"> <button class="close-modal-btn" aria-label="Close PDF viewer" data-close-modal>×</button> <h2 id="pdfModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">PDF Document Viewer</h2> <iframe id="pdfViewer" src="" frameborder="0" title="PDF Document Viewer"></iframe> </div> </div>
-    <div id="imageModal" class="modal image-modal" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle"> <button class="close-modal-btn" aria-label="Close image viewer" data-close-modal>×</button> <h2 id="imageModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">Project Image Slideshow</h2> <div class="modal-content"> <div class="image-content-wrapper"> <div class="image-content"> <div class="slide-counter" id="slideCounter">1 / 1</div> <img id="slideImage" class="slide-image" src="" alt="Project Image" oncontextmenu="return false;"> <button class="slide-btn prev-btn" id="prevBtn" aria-label="Previous image">❮</button> <button class="slide-btn next-btn" id="nextBtn" aria-label="Next image">❯</button> </div> </div> </div> </div>
-    <div id="publicationsModal" class="modal publications-modal" role="dialog" aria-modal="true" aria-labelledby="publicationsModalTitle"> <div class="modal-content publications-content"> <button class="close-modal-btn" aria-label="Close publications viewer" data-close-modal>×</button> <h2 id="publicationsModalTitle">Publications</h2> <div class="publications-grid" id="publicationsGrid"><p>Loading publications...</p></div> </div> </div>
-    <div id="descriptionModal" class="modal description-modal" role="dialog" aria-modal="true" aria-labelledby="modalDescTitle"> <div class="modal-content description-content"> <button class="close-modal-btn" aria-label="Close project details" data-close-modal>×</button> <img id="modalDescImage" src="" alt="Project Image" class="modal-project-image"> <h2 id="modalDescTitle" class="modal-project-title">Project Title</h2> <div id="modalDescText" class="modal-project-description"> Project description goes here... </div> </div> </div>
+    <div id="pdfModal" class="modal pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
+        <div class="modal-content pdf-content">
+            <button class="close-modal-btn" aria-label="Close PDF viewer" data-close-modal>×</button>
+            <h2 id="pdfModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">PDF Document Viewer</h2>
+            <iframe id="pdfViewer" src="" frameborder="0" title="PDF Document Viewer"></iframe>
+        </div>
+    </div>
+    <div id="imageModal" class="modal image-modal" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+         <button class="close-modal-btn" aria-label="Close image viewer" data-close-modal>×</button>
+         <h2 id="imageModalTitle" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;">Project Image Slideshow</h2>
+         <div class="modal-content">
+             <div class="image-content-wrapper">
+                 <div class="image-content">
+                     <div class="slide-counter" id="slideCounter">1 / 1</div>
+                     <img id="slideImage" class="slide-image" src="" alt="Project Image" oncontextmenu="return false;">
+                     <button class="slide-btn prev-btn" id="prevBtn" aria-label="Previous image">❮</button>
+                     <button class="slide-btn next-btn" id="nextBtn" aria-label="Next image">❯</button>
+                 </div>
+            </div>
+         </div>
+    </div>
+    <div id="publicationsModal" class="modal publications-modal" role="dialog" aria-modal="true" aria-labelledby="publicationsModalTitle">
+        <div class="modal-content publications-content">
+             <button class="close-modal-btn" aria-label="Close publications viewer" data-close-modal>×</button>
+             <h2 id="publicationsModalTitle">Publications</h2>
+             <div class="publications-grid" id="publicationsGrid"><p>Loading publications...</p></div>
+        </div>
+    </div>
+
+    <!-- **** START: New Modal for Project Description **** -->
+    <div id="descriptionModal" class="modal description-modal" role="dialog" aria-modal="true" aria-labelledby="modalDescTitle">
+        <div class="modal-content description-content">
+             <button class="close-modal-btn" aria-label="Close project details" data-close-modal>×</button>
+             <!-- Content will be populated by JavaScript -->
+             <img id="modalDescImage" src="" alt="Project Image" class="modal-project-image">
+             <h2 id="modalDescTitle" class="modal-project-title">Project Title</h2>
+             <div id="modalDescText" class="modal-project-description">
+                 Project description goes here...
+             </div>
+        </div>
+    </div>
+    <!-- **** END: New Modal for Project Description **** -->
+
 
     <!-- Link to External JavaScript file -->
     <script src="./script.js"></script>
