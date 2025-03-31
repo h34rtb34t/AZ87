@@ -50,69 +50,71 @@ function sendWithFetch(payload) {
     .catch(error => { console.error('Error sending tracking data (fetch):', error, payload); });
 }
 
-// --- Track Page View ---
-document.addEventListener('DOMContentLoaded', () => {
-    trackEvent('pageview');
-});
-
-// --- General Link Click Tracker (ADDED DEBUG LOGS for Context) ---
+// --- SIMPLIFIED General Link Click Tracker for Debugging ---
 document.addEventListener('click', function(event) {
     const link = event.target.closest('a'); // Find the nearest ancestor anchor tag
+    console.log("[DEBUG] Click detected. Target:", event.target); // Log *any* click
 
     if (link && link.href) { // Check if it's a link with an href
-        const href = link.getAttribute('href'); // Get href attribute directly
+        const href = link.getAttribute('href');
+        console.log(`[DEBUG] Clicked on a link element with href: ${href}`); // Log if it's a link
 
         // Explicitly ignore internal page navigation links starting with '#'
         if (href.startsWith('#')) {
+            console.log('[DEBUG] Ignoring internal hash link.');
             return;
         }
+
+        // Temporarily log even if handled elsewhere, just to see if we get here
+        console.log(`[DEBUG] Processing link: ${href}`);
 
         // Determine if this click's primary action is handled elsewhere more specifically
         const isMainNavPubLink = link.id === 'publications-link' || link.id === 'publications-link-mobile';
         const isPubItemLink = link.closest('.publication-item') !== null;
         const isTitleClick = event.target.matches('.project-info h3[data-project-id]') || event.target.closest('.project-info h3[data-project-id]');
         const isProjectImageClick = event.target.closest('.project-image[data-project-id]') !== null;
+        console.log(`[DEBUG] Checks: isMainNavPubLink=${isMainNavPubLink}, isPubItemLink=${isPubItemLink}, isTitleClick=${isTitleClick}, isProjectImageClick=${isProjectImageClick}`);
+
 
         // Only track here if NOT handled by specific logic AND not an internal anchor
         if (!isMainNavPubLink && !isPubItemLink && !isTitleClick && !isProjectImageClick) {
-            let linkType = 'generic_link'; // Default type
-            let context = ''; // Initialize context as empty
+             console.log("[DEBUG] Link passed primary checks, proceeding to track..."); // Log entry to tracking block
 
-            // *** CRITICAL PART: Get context (with added logs) ***
-            const projectCard = link.closest('.project-card'); // Find parent card
+            let linkType = 'generic_link'; // Default type
+            let context = '';
+
+            const projectCard = link.closest('.project-card');
             if (projectCard) {
-                console.log("[DEBUG] Link is inside a .project-card."); // <-- Log 1
-                // Find h3 with data-project-id *within that specific card*
+                console.log("[DEBUG] Link is inside a .project-card.");
                 const titleElement = projectCard.querySelector('h3[data-project-id]');
                  if (titleElement) {
-                     context = titleElement.getAttribute('data-project-id'); // Assign if found
-                     console.log(`[DEBUG] Found context '${context}' from titleElement inside project card.`); // <-- Log 2 (Success)
+                     context = titleElement.getAttribute('data-project-id');
+                     console.log(`[DEBUG] Found context '${context}' from titleElement inside project card.`);
                  } else {
-                     console.log("[DEBUG] Link inside project card, but NO H3 with [data-project-id] found within it."); // <-- Log 3 (Fail)
+                     console.log("[DEBUG] Link inside project card, but NO H3 with [data-project-id] found within it.");
                  }
             } else {
-                console.log("[DEBUG] Link clicked is NOT inside a .project-card element."); // <-- Log 4 (Not applicable)
+                console.log("[DEBUG] Link clicked is NOT inside a .project-card element.");
             }
-            // *** END CRITICAL PART ***
 
-            // Refine linkType based on context or URL patterns
+            // Refine linkType ... (code unchanged)
             if (link.closest('.project-links')) linkType = 'project_link';
             if (link.closest('.social-links') || link.closest('.contact-links a[href*="linkedin"]') || link.closest('.contact-links a[href*="github"]')) linkType = 'social_contact_link';
-            if (href.includes('github.com') && linkType === 'generic_link') linkType = 'github_link';
-            if (href.includes('vimeo.com')) linkType = 'video_platform_link';
-            if (href.includes('buymeacoffee.com')) linkType = 'donation_link';
-            if (href.endsWith('.mp4')) linkType = 'direct_video_link';
-            if (href.endsWith('.pdf')) linkType = 'direct_pdf_link';
+            //... other refinements
 
-             console.log(`Tracking general link click: LinkType=${linkType}, Context=${context || 'NONE'}, URL=${href}`); // <-- Log before sending
+             console.log(`Tracking general link click: LinkType=${linkType}, Context=${context || 'NONE'}, URL=${href}`);
 
              trackEvent('link_click', {
                 url: href,
                 text: link.textContent.trim().substring(0, 50),
                 linkType: linkType,
-                context: context || undefined // Send context if found, otherwise undefined
+                context: context || undefined
              });
+        } else {
+             console.log("[DEBUG] Link click SKIPPED because it was handled by a specific listener or check."); // Log skip reason
         }
+    } else {
+         console.log("[DEBUG] Click was not on an anchor link with an href.");
     }
  }, false); // Use bubbling phase
 
