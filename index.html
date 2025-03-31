@@ -1,3 +1,5 @@
+--- START OF FILE index.html ---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -157,9 +159,11 @@
             <h2 class="section-title">My Projects</h2>
             <div class="projects-grid">
 
+                <!-- ========= START PROJECT CARDS (with data-project-id added to main card div) ========= -->
+
                 <!-- Project Order: Wjet, Dry, CRS, Violin, Helicopter, Turtle, Rubiks, Drake, Clock, PDE Automation, Salamander, Physiball -->
 
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-project-id="wjet"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for wjet -->
                     <div class="project-image" data-project-id="wjet">
                         <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine">
@@ -176,7 +180,7 @@
                     </div>
                 </div>
 
-                <div class="project-card reveal delay-100">
+                <div class="project-card reveal delay-100" data-project-id="dry-machine"> <!-- Added ID here -->
                     <!-- No data-project-id on image, so no slideshow -->
                     <div class="project-image">
                         <img src="./dry/DryMachine.jpeg" alt="DryMachine">
@@ -194,7 +198,7 @@
                     </div>
                 </div>
 
-                <div class="project-card reveal delay-200">
+                <div class="project-card reveal delay-200" data-project-id="crs"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for crs -->
                     <div class="project-image" data-project-id="crs">
                         <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot">
@@ -210,7 +214,7 @@
                     </div>
                 </div>
 
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-project-id="violin"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for violin -->
                     <div class="project-image" data-project-id="violin">
                         <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER">
@@ -226,7 +230,7 @@
                     </div>
                 </div>
 
-                <div class="project-card reveal delay-100">
+                <div class="project-card reveal delay-100" data-project-id="helicopter"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for helicopter -->
                     <div class="project-image" data-project-id="helicopter">
                         <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER">
@@ -243,7 +247,7 @@
                     </div>
                 </div>
 
-                <div class="project-card reveal delay-200">
+                <div class="project-card reveal delay-200" data-project-id="turtle"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for turtle -->
                     <div class="project-image" data-project-id="turtle">
                         <img src="./turtle-cloud/10.webp" alt="TURTLE-CLOUD Logo">
@@ -259,7 +263,7 @@
                     </div>
                 </div>
 
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-project-id="rubiks"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for rubiks -->
                     <div class="project-image" data-project-id="rubiks">
                         <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube">
@@ -277,7 +281,7 @@
                 </div>
 
                 <!-- === DRAKE MUSIC PROJECT === -->
-                 <div class="project-card reveal delay-100">
+                 <div class="project-card reveal delay-100" data-project-id="drake-music-project"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for drake -->
                     <div class="project-image" data-project-id="drake-music-project">
                         <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors">
@@ -304,7 +308,7 @@
                 <!-- === END DRAKE MUSIC === -->
 
                 <!-- === MECHANICAL CLOCK PROJECT === -->
-                <div class="project-card reveal delay-200">
+                <div class="project-card reveal delay-200" data-project-id="clock"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for clock -->
                     <div class="project-image" data-project-id="clock">
                         <img src="./mdf-clock/logo.png" alt="Mechanical Geared Wooden Clock">
@@ -333,7 +337,7 @@
                 <!-- === END MECHANICAL CLOCK === -->
 
                 <!-- === PDE Industrial Automation Project === -->
-                <div class="project-card reveal delay-200">
+                <div class="project-card reveal delay-200" data-project-id="pde-automation"> <!-- Added ID here -->
                     <!-- No data-project-id on image -->
                     <div class="project-image">
                         <img src="./pde-industrial-automation/logo.png" alt="PDE Industrial Automation System">
@@ -364,7 +368,7 @@
                 <!-- === END PDE Industrial Automation === -->
 
                 <!-- === SALAMANDER-BOT Project === -->
-                <div class="project-card reveal delay-300">
+                <div class="project-card reveal delay-300" data-project-id="salamander-bot"> <!-- Added ID here -->
                     <!-- No data-project-id on image -->
                     <div class="project-image">
                         <img src="./salamander/logo.png" alt="Salamander-Bot Project">
@@ -395,7 +399,7 @@
 
 
                 <!-- === PHYSIBALL Project Card === -->
-                <div class="project-card reveal delay-300">
+                <div class="project-card reveal delay-300" data-project-id="physiball"> <!-- Added ID here -->
                     <!-- No data-project-id on image, so no slideshow -->
                     <div class="project-image">
                         <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project">
@@ -415,6 +419,8 @@
                     </div>
                 </div>
                 <!-- === END PHYSIBALL === -->
+
+                <!-- ========= END PROJECT CARDS ========= -->
 
             </div> <!-- End projects-grid -->
         </div>
@@ -447,7 +453,8 @@
                         <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" required></div>
                         <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" class="form-control" required></div>
                         <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" class="form-control" required></textarea></div>
-                        <button type="submit" class="btn">Send Message</button>
+                        <!-- Optional: Added tracking ID to submit button -->
+                        <button type="submit" class="btn" data-track-id="contact-form-submit">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -540,7 +547,8 @@
                     <input type="email" id="feedback-email" name="user_email" class="form-control" placeholder="your.email@example.com">
                 </div>
 
-                <button type="submit" class="btn">Submit Feedback</button>
+                <!-- Optional: Added tracking ID to submit button -->
+                <button type="submit" class="btn" data-track-id="feedback-form-submit">Submit Feedback</button>
             </form>
         </div>
     </section>
@@ -611,7 +619,10 @@
 
 
     <!-- Link to External JavaScript file -->
+    <!-- Make sure this points to the UPDATED script.js file -->
     <script src="./script.js"></script>
 
 </body>
 </html>
+
+--- END OF FILE index.html ---
