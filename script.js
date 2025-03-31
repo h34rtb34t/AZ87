@@ -389,9 +389,9 @@ document.addEventListener('DOMContentLoaded', function() {
                  currentProjectData = slideshowData[projectId];
                  showSlide(1); // Will trigger image_view tracking IF modal opens successfully
                  openModal(imageModal, { projectId: projectId });
-            } else {
+             } else {
                 console.error("Image modal element not found!");
-            }
+             }
          });
     });
     // *** END Project Image Click Handler ***
@@ -412,14 +412,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // --- Default Case: Open Description Modal ---
             // Check if required elements exist for the description modal
-            if (descriptionDiv && imageElement && descriptionModal && modalDescImage && modalDescTitle && modalDescText) {
+            if (descriptionDiv && descriptionModal && modalDescImage && modalDescTitle && modalDescText) {
                 event.preventDefault(); // Prevent default if title is wrapped in a link
 
                 // Get content from the card
                 const fullDescriptionHTML = descriptionDiv.innerHTML; // This gets the *entire* HTML content
                 const projectTitleText = title.textContent;
-                const imageSrc = imageElement.src;
-                const imageAlt = imageElement.alt || projectTitleText; // Use title as fallback alt text
+                const imageSrc = imageElement ? imageElement.src : '';
+                const imageAlt = imageElement ? (imageElement.alt || projectTitleText) : projectTitleText;
 
                 // Populate the description modal
                 modalDescTitle.textContent = projectTitleText;
@@ -431,14 +431,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 openModal(descriptionModal, { projectId: projectId }); // Pass context
 
             } else {
-                 // This title was clicked, but lacks elements for description modal
+                 // This title was clicked, but required elements for description modal are missing. Check HTML structure.
                  console.warn(`Clicked title for '${projectId}', but required elements for description modal are missing. Check HTML structure and element IDs (descriptionModal, modalDescImage, modalDescTitle, modalDescText) and ensure the card has '.description' and '.project-image img'.`);
                  // Allow default browser behavior if the title is, e.g., a link to '#' or if elements are missing
             }
         });
     });
     // *** END Project Title Click Handler ***
-
 
     // Slideshow Navigation Buttons
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
