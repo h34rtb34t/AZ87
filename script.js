@@ -18,7 +18,6 @@ function trackEvent(eventType, eventData = {}) {
     };
 
     // Use navigator.sendBeacon if available for page unload/link clicks
-    // Ensure sendBeacon logic is INSIDE trackEvent
     if ((eventType === 'pageview' || eventType === 'link_click') && navigator.sendBeacon) {
          try {
             const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
@@ -50,14 +49,20 @@ function sendWithFetch(payload) {
     .catch(error => { console.error('Error sending tracking data (fetch):', error, payload); });
 }
 
-// --- SIMPLIFIED General Link Click Tracker for Debugging ---
+// --- Track Page View ---
+document.addEventListener('DOMContentLoaded', () => {
+    trackEvent('pageview');
+});
+
+// --- RESTORED General Link Click Tracker (with Debug Logs) ---
 document.addEventListener('click', function(event) {
-    const link = event.target.closest('a'); // Find the nearest ancestor anchor tag
-    console.log("[DEBUG] Click detected. Target:", event.target); // Log *any* click
+    // Find the nearest ancestor anchor tag, works even if click is on an element inside the link
+    const link = event.target.closest('a');
+    console.log("[DEBUG] Click detected. Target:", event.target, " Closest link:", link); // Log any click and closest link found
 
     if (link && link.href) { // Check if it's a link with an href
         const href = link.getAttribute('href');
-        console.log(`[DEBUG] Clicked on a link element with href: ${href}`); // Log if it's a link
+        console.log(`[DEBUG] Click target is within a link with href: ${href}`);
 
         // Explicitly ignore internal page navigation links starting with '#'
         if (href.startsWith('#')) {
@@ -65,56 +70,66 @@ document.addEventListener('click', function(event) {
             return;
         }
 
-        // Temporarily log even if handled elsewhere, just to see if we get here
-        console.log(`[DEBUG] Processing link: ${href}`);
-
         // Determine if this click's primary action is handled elsewhere more specifically
         const isMainNavPubLink = link.id === 'publications-link' || link.id === 'publications-link-mobile';
         const isPubItemLink = link.closest('.publication-item') !== null;
+        // Check if the *original click target* or its parent H3 matches the title selector
         const isTitleClick = event.target.matches('.project-info h3[data-project-id]') || event.target.closest('.project-info h3[data-project-id]');
+        // Check if the *original click target* or its parent DIV matches the image selector
         const isProjectImageClick = event.target.closest('.project-image[data-project-id]') !== null;
         console.log(`[DEBUG] Checks: isMainNavPubLink=${isMainNavPubLink}, isPubItemLink=${isPubItemLink}, isTitleClick=${isTitleClick}, isProjectImageClick=${isProjectImageClick}`);
 
-
         // Only track here if NOT handled by specific logic AND not an internal anchor
         if (!isMainNavPubLink && !isPubItemLink && !isTitleClick && !isProjectImageClick) {
-             console.log("[DEBUG] Link passed primary checks, proceeding to track..."); // Log entry to tracking block
+             console.log("[DEBUG] Link passed primary checks, proceeding to track...");
 
             let linkType = 'generic_link'; // Default type
-            let context = '';
+            let context = ''; // Initialize context as empty
 
-            const projectCard = link.closest('.project-card');
+            // *** CRITICAL PART: Get context (with added logs) ***
+            const projectCard = link.closest('.project-card'); // Find parent card
             if (projectCard) {
                 console.log("[DEBUG] Link is inside a .project-card.");
+                // Find h3 with data-project-id *within that specific card*
                 const titleElement = projectCard.querySelector('h3[data-project-id]');
                  if (titleElement) {
-                     context = titleElement.getAttribute('data-project-id');
+                     context = titleElement.getAttribute('data-project-id'); // Assign if found
                      console.log(`[DEBUG] Found context '${context}' from titleElement inside project card.`);
                  } else {
+                     // This log is important if context isn't found
                      console.log("[DEBUG] Link inside project card, but NO H3 with [data-project-id] found within it.");
                  }
             } else {
+                // This log is important for non-project links like social icons
                 console.log("[DEBUG] Link clicked is NOT inside a .project-card element.");
             }
+            // *** END CRITICAL PART ***
 
-            // Refine linkType ... (code unchanged)
+            // Refine linkType based on context or URL patterns
             if (link.closest('.project-links')) linkType = 'project_link';
             if (link.closest('.social-links') || link.closest('.contact-links a[href*="linkedin"]') || link.closest('.contact-links a[href*="github"]')) linkType = 'social_contact_link';
-            //... other refinements
+            if (href.includes('github.com') && linkType === 'generic_link') linkType = 'github_link';
+            if (href.includes('vimeo.com')) linkType = 'video_platform_link';
+            if (href.includes('buymeacoffee.com')) linkType = 'donation_link';
+            if (href.endsWith('.mp4')) linkType = 'direct_video_link';
+            if (href.endsWith('.pdf')) linkType = 'direct_pdf_link';
 
-             console.log(`Tracking general link click: LinkType=${linkType}, Context=${context || 'NONE'}, URL=${href}`);
+             console.log(`Tracking general link click: LinkType=${linkType}, Context=${context || 'NONE'}, URL=${href}`); // <-- Log before sending
 
              trackEvent('link_click', {
                 url: href,
                 text: link.textContent.trim().substring(0, 50),
                 linkType: linkType,
-                context: context || undefined
+                context: context || undefined // Send context if found, otherwise undefined
              });
         } else {
-             console.log("[DEBUG] Link click SKIPPED because it was handled by a specific listener or check."); // Log skip reason
+             console.log("[DEBUG] Link click SKIPPED by general tracker because it was handled by a specific listener or check."); // Log skip reason
         }
+    } else if (link){
+        console.log("[DEBUG] Click was on an anchor link, but it had no href.");
     } else {
-         console.log("[DEBUG] Click was not on an anchor link with an href.");
+        // This case handles clicks that weren't on or inside an <a> tag at all
+        // console.log("[DEBUG] Click was not on or inside an anchor link.");
     }
  }, false); // Use bubbling phase
 
