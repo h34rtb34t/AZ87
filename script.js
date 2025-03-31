@@ -410,47 +410,6 @@ document.addEventListener('DOMContentLoaded', function() {
             trackEvent('project_click_title', { projectId: projectId });
             // --- End Tracking ---
 
-            // --- Per instructions: Ensure title click *always* tries to open the description modal ---
-            // --- The special case PDF logic is kept commented out or removed to meet this requirement ---
-            /*
-            let pdfPath = null;
-            let pdfContext = { projectId: projectId }; // Base context
-            // --- Special Case: Specific titles trigger PDF modal ---
-            //if (projectId === 'physiball') {
-                //pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
-                //pdfContext.pdfPath = pdfPath; // Add specific path to context
-            //} //else if (projectId === 'drake-music-project') {
-                //pdfPath = './drake-music/drake-music-handover.pdf';
-                //pdfContext.pdfPath = pdfPath;
-            //}
-
-            // --- Action: Open PDF Modal if path is set ---
-            if (pdfPath) {
-                event.preventDefault(); // Prevent any default link behavior
-                if (!pdfModal || !pdfViewer) {
-                    console.error("PDF modal or viewer element not found!");
-                    return;
-                }
-                currentPdfOriginalPath = pdfPath; // Store for tracking detail
-
-                pdfViewer.src = 'about:blank'; // Clear previous content
-                if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl); // Release old blob
-
-                fetch(pdfPath)
-                    .then(response => { if (!response.ok) throw new Error(`Fetch Error: ${response.status} for ${pdfPath}`); return response.blob(); })
-                    .then(blob => {
-                        currentPdfBlobUrl = URL.createObjectURL(blob);
-                        pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0"; // Load blob URL
-                        openModal(pdfModal, pdfContext); // Open modal with context
-                    }).catch(err => {
-                        console.error("PDF Blob Error:", err);
-                        pdfViewer.src = pdfPath; // Fallback to direct path if blob fails
-                        openModal(pdfModal, pdfContext); // Open modal with context
-                    });
-                return; // Stop further processing for this click
-            }
-            */
-
             // --- Default Case: Open Description Modal ---
             // Check if required elements exist for the description modal
             if (descriptionDiv && imageElement && descriptionModal && modalDescImage && modalDescTitle && modalDescText) {
