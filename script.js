@@ -46,12 +46,7 @@ function sendWithFetch(payload) {
         body: JSON.stringify(payload),
         keepalive: true // Important for fetch on page unload scenarios (though beacon is better)
     })
-    .then(response => {
-        // Optional: Check response status for debugging if needed
-        // if (!response.ok) {
-        //     console.warn('Fetch tracking response not OK:', response.status, payload);
-        // }
-    })
+    .then(response => { /* Optional: Check response */ })
     .catch(error => { console.error('Error sending tracking data (fetch):', error, payload); });
 }
 
@@ -60,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     trackEvent('pageview');
 });
 
-// --- General Link Click Tracker (Placed outside main DOMContentLoaded) ---
+// --- General Link Click Tracker (ADDED DEBUG LOGS for Context) ---
 document.addEventListener('click', function(event) {
     const link = event.target.closest('a'); // Find the nearest ancestor anchor tag
 
@@ -69,7 +64,6 @@ document.addEventListener('click', function(event) {
 
         // Explicitly ignore internal page navigation links starting with '#'
         if (href.startsWith('#')) {
-            // console.log('Ignoring internal hash link:', href);
             return;
         }
 
@@ -82,11 +76,26 @@ document.addEventListener('click', function(event) {
         // Only track here if NOT handled by specific logic AND not an internal anchor
         if (!isMainNavPubLink && !isPubItemLink && !isTitleClick && !isProjectImageClick) {
             let linkType = 'generic_link'; // Default type
-            let context = '';
+            let context = ''; // Initialize context as empty
 
-            const projectCard = link.closest('.project-card');
-            if (projectCard) { const titleElement = projectCard.querySelector('h3[data-project-id]'); if (titleElement) context = titleElement.getAttribute('data-project-id'); }
+            // *** CRITICAL PART: Get context (with added logs) ***
+            const projectCard = link.closest('.project-card'); // Find parent card
+            if (projectCard) {
+                console.log("[DEBUG] Link is inside a .project-card."); // <-- Log 1
+                // Find h3 with data-project-id *within that specific card*
+                const titleElement = projectCard.querySelector('h3[data-project-id]');
+                 if (titleElement) {
+                     context = titleElement.getAttribute('data-project-id'); // Assign if found
+                     console.log(`[DEBUG] Found context '${context}' from titleElement inside project card.`); // <-- Log 2 (Success)
+                 } else {
+                     console.log("[DEBUG] Link inside project card, but NO H3 with [data-project-id] found within it."); // <-- Log 3 (Fail)
+                 }
+            } else {
+                console.log("[DEBUG] Link clicked is NOT inside a .project-card element."); // <-- Log 4 (Not applicable)
+            }
+            // *** END CRITICAL PART ***
 
+            // Refine linkType based on context or URL patterns
             if (link.closest('.project-links')) linkType = 'project_link';
             if (link.closest('.social-links') || link.closest('.contact-links a[href*="linkedin"]') || link.closest('.contact-links a[href*="github"]')) linkType = 'social_contact_link';
             if (href.includes('github.com') && linkType === 'generic_link') linkType = 'github_link';
@@ -95,18 +104,17 @@ document.addEventListener('click', function(event) {
             if (href.endsWith('.mp4')) linkType = 'direct_video_link';
             if (href.endsWith('.pdf')) linkType = 'direct_pdf_link';
 
-             console.log(`Tracking general link click: Type=${linkType}, URL=${href}`);
+             console.log(`Tracking general link click: LinkType=${linkType}, Context=${context || 'NONE'}, URL=${href}`); // <-- Log before sending
 
-             // *** Use 'linkType', not 'type' in the eventData object ***
              trackEvent('link_click', {
                 url: href,
                 text: link.textContent.trim().substring(0, 50),
-                linkType: linkType, // <-- CORRECTED PROPERTY NAME
-                context: context || undefined
+                linkType: linkType,
+                context: context || undefined // Send context if found, otherwise undefined
              });
         }
     }
- }, false);
+ }, false); // Use bubbling phase
 
 console.log('Basic tracker defined. Main script follows.');
 
@@ -114,7 +122,7 @@ console.log('Basic tracker defined. Main script follows.');
 // ----------------------------------------------------------------------- //
 // --- MAIN SCRIPT CONTENT STARTS HERE ---                                 //
 // (Theme, Modals, Slideshow, Publications, ScrollTop, Footer, Protection, Feedback Slider)
-// --- NO CHANGES NEEDED IN THIS SECTION BELOW ---                       //
+// --- NO CHANGES NEEDED IN THIS SECTION ---                             //
 // ----------------------------------------------------------------------- //
 
 document.addEventListener('DOMContentLoaded', function() {
