@@ -389,9 +389,9 @@ document.addEventListener('DOMContentLoaded', function() {
                  currentProjectData = slideshowData[projectId];
                  showSlide(1); // Will trigger image_view tracking IF modal opens successfully
                  openModal(imageModal, { projectId: projectId });
-             } else {
+            } else {
                 console.error("Image modal element not found!");
-             }
+            }
          });
     });
     // *** END Project Image Click Handler ***
@@ -406,38 +406,76 @@ document.addEventListener('DOMContentLoaded', function() {
 
         title.addEventListener('click', function(event) {
             // --- Track Project Click Intent (Title) ---
-            // We track here, then decide which modal/action to take
             trackEvent('project_click_title', { projectId: projectId });
             // --- End Tracking ---
 
+            let pdfPath = null;
+            let pdfContext = { projectId: projectId }; // Base context
+
+            // --- Special Case: Specific titles trigger PDF modal ---
+            //if (projectId === 'physiball') {
+                //pdfPath = './physiball/' + encodeURIComponent('Physiballs handover.pdf');
+                //pdfContext.pdfPath = pdfPath; // Add specific path to context
+            //} //else if (projectId === 'drake-music-project') {
+                //pdfPath = './drake-music/drake-music-handover.pdf';
+                //pdfContext.pdfPath = pdfPath;
+            //}
+
+            // --- Action: Open PDF Modal if path is set ---
+            if (pdfPath) {
+                event.preventDefault(); // Prevent any default link behavior
+                if (!pdfModal || !pdfViewer) {
+                    console.error("PDF modal or viewer element not found!");
+                    return;
+                }
+                currentPdfOriginalPath = pdfPath; // Store for tracking detail
+
+                pdfViewer.src = 'about:blank'; // Clear previous content
+                if (currentPdfBlobUrl) URL.revokeObjectURL(currentPdfBlobUrl); // Release old blob
+
+                fetch(pdfPath)
+                    .then(response => { if (!response.ok) throw new Error(`Fetch Error: ${response.status} for ${pdfPath}`); return response.blob(); })
+                    .then(blob => {
+                        currentPdfBlobUrl = URL.createObjectURL(blob);
+                        pdfViewer.src = currentPdfBlobUrl + "#toolbar=0&navpanes=0"; // Load blob URL
+                        openModal(pdfModal, pdfContext); // Open modal with context
+                    }).catch(err => {
+                        console.error("PDF Blob Error:", err);
+                        pdfViewer.src = pdfPath; // Fallback to direct path if blob fails
+                        openModal(pdfModal, pdfContext); // Open modal with context
+                    });
+                return; // Stop further processing for this click
+            }
+
             // --- Default Case: Open Description Modal ---
             // Check if required elements exist for the description modal
-            if (descriptionDiv && descriptionModal && modalDescImage && modalDescTitle && modalDescText) {
+            if (descriptionDiv && imageElement && descriptionModal && modalDescImage && modalDescTitle && modalDescText) {
                 event.preventDefault(); // Prevent default if title is wrapped in a link
 
                 // Get content from the card
-                const fullDescriptionHTML = descriptionDiv.innerHTML; // This gets the *entire* HTML content
+                const fullDescriptionHTML = descriptionDiv.innerHTML;
                 const projectTitleText = title.textContent;
-                const imageSrc = imageElement ? imageElement.src : '';
-                const imageAlt = imageElement ? (imageElement.alt || projectTitleText) : projectTitleText;
+                const imageSrc = imageElement.src;
+                const imageAlt = imageElement.alt || projectTitleText; // Use title as fallback alt text
 
                 // Populate the description modal
                 modalDescTitle.textContent = projectTitleText;
                 modalDescImage.src = imageSrc;
                 modalDescImage.alt = imageAlt;
-                modalDescText.innerHTML = fullDescriptionHTML; // Use innerHTML to preserve formatting and display wholly
+                modalDescText.innerHTML = fullDescriptionHTML; // Use innerHTML to preserve formatting
 
                 // Open the description modal
                 openModal(descriptionModal, { projectId: projectId }); // Pass context
 
             } else {
-                 // This title was clicked, but required elements for description modal are missing. Check HTML structure.
-                 console.warn(`Clicked title for '${projectId}', but required elements for description modal are missing. Check HTML structure and element IDs (descriptionModal, modalDescImage, modalDescTitle, modalDescText) and ensure the card has '.description' and '.project-image img'.`);
-                 // Allow default browser behavior if the title is, e.g., a link to '#' or if elements are missing
+                 // This title was clicked, but doesn't trigger PDF and lacks elements for description modal
+                 console.warn(`Clicked title for '${projectId}', but required elements for description modal are missing. Check descriptionDiv:`, descriptionDiv, 'and imageElement:', imageElement);
+                 // Allow default browser behavior if the title is, e.g., a link to '#'
             }
         });
     });
     // *** END Project Title Click Handler ***
+
 
     // Slideshow Navigation Buttons
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
