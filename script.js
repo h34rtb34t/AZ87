@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             } else {
                  // This title was clicked, but lacks elements for description modal
-                 console.warn(`Clicked title for '${projectId}', but required elements for description modal are missing.`);
+                 console.warn(`Clicked title for '${projectId}', but required elements for description modal are missing. Check HTML structure and element IDs (descriptionModal, modalDescImage, modalDescTitle, modalDescText) and ensure the card has '.description' and '.project-image img'.`);
                  // Allow default browser behavior if the title is, e.g., a link to '#' or if elements are missing
             }
         });
