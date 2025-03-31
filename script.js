@@ -1,20 +1,45 @@
 // --- Simple Analytics Tracker ---
 const INGESTION_WORKER_URL = 'https://stats-ingress-worker.azelbane87.workers.dev/'; // <-- Worker URL Integrated
 
+// --- Simplified trackEvent for Debugging ---
 function trackEvent(eventType, eventData = {}) {
-    // Basic check to prevent sending if URL is missing (shouldn't happen but safety)
     if (!INGESTION_WORKER_URL || INGESTION_WORKER_URL === 'YOUR_COPIED_INGESTION_WORKER_URL') {
         console.warn('Analytics Ingestion URL not configured. Tracking disabled.');
         return;
     }
     const payload = {
-        type: eventType, // Base type from the first argument
+        type: eventType,
         page: window.location.pathname + window.location.search + window.location.hash,
-        timestamp: new Date().toISOString(), // Event timestamp (client-side)
-        screenWidth: window.screen.width, // Example extra data
-        ...eventData // Merge additional specific data (like linkType, url, context etc.)
+        timestamp: new Date().toISOString(),
+        screenWidth: window.screen.width,
+        ...eventData
     };
 
+    console.log(`[DEBUG] Preparing to send event: ${eventType}`, payload); // Log before fetch
+
+    fetch(INGESTION_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true // keepalive might be useful even for fetch
+    })
+    .then(response => {
+         console.log(`[DEBUG] Fetch response received for ${eventType}. Status: ${response.status}`);
+         if (!response.ok) {
+             console.warn(`[DEBUG] Fetch tracking response not OK: ${response.status}`, payload);
+         }
+         // Try to read response body if error for more info (optional)
+         // if (!response.ok) {
+         //     response.text().then(text => console.warn(`[DEBUG] Fetch error response body: ${text}`));
+         // }
+     })
+    .catch(error => {
+         console.error(`[DEBUG] Error sending tracking data (fetch) for ${eventType}:`, error, payload);
+     });
+}
+
+// Remove the old sendWithFetch function if it exists separately
+// function sendWithFetch(payload) { /* ... remove this ... */ }
     // Use navigator.sendBeacon if available for page unload/link clicks
     if ((eventType === 'pageview' || eventType === 'link_click') && navigator.sendBeacon) {
          try {
