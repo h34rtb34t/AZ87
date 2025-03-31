@@ -471,6 +471,7 @@ body.light-theme .publication-item:hover { background-color: #e0e0e0; border-col
     color: var(--text-secondary); /* Use theme variable */
     padding-right: 10px; /* Add space for scrollbar if it appears */
     transition: color var(--transition-speed) var(--transition-timing);
+    min-height: 100px; /* <<< ADDED THIS LINE >>> Ensure a minimum height to help with scroll visibility */
 }
 .description-modal .modal-project-description p {
     margin-bottom: 1em;
