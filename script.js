@@ -720,8 +720,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const formData = new FormData(contactFormEl);
             const plainFormData = Object.fromEntries(formData.entries());
+            const ajaxUrl = contactFormEl.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
 
-            fetch(contactFormEl.action, {
+            fetch(ajaxUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -745,6 +746,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
+                if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
+                    console.warn('AJAX request failed (likely CORS or Adblocker). Falling back to standard submission...');
+                    contactFormEl.submit();
+                    return;
+                }
                 console.error('Error submitting form:', error);
                 alert("There was an error sending your message: " + (error.message || "Please try again later or email directly."));
                 contactSubmitBtn.textContent = 'Send Message';
@@ -771,8 +777,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const formData = new FormData(feedbackFormEl);
             const plainFormData = Object.fromEntries(formData.entries());
+            const ajaxUrl = feedbackFormEl.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
 
-            fetch(feedbackFormEl.action, {
+            fetch(ajaxUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -796,6 +803,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
+                if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
+                    console.warn('AJAX request failed (likely CORS or Adblocker). Falling back to standard submission...');
+                    feedbackFormEl.submit();
+                    return;
+                }
                 console.error('Error submitting feedback:', error);
                 alert("There was an error sending your feedback: " + (error.message || "Please try again later."));
                 feedbackSubmitBtn.textContent = 'Submit Feedback'; // Changed to match HTML
