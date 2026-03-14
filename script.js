@@ -719,29 +719,34 @@ document.addEventListener('DOMContentLoaded', function() {
             contactSubmitBtn.disabled = true;
 
             const formData = new FormData(contactFormEl);
-            
+            const plainFormData = Object.fromEntries(formData.entries());
+
             fetch(contactFormEl.action, {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: formData,
+                body: JSON.stringify(plainFormData),
             })
             .then(response => {
-                if (response.ok) {
-                    contactFormEl.style.display = 'none'; // Hide form
-                    contactMessageEl.style.display = 'block'; // Show success message
-                    
-                    if (window.portfolioTracker) {
-                        window.portfolioTracker.trackEvent('contact_form_success');
-                    }
-                } else {
-                    throw new Error('Form submission failed.');
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                if (data.success === "false" || data.success === false) {
+                    throw new Error(data.message || 'Form submission failed on server.');
+                }
+                contactFormEl.style.display = 'none'; // Hide form
+                contactMessageEl.style.display = 'block'; // Show success message
+                
+                if (window.portfolioTracker) {
+                    window.portfolioTracker.trackEvent('contact_form_success');
                 }
             })
             .catch(error => {
                 console.error('Error submitting form:', error);
-                alert("There was an error sending your message. Please try again later or email directly.");
+                alert("There was an error sending your message: " + (error.message || "Please try again later or email directly."));
                 contactSubmitBtn.textContent = 'Send Message';
                 contactSubmitBtn.disabled = false;
             });
@@ -765,30 +770,35 @@ document.addEventListener('DOMContentLoaded', function() {
             feedbackSubmitBtn.disabled = true;
 
             const formData = new FormData(feedbackFormEl);
+            const plainFormData = Object.fromEntries(formData.entries());
 
             fetch(feedbackFormEl.action, {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: formData,
+                body: JSON.stringify(plainFormData),
             })
             .then(response => {
-                if (response.ok) {
-                    feedbackFormEl.style.display = 'none';
-                    feedbackMessageEl.style.display = 'block';
-                    
-                    if (window.portfolioTracker) {
-                        window.portfolioTracker.trackEvent('feedback_form_success');
-                    }
-                } else {
-                     throw new Error('Form submission failed.');
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                if (data.success === "false" || data.success === false) {
+                    throw new Error(data.message || 'Form submission failed on server.');
+                }
+                feedbackFormEl.style.display = 'none';
+                feedbackMessageEl.style.display = 'block';
+                
+                if (window.portfolioTracker) {
+                    window.portfolioTracker.trackEvent('feedback_form_success');
                 }
             })
             .catch(error => {
                 console.error('Error submitting feedback:', error);
-                alert("There was an error sending your feedback. Please try again later.");
-                feedbackSubmitBtn.textContent = 'Send Feedback';
+                alert("There was an error sending your feedback: " + (error.message || "Please try again later."));
+                feedbackSubmitBtn.textContent = 'Submit Feedback'; // Changed to match HTML
                 feedbackSubmitBtn.disabled = false;
             });
         });
