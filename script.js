@@ -699,8 +699,235 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- End Feedback Slider Logic ---
 
 
+    // --- Form AJAX Submission Hijack ---
+    const contactFormEl = document.getElementById('mainContactForm');
+    const contactMessageEl = document.getElementById('contact-form-message');
+    const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+
+    if (contactFormEl) {
+        contactFormEl.addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop standard form submission
+            
+            // Basic validation
+            if (!contactFormEl.checkValidity()) {
+                contactFormEl.reportValidity();
+                return;
+            }
+
+            // Visual feedback
+            contactSubmitBtn.textContent = 'Sending...';
+            contactSubmitBtn.disabled = true;
+
+            const formData = new FormData(contactFormEl);
+            
+            fetch(contactFormEl.action, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    contactFormEl.style.display = 'none'; // Hide form
+                    contactMessageEl.style.display = 'block'; // Show success message
+                    
+                    if (window.portfolioTracker) {
+                        window.portfolioTracker.trackEvent('contact_form_success');
+                    }
+                } else {
+                    throw new Error('Form submission failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                alert("There was an error sending your message. Please try again later or email directly.");
+                contactSubmitBtn.textContent = 'Send Message';
+                contactSubmitBtn.disabled = false;
+            });
+        });
+    }
+
+    const feedbackFormEl = document.getElementById('mainFeedbackForm');
+    const feedbackMessageEl = document.getElementById('feedback-form-message');
+    const feedbackSubmitBtn = document.getElementById('feedbackSubmitBtn');
+
+    if (feedbackFormEl) {
+        feedbackFormEl.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!feedbackFormEl.checkValidity()) {
+                feedbackFormEl.reportValidity();
+                return;
+            }
+
+            feedbackSubmitBtn.textContent = 'Sending...';
+            feedbackSubmitBtn.disabled = true;
+
+            const formData = new FormData(feedbackFormEl);
+
+            fetch(feedbackFormEl.action, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    feedbackFormEl.style.display = 'none';
+                    feedbackMessageEl.style.display = 'block';
+                    
+                    if (window.portfolioTracker) {
+                        window.portfolioTracker.trackEvent('feedback_form_success');
+                    }
+                } else {
+                     throw new Error('Form submission failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting feedback:', error);
+                alert("There was an error sending your feedback. Please try again later.");
+                feedbackSubmitBtn.textContent = 'Send Feedback';
+                feedbackSubmitBtn.disabled = false;
+            });
+        });
+    }
+    // --- End Form AJAX Submission Hijack ---
+
     console.log('Portfolio script fully initialized.');
 
 }); // End DOMContentLoaded
+
+// --- ANIMATED PARTICLES BACKGROUND (Outside DOMContentLoaded so it can init fast) ---
+(function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width, height;
+    let particles = [];
+    const numParticles = window.innerWidth < 768 ? 40 : 80; // Fewer on mobile
+    
+    // Config
+    const maxDistance = 150;
+    let mouse = { x: null, y: null, radius: 150 };
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = document.getElementById('hero-section').offsetHeight || window.innerHeight; // Fill hero
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 1;
+            this.vy = (Math.random() - 0.5) * 1;
+            this.baseX = this.x;
+            this.baseY = this.y;
+            this.size = Math.random() * 2 + 1;
+            this.color = getComputedStyle(document.documentElement).getPropertyValue('--accent-secondary').trim() || '#00ff64';
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+
+        update() {
+            // Mouse interaction
+            if (mouse.x != null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    const forceDirectionX = dx / distance;
+                    const forceDirectionY = dy / distance;
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    this.vx += forceDirectionX * force * 0.1;
+                    this.vy += forceDirectionY * force * 0.1;
+                }
+            }
+
+            // Normal movement
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Bounce off walls gently
+            if (this.x < 0 || this.x > width) this.vx = -this.vx;
+            if (this.y < 0 || this.y > height) this.vy = -this.vy;
+            
+            // Friction
+            this.vx *= 0.99;
+            this.vy *= 0.99;
+            
+            // Return to wander
+            this.vx += (Math.random() - 0.5) * 0.05;
+            this.vy += (Math.random() - 0.5) * 0.05;
+
+            // Limit speed
+            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            if(speed > 2) {
+                this.vx = (this.vx / speed) * 2;
+                this.vy = (this.vy / speed) * 2;
+            }
+        }
+    }
+
+    function init() {
+        resize();
+        particles = [];
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            for (let j = i; j < particles.length; j++) {
+                let dx = particles[i].x - particles[j].x;
+                let dy = particles[i].y - particles[j].y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < maxDistance) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(0, 255, 100, ${1 - dist/maxDistance})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            }
+        }
+    }
+
+    // Event listeners for interactivity
+    const heroSection = document.getElementById('hero-section');
+    if (heroSection) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const rect = heroSection.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+             mouse.x = null;
+             mouse.y = null;
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        resize();
+        init(); // Reinitialize to redistribute
+    });
+
+    init();
+    animate();
+})();
+// --- END PARTICLES ---
 
 // --- END OF FILE script.js (Integrated Tracker - FOR PORTFOLIO) ---

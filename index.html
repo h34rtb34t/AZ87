@@ -126,8 +126,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container reveal">
+    <section class="hero" id="hero-section" style="position: relative; overflow: hidden;">
+        <canvas id="particles-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.6;"></canvas>
+        <div class="container reveal" style="position: relative; z-index: 1;">
             <h1>Hello, I'm <span class="highlight">ADE</span></h1>
             <p class="reveal delay-100">I'M A DESIGN ENGINEER SPECIALIZING IN MECHATRONICS.</p>
 
@@ -137,6 +138,44 @@
             <a href="#contact" class="btn reveal delay-200">Get in Touch</a>
         </div>
     </section>
+
+    <!-- ========= NEW: Tech Stack / Skills Marquee ========= -->
+    <section class="skills-marquee-section">
+        <div class="marquee">
+            <div class="marquee-content">
+                <span class="skill-item">SolidWorks</span>
+                <span class="skill-item">AutoCAD</span>
+                <span class="skill-item">Python</span>
+                <span class="skill-item">C++</span>
+                <span class="skill-item">Arduino</span>
+                <span class="skill-item">MATLAB</span>
+                <span class="skill-item">ROS</span>
+                <span class="skill-item">Altium Designer</span>
+                <span class="skill-item">PLC Programming</span>
+                <span class="skill-item">Robotics</span>
+                <span class="skill-item">Mechatronics</span>
+                <span class="skill-item">3D Printing</span>
+                <span class="skill-item">Control Systems</span>
+                <span class="skill-item">Embedded C</span>
+                <!-- Duplicate for seamless looping -->
+                <span class="skill-item">SolidWorks</span>
+                <span class="skill-item">AutoCAD</span>
+                <span class="skill-item">Python</span>
+                <span class="skill-item">C++</span>
+                <span class="skill-item">Arduino</span>
+                <span class="skill-item">MATLAB</span>
+                <span class="skill-item">ROS</span>
+                <span class="skill-item">Altium Designer</span>
+                <span class="skill-item">PLC Programming</span>
+                <span class="skill-item">Robotics</span>
+                <span class="skill-item">Mechatronics</span>
+                <span class="skill-item">3D Printing</span>
+                <span class="skill-item">Control Systems</span>
+                <span class="skill-item">Embedded C</span>
+            </div>
+        </div>
+    </section>
+    <!-- ========= END: Tech Stack / Skills Marquee ========= -->
 
     <!-- About Section -->
     <section id="about" class="about">
@@ -177,8 +216,8 @@
                 <!-- ========= START: NEW WATER FILTRATION SYSTEM PROJECT CARD ========= -->
                 <div class="project-card reveal" data-project-id="water-filtration" data-category="automation">
                     <!-- Image click triggers slideshow for water-filtration -->
-                    <div class="project-image" data-project-id="water-filtration">
-                        <img src="./WJ_FiltrationSystem/8.jpg" alt="WaterJet Machine Filtration System" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="water-filtration">
+                        <img src="./WJ_FiltrationSystem/8.jpg" alt="WaterJet Machine Filtration System" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                          <!-- Title click triggers description modal -->
@@ -208,8 +247,8 @@
 
                 <div class="project-card reveal" data-project-id="wjet" data-category="automation mechatronics"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for wjet -->
-                    <div class="project-image" data-project-id="wjet">
-                        <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="wjet">
+                        <img src="./wjet/wjet.jpg" alt="WJet Tire Retreading Machine" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                          <!-- Title click now triggers description modal -->
@@ -225,8 +264,8 @@
 
                 <div class="project-card reveal delay-100" data-project-id="dry-machine" data-category="automation mechatronics"> <!-- Added ID here -->
                     <!-- No data-project-id on image, so no slideshow -->
-                    <div class="project-image">
-                        <img src="./dry/DryMachine.jpeg" alt="DryMachine" loading="lazy">
+                    <div class="project-image skeleton">
+                        <img src="./dry/DryMachine.jpeg" alt="DryMachine" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                          <!-- Title click triggers description modal -->
@@ -243,8 +282,8 @@
 
                 <div class="project-card reveal delay-200" data-project-id="crs" data-category="robotics automation mechatronics"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for crs -->
-                    <div class="project-image" data-project-id="crs">
-                        <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="crs">
+                        <img src="./csr robot/CRS-Robot.png" alt="CRS Industrial Robot" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                          <!-- Title click triggers description modal -->
@@ -259,8 +298,8 @@
 
                 <div class="project-card reveal" data-project-id="violin" data-category="automation mechatronics"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for violin -->
-                    <div class="project-image" data-project-id="violin">
-                        <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="violin">
+                        <img src="./violin-bot-player/ViolinBotPlayer.png" alt="VIOLIN-BOT PLAYER" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -275,8 +314,8 @@
 
                 <div class="project-card reveal delay-100" data-project-id="helicopter" data-category="mechatronics design"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for helicopter -->
-                    <div class="project-image" data-project-id="helicopter">
-                        <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="helicopter">
+                        <img src="./1dof helicopter/1dof heli.webp" alt="PID 1DOF HELICOPTER" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -292,8 +331,8 @@
 
                 <div class="project-card reveal delay-200" data-project-id="turtle" data-category="robotics mechatronics"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for turtle -->
-                    <div class="project-image" data-project-id="turtle">
-                        <img src="./turtle-cloud/10.webp" alt="TURTLE-CLOUD Logo" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="turtle">
+                        <img src="./turtle-cloud/10.webp" alt="TURTLE-CLOUD Logo" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                          <!-- Title click triggers description modal -->
@@ -308,8 +347,8 @@
 
                 <div class="project-card reveal" data-project-id="rubiks" data-category="mechatronics design"> <!-- Added ID here -->
                      <!-- Image click still triggers slideshow for rubiks -->
-                    <div class="project-image" data-project-id="rubiks">
-                        <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="rubiks">
+                        <img src="./Rubiks_cube/Prjct2.png" alt="Giant Mechatronic Rubik's Cube" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -326,8 +365,8 @@
                 <!-- === DRAKE MUSIC PROJECT === -->
                  <div class="project-card reveal delay-100" data-project-id="drake-music-project" data-category="design mechatronics"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for drake -->
-                    <div class="project-image" data-project-id="drake-music-project">
-                        <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="drake-music-project">
+                        <img src="./drake-music/logo.png" alt="SoccerBall with Midi Interface using Arduino&Force resistors" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -353,8 +392,8 @@
                 <!-- === MECHANICAL CLOCK PROJECT === -->
                 <div class="project-card reveal delay-200" data-project-id="clock" data-category="design"> <!-- Added ID here -->
                     <!-- Image click still triggers slideshow for clock -->
-                    <div class="project-image" data-project-id="clock">
-                        <img src="./mdf-clock/logo.png" alt="Mechanical Geared Wooden Clock" loading="lazy">
+                    <div class="project-image skeleton" data-project-id="clock">
+                        <img src="./mdf-clock/logo.png" alt="Mechanical Geared Wooden Clock" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -382,8 +421,8 @@
                 <!-- === PDE Industrial Automation Project === -->
                 <div class="project-card reveal delay-200" data-project-id="pde-automation" data-category="automation"> <!-- Added ID here -->
                     <!-- No data-project-id on image -->
-                    <div class="project-image">
-                        <img src="./pde-industrial-automation/logo.png" alt="PDE Industrial Automation System" loading="lazy">
+                    <div class="project-image skeleton">
+                        <img src="./pde-industrial-automation/logo.png" alt="PDE Industrial Automation System" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -413,8 +452,8 @@
                 <!-- === SALAMANDER-BOT Project === -->
                 <div class="project-card reveal delay-300" data-project-id="salamander-bot" data-category="robotics mechatronics"> <!-- Added ID here -->
                     <!-- No data-project-id on image -->
-                    <div class="project-image">
-                        <img src="./salamander/logo.png" alt="Salamander-Bot Project" loading="lazy">
+                    <div class="project-image skeleton">
+                        <img src="./salamander/logo.png" alt="Salamander-Bot Project" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -444,8 +483,8 @@
                 <!-- === PHYSIBALL Project Card === -->
                 <div class="project-card reveal delay-300" data-project-id="physiball" data-category="design mechatronics"> <!-- Added ID here -->
                     <!-- No data-project-id on image, so no slideshow -->
-                    <div class="project-image">
-                        <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project" loading="lazy">
+                    <div class="project-image skeleton">
+                        <img src="./physiball/Prjct1.png" alt="PHYSIBALL Project" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="project-info">
                         <!-- Title click triggers description modal -->
@@ -485,19 +524,24 @@
                     </div>
                 </div>
                 <div class="contact-form reveal delay-100">
-                    <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST">
+                    <div id="contact-form-message" style="display: none; padding: 15px; background: rgba(0,255,100,0.1); border: 1px solid var(--accent-secondary); color: var(--accent-secondary); border-radius: var(--radius-md); text-align: center; margin-bottom: 20px; font-weight: 600;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 5px; display: inline-block; vertical-align: middle;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Thank you! Your message has been sent successfully.</span>
+                    </div>
+                    
+                    <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST" id="mainContactForm">
                         <input type="text" name="_honey" style="display:none">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_domain" value="h34rtb34t.github.io">
-                        <!-- Corrected _next path if needed, assuming abdelatizelbane is the repo name -->
+                        <!-- We will block this redirect with AJAX -->
                         <input type="hidden" name="_next" value="https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html">
                         <input type="hidden" name="_subject" value="New submission from portfolio!">
+                        
                         <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" class="form-control" required></div>
-                        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" required></div>
+                        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></div>
                         <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" class="form-control" required></div>
-                        <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" class="form-control" required></textarea></div>
-                        <!-- Optional: Added tracking ID to submit button -->
-                        <button type="submit" class="btn" data-track-id="contact-form-submit">Send Message</button>
+                        <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" class="form-control" required minlength="10"></textarea></div>
+                        <button type="submit" class="btn" id="contactSubmitBtn">Send Message</button>
                     </form>
                 </div>
             </div>

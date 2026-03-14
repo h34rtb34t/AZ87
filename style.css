@@ -641,3 +641,109 @@ body.light-theme .whatsapp-chat .tooltip { background-color: var(--text-primary)
 
 /* Explicit light theme feedback overrides (might be redundant if variables cover everything) */
 body.light-theme .feedback-item { border-bottom-color: var(--feedback-item-border); }
+
+/* ========= NEW: Skills Marquee Styles ========= */
+.skills-marquee-section {
+    padding: 30px 0;
+    background-color: var(--bg-dark);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.marquee {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.marquee::before, .marquee::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 15vw;
+    height: 100%;
+    z-index: 2;
+}
+
+.marquee::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-dark) 0%, transparent 100%);
+}
+
+.marquee::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-dark) 0%, transparent 100%);
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marquee 35s linear infinite;
+    padding-left: 15px;
+}
+
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+
+.skill-item {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    padding: 10px 25px;
+    margin: 0 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px rgba(0, 169, 255, 0.3);
+    transform: translateY(-2px);
+    background: rgba(0, 169, 255, 0.05);
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Translate half because content is duplicated */
+}
+
+/* ========= NEW: Skeleton Loader Styles ========= */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-card) 25%, var(--border-color) 50%, var(--bg-card) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+/* Ensure the image inside skeleton is initially hidden, wait for onload */
+.skeleton img {
+    opacity: 0;
+}
+
+.project-image img {
+    transition: opacity 0.5s ease-in;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Override padding for hero to make room for marquee usually */
+#hero-section {
+    padding-bottom: 40px;
+}
