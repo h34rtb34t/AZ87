@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Root homepage -->
+  <url>
+    <loc>https://h34rtb34t.github.io/abdelatizelbane/</loc>
+    <lastmod>2025-03-24</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Additional clean pages -->
+  <url>
+    <loc>https://h34rtb34t.github.io/abdelatizelbane/index.html</loc>
+    <lastmod>2025-03-24</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://h34rtb34t.github.io/abdelatizelbane/thanks-page.html</loc>
+    <lastmod>2025-03-24</lastmod>
+    <priority>0.80</priority>
+  </url>
+</urlset>
