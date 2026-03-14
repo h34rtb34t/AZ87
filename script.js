@@ -738,8 +738,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success === "false" || data.success === false) {
                     throw new Error(data.message || 'Form submission failed on server.');
                 }
-                contactFormEl.style.display = 'none'; // Hide form
-                contactMessageEl.style.display = 'block'; // Show success message
+                const nextUrl = contactFormEl.querySelector('input[name="_next"]')?.value;
+                if (nextUrl) {
+                    window.location.href = nextUrl;
+                } else {
+                    contactFormEl.style.display = 'none'; // Hide form
+                    contactMessageEl.style.display = 'block'; // Show success message
+                }
                 
                 if (window.portfolioTracker) {
                     window.portfolioTracker.trackEvent('contact_form_success');
@@ -795,8 +800,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success === "false" || data.success === false) {
                     throw new Error(data.message || 'Form submission failed on server.');
                 }
-                feedbackFormEl.style.display = 'none';
-                feedbackMessageEl.style.display = 'block';
+                const nextUrl = feedbackFormEl.querySelector('input[name="_next"]')?.value;
+                if (nextUrl) {
+                    window.location.href = nextUrl;
+                } else {
+                    feedbackFormEl.style.display = 'none';
+                    feedbackMessageEl.style.display = 'block';
+                }
                 
                 if (window.portfolioTracker) {
                     window.portfolioTracker.trackEvent('feedback_form_success');
