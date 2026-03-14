@@ -110,11 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
         heroPhrase.style.opacity = '1'; // Ensure it's visible before animation finishes
         heroPhrase.style.visibility = 'visible';
         heroPhrase.style.transform = 'translateY(0)'; // overrides .reveal so we can type
-        heroPhrase.style.display = 'inline-block';
-        heroPhrase.style.overflow = 'hidden';
-        heroPhrase.style.whiteSpace = 'nowrap';
+        heroPhrase.style.display = 'inline'; // Changed from 'inline-block' so it wraps naturally
+        heroPhrase.style.whiteSpace = 'normal'; // Allow standard text wrapping on smaller screens!
         heroPhrase.style.borderRight = '0.15em solid var(--accent-secondary)'; // The cursor
-        heroPhrase.style.margin = '0 auto';
         heroPhrase.style.letterSpacing = '.15em'; // Spacing
         
         let i = 0;
