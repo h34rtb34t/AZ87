@@ -722,6 +722,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             fetch(contactFormEl.action, {
                 method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
                 body: formData,
             })
             .then(response => {
@@ -765,6 +768,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             fetch(feedbackFormEl.action, {
                 method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
                 body: formData,
             })
             .then(response => {
