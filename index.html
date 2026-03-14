@@ -571,8 +571,8 @@
                 <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Thank you! Your feedback has been sent successfully.</span>
             </div>
             
-            <!-- Using FormSubmit.co for feedback submission -->
-            <form action="https://formsubmit.co/azelbane@hotmail.com" method="POST" class="feedback-form" id="mainFeedbackForm">
+            <!-- Using newly implemented Google Apps Script API! -->
+            <form action="https://script.google.com/macros/s/AKfycbxaGd4SiavafcU0ImpGc8eEa0-I8Y6vGVCqBvhw1Zy6KJyFgPtRsjmy173UGvZ3TkMo/exec" method="POST" class="feedback-form" id="mainFeedbackForm">
                 <!-- Hidden fields for FormSubmit -->
                 <input type="hidden" name="_subject" value="New Portfolio Feedback Received!">
                 <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling captcha ('true') for production -->
@@ -604,34 +604,7 @@
                         <!-- MODIFIED: Removed inline style from UL -->
                         <ul id="feedback-list">
                             <li class="feedback-item">
-                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
-                                <span style="color: var(--feedback-highlight-color);"> - "Bravissimo Adeeeeee!!"</span>
-                                <span style="color: var(--text-muted); font-style: italic;"> - M. Arianna</span>
-                            </li>
-                            <li class="feedback-item">
-                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
-                                <span style="color: var(--feedback-highlight-color);"> - "Great work!"</span>
-                                <span style="color: var(--text-muted); font-style: italic;"> - F.Fabrizio</span>
-                            </li>
-                            <li class="feedback-item">
-                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
-                                <span style="color: var(--feedback-highlight-color);"> - "Grandissimo!!Ade You Rockkkkk!!"</span>
-                                <span style="color: var(--text-muted); font-style: italic;"> - J. Doe</span>
-                            </li>
-                            <li class="feedback-item">
-                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
-                                <span style="color: var(--feedback-highlight-color);"> - "Well Done My friend!"</span>
-                                <span style="color: var(--text-muted); font-style: italic;"> - Alex R.</span>
-                            </li>
-                            <li class="feedback-item">
-                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★★</span>
-                                <span style="color: var(--feedback-highlight-color);"> - "Great Job!! We miss you in here!!"</span>
-                                <span style="color: var(--text-muted); font-style: italic;"> - Sarah K.</span>
-                            </li>
-                            <li class="feedback-item">
-                                <span style="color: var(--feedback-star-active); font-weight: bold;">★★★★☆</span>
-                                <span style="color: var(--feedback-highlight-color);"> - "TOP"</span>
-                                <span style="color: var(--text-muted); font-style: italic;"> - Ben T.</span>
+                                <span style="color: var(--text-muted); font-style: italic;">Loading community feedback...</span>
                             </li>
                         </ul>
                     </div>

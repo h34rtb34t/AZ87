@@ -781,24 +781,26 @@ document.addEventListener('DOMContentLoaded', function() {
             feedbackSubmitBtn.disabled = true;
 
             const formData = new FormData(feedbackFormEl);
-            const plainFormData = Object.fromEntries(formData.entries());
-            const ajaxUrl = feedbackFormEl.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+            // Map the FormSubmit variables to our new Google Apps script variables
+            const apiPayload = new URLSearchParams();
+            apiPayload.append('rating', formData.get('rating') || '5');
+            apiPayload.append('name', formData.get('user_email') || 'Anonymous');
+            apiPayload.append('message', formData.get('feedback_message') || '');
 
-            fetch(ajaxUrl, {
+            fetch(feedbackFormEl.action, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify(plainFormData),
+                body: apiPayload.toString(),
             })
             .then(response => {
                 if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();
             })
             .then(data => {
-                if (data.success === "false" || data.success === false) {
-                    throw new Error(data.message || 'Form submission failed on server.');
+                if (data.result !== "success") {
+                    throw new Error('Form submission failed on server.');
                 }
                 const nextUrl = feedbackFormEl.querySelector('input[name="_next"]')?.value;
                 if (nextUrl) {
@@ -825,7 +827,50 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    // --- End Form AJAX Submission Hijack ---
+    // --- END Form AJAX Submission Hijack ---
+
+    // --- FETCH LIVE REVIEWS FROM GOOGLE SHEETS DATABASE ---
+    const feedbackListEl = document.getElementById('feedback-list');
+    if (feedbackListEl) {
+        // The URL of your Google Apps Script Web App
+        const sheetApiUrl = 'https://script.google.com/macros/s/AKfycbxaGd4SiavafcU0ImpGc8eEa0-I8Y6vGVCqBvhw1Zy6KJyFgPtRsjmy173UGvZ3TkMo/exec';
+        
+        fetch(sheetApiUrl)
+        .then(res => res.json())
+        .then(data => {
+            feedbackListEl.innerHTML = ''; // Clear loading text
+            if (!data || data.length === 0) {
+                feedbackListEl.innerHTML = '<li class="feedback-item"><span style="color: var(--text-muted); font-style: italic;">Be the first to leave a review!</span></li>';
+                return;
+            }
+            // Reverse data so newest reviews show at the top
+            const recentReviews = data.reverse().slice(0, 15);
+            
+            recentReviews.forEach(item => {
+                // Ignore empty rows
+                if (!item.message) return;
+
+                const ratingNum = parseInt(item.rating) || 5;
+                const activeStars = '★'.repeat(ratingNum);
+                const inactiveStars = '☆'.repeat(5 - ratingNum);
+                const name = item.name ? (item.name.split('@')[0]) : 'Anonymous'; // If email, just show first part
+                const message = item.message;
+                
+                const li = document.createElement('li');
+                li.className = 'feedback-item';
+                li.innerHTML = `
+                    <span style="color: var(--feedback-star-active); font-weight: bold;">${activeStars}<span style="color: var(--text-muted);">${inactiveStars}</span></span>
+                    <span style="color: var(--feedback-highlight-color);"> - "${message}"</span>
+                    <span style="color: var(--text-muted); font-style: italic;"> - ${name}</span>
+                `;
+                feedbackListEl.appendChild(li);
+            });
+        })
+        .catch(err => {
+            console.error('Failed to load live reviews:', err);
+            feedbackListEl.innerHTML = '<li class="feedback-item"><span style="color: var(--text-muted); font-style: italic;">Temporarily unable to load newest reviews. Check connection.</span></li>';
+        });
+    }
 
     console.log('Portfolio script fully initialized.');
 
