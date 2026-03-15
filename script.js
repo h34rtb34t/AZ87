@@ -659,60 +659,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- Feedback Slider Logic ---
-    let feedbackInterval; // Variable to hold the interval ID globally for the slider
-    function initFeedbackSlider() {
-        const feedbackList = document.getElementById('feedback-list');
-        if (!feedbackList) return;
-        
-        const feedbackItems = feedbackList.querySelectorAll('.feedback-item');
-        let currentFeedbackIndex = 0;
-        const intervalTime = 2500; // Time between slides in milliseconds (increased slightly for readability)
-        
-        // Clear any existing interval in case this is called multiple times
-        clearInterval(feedbackInterval);
-
-        // Remove mouse event listeners specifically if we re-initialize (optional but good practice)
-        // We handle this by cloning or simple re-assigning, but for now we just rely on interval clearing.
-
-        function showNextFeedback() {
-            if (feedbackItems.length < 2) return;
-            feedbackItems[currentFeedbackIndex].classList.remove('active');
-            currentFeedbackIndex = (currentFeedbackIndex + 1) % feedbackItems.length;
-            feedbackItems[currentFeedbackIndex].classList.add('active');
-        }
-
-        function startFeedbackSlider() {
-            clearInterval(feedbackInterval);
-            if (feedbackItems.length > 1) {
-                feedbackInterval = setInterval(showNextFeedback, intervalTime);
-            }
-        }
-
-        function stopFeedbackSlider() {
-            clearInterval(feedbackInterval);
-        }
-
-        if (feedbackItems.length > 0) {
-            feedbackItems.forEach(item => item.classList.remove('active'));
-            feedbackItems[0].classList.add('active');
-            startFeedbackSlider();
-            
-            // Re-bind mouse events directly
-            feedbackList.onmouseenter = stopFeedbackSlider;
-            feedbackList.onmouseleave = startFeedbackSlider;
-            
-            console.log('Feedback slider initialized with ' + feedbackItems.length + ' items.');
-        } else {
-            console.log('No feedback items found for slider.');
-        }
-    }
-    
-    // Initialize once on DOM load (for the "Loading..." text or fallback data)
-    initFeedbackSlider();
-    // --- End Feedback Slider Logic ---
-
-
     // --- Form AJAX Submission Hijack ---
     const contactFormEl = document.getElementById('mainContactForm');
     const contactMessageEl = document.getElementById('contact-form-message');
@@ -879,9 +825,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 feedbackListEl.appendChild(li);
             });
-            
-            // Re-initialize the slider animation so the new feedback items appear!
-            initFeedbackSlider();
         })
         .catch(err => {
             console.error('Failed to load live reviews:', err);

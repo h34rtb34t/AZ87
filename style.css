@@ -589,54 +589,63 @@ body.light-theme .whatsapp-chat .tooltip { background-color: var(--text-primary)
 }
 
 #feedback-list {
-    position: relative; /* Establishes positioning context for list items */
-    min-height: 100px; /* Adjust based on typical content height to prevent collapse */
-    overflow: hidden; /* Optional: Ensure nothing spills out */
+    display: flex; /* Enable horizontal row */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Snap to each card */
+    gap: 15px; /* Spacing between review cards */
+    padding: 10px 0 20px 0; /* Provide space for the scrollbar and drop shadow */
     list-style: none; /* Removing bullet points */
-    padding-left: 0; /* Removing default padding */
     margin: 0; /* Removing default margin */
-    font-size: 1.1em; /* MODIFIED: Increased font size */
-    line-height: 1.5; /* MODIFIED: Adjusted line height for bigger font */
+    font-size: 1.05em; /* Slightly smaller for cards */
+    line-height: 1.5;
     color: var(--text-secondary); /* Base text color */
-    transition: color var(--transition-speed) var(--transition-timing);
+    
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+
+#feedback-list::-webkit-scrollbar {
+    height: 6px;
+}
+#feedback-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+#feedback-list::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
 }
 
 .feedback-item {
-    /* Use relative positioning to allow items to take up space */
-    width: 100%; /* Take full width of the container */
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.2s ease-in-out; /* MODIFIED: Faster transition (0.6s -> 0.3s) */
-    pointer-events: none; /* Prevent interaction with hidden items */
-    /* Add padding/margin previously handled by inline styles if needed */
-    margin-bottom: 0.6rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px dashed var(--border-color-light); /* Use theme variable */
-    /* Hide non-active items visually and from layout */
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.2s ease-in-out, border-color var(--transition-speed) var(--transition-timing);
+    flex: 0 0 280px; /* Fixed width for each review card */
+    scroll-snap-align: start; /* Snap position */
+    opacity: 1; /* Always visible */
+    pointer-events: auto; /* Always interactable */
+    padding: 18px;
+    background-color: var(--bg-card-lighter);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
 }
 
-.feedback-item.active {
-    opacity: 1; /* Visible */
-    position: relative; /* Take up space when active */
-    pointer-events: auto; /* Allow interaction when active */
-    /* Allow item to take its natural height */
-    max-height: 500px; /* Set a large enough max-height */
-    overflow: visible;
+.feedback-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--shadow-color-light);
 }
 
 /* Ensure specific colors inside feedback items use variables or are overridden */
-/* !important might be needed if inline styles persist, but variables are cleaner */
 .feedback-item span[style*="#ffc107"] { color: var(--feedback-star-active) !important; }
 .feedback-item span[style*="#0056b3"] { color: var(--feedback-highlight-color) !important; }
 .feedback-item span[style*="#777"] { color: var(--text-muted) !important; }
 
-
 /* --- Ensure parent container allows space --- */
 .top-reviews-manual {
     position: relative; /* Needed if feedback-items are absolute */
-    /* min-height is already set inline, but could be moved here */
+    width: 100%; /* Force it to take the full width available */
+    /* overflow: hidden; /* Prevent horizontal overflow on entire page */
 }
 
 /* Explicit light theme feedback overrides (might be redundant if variables cover everything) */
