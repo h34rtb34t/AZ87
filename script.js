@@ -804,7 +804,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             // Reverse data so newest reviews show at the top
-            const recentReviews = data.reverse().slice(0, 15);
+            const recentReviews = data.reverse();
             
             recentReviews.forEach(item => {
                 // Ignore empty rows
