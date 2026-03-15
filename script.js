@@ -798,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Map the FormSubmit variables to our new Google Apps script variables
             const apiPayload = new URLSearchParams();
             apiPayload.append('rating', formData.get('rating') || '5');
-            apiPayload.append('name', formData.get('user_email') || 'Anonymous');
+            apiPayload.append('name', formData.get('feedback_name') || 'Anonymous');
             apiPayload.append('message', formData.get('feedback_message') || '');
 
             fetch(feedbackFormEl.action, {
